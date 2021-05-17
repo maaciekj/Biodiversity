@@ -1,7 +1,12 @@
 package biodiversity.controller;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class SpeciesDTO {
 
+    @Getter
+    @Setter
     private char sign;
     private BehaviorDTO behaviorDTO;
     private EvolutionaryLineDTO evolutionaryLineDTO;
