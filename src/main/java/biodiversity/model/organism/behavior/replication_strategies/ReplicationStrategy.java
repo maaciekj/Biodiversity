@@ -66,7 +66,7 @@ public class ReplicationStrategy extends BehaviorDecorator {
     }
 
     protected void createCreatureAndAssignToTerritory(int row, int col, Organism organism) {
-        Organism creatureChild = new Organism(organism.getSpecies(), organism.getEvolutionaryLine(), calculateChildMass(organism), calculateChildStoredEnergy(organism), organism.getTerritory(), organism.getNumberGenerator());
+        Organism creatureChild = new Organism(organism.getSpecies(), calculateChildMass(organism), calculateChildStoredEnergy(organism), organism.getTerritory(), organism.getNumberGenerator());
         // TODO here inf from maternal organism something due to clone(); something by setters
         creatureChild.setRow(row);
         creatureChild.setCol(col);

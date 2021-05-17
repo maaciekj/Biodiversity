@@ -2,7 +2,6 @@ package biodiversity.controller;
 
 import biodiversity.Constants;
 import biodiversity.DisplayConstants;
-import biodiversity.model.organism.EvolutionaryLine;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.Species;
 import biodiversity.model.organism.behavior.Behavior;
@@ -37,23 +36,25 @@ public class ApplicationConfig {
         territoryDTO.setNumberOfSpecies(4);
 
         BehaviorDTO behaviorDTO1 = new BehaviorDTO("herbivore", "default");
-        EvolutionaryLineDTO evolutionaryLineDTO1 = new EvolutionaryLineDTO('a', 60, 20, 100);
-        SpeciesDTO speciesDTO1 = new SpeciesDTO('a', behaviorDTO1, evolutionaryLineDTO1);
+        SpeciesDTO speciesDTO1 = new SpeciesDTO.SpeciesDTOBuilder()
+                .sign('a')
+                .behaviorDTO(behaviorDTO1)
+                .adultPreferredBodyMass(60)
+                .maturityAge(20)
+                .maxAge(100)
+                .build();
         territoryDTO.addSpeciesDTO(speciesDTO1);
 
         BehaviorDTO behaviorDTO2 = new BehaviorDTO("carnivore", "big children");
-        EvolutionaryLineDTO evolutionaryLineDTO2 = new EvolutionaryLineDTO('b', 80, 80, 400);
-        SpeciesDTO speciesDTO2 = new SpeciesDTO('b', behaviorDTO2, evolutionaryLineDTO2);
+        SpeciesDTO speciesDTO2 = new SpeciesDTO('b', behaviorDTO2, 80, 80, 400);
         territoryDTO.addSpeciesDTO(speciesDTO2);
 
         BehaviorDTO behaviorDTO3 = new BehaviorDTO("herbivore", "small children");
-        EvolutionaryLineDTO evolutionaryLineDTO3 = new EvolutionaryLineDTO('c', 80, 40, 200);
-        SpeciesDTO speciesDTO3 = new SpeciesDTO('c', behaviorDTO3, evolutionaryLineDTO3);
+        SpeciesDTO speciesDTO3 = new SpeciesDTO('c', behaviorDTO3, 80, 40, 200);
         territoryDTO.addSpeciesDTO(speciesDTO3);
 
         BehaviorDTO behaviorDTO4 = new BehaviorDTO("herbivore", "many small children at end of life");
-        EvolutionaryLineDTO evolutionaryLineDTO4 = new EvolutionaryLineDTO('d', 70, 80, 400);
-        SpeciesDTO speciesDTO4 = new SpeciesDTO('d', behaviorDTO4, evolutionaryLineDTO4);
+        SpeciesDTO speciesDTO4 = new SpeciesDTO('d', behaviorDTO4, 70, 80, 400);
         territoryDTO.addSpeciesDTO(speciesDTO4);
 
         return territoryDTO;
@@ -75,14 +76,14 @@ public class ApplicationConfig {
         List<Species> herbivores = createListOfSpecies(speciesDTOsHerbivores, territory, numberGenerator);
         List<Organism> herbivoreOrganisms = new ArrayList<>();
         for (Species species : herbivores) {
-            herbivoreOrganisms.addAll(buildOrganismsOfSpecies(species, species.getEvolutionaryLines().get(0), territory, numberGenerator));
+            herbivoreOrganisms.addAll(buildOrganismsOfSpecies(species, territory, numberGenerator));
         }
-        for (Organism otherOrganism : herbivoreOrganisms) {
-            territory.addInhabitant(otherOrganism);
+        for (Organism herbivoreOrganism : herbivoreOrganisms) {
+            territory.addInhabitant(herbivoreOrganism);
         }
         List<Organism> carnivoreOrganisms = new ArrayList<>();
         for (Species carnivore : carnivores) {
-            carnivoreOrganisms.addAll(buildOrganismsOfSpecies(carnivore, carnivore.getEvolutionaryLines().get(0), territory, numberGenerator));
+            carnivoreOrganisms.addAll(buildOrganismsOfSpecies(carnivore, territory, numberGenerator));
         }
         territory.setCarnivores(carnivoreOrganisms);
     }
@@ -111,21 +112,18 @@ public class ApplicationConfig {
                 default:
                     behaviorDecorator2 = new ReplicationStrategy(behaviorDecorator1);
             }
-            Species species = new Species(speciesDTO.getSign(), behaviorDecorator2);
-            EvolutionaryLineDTO evolutionaryLineDTO = speciesDTO.getEvolutionaryLineDTO();
-            EvolutionaryLine evolutionaryLine = new EvolutionaryLine(species, evolutionaryLineDTO.getAdultPreferredBodyMass(), evolutionaryLineDTO.getMaturityAge(), evolutionaryLineDTO.getMaxAge());
-            species.addEvolutionaryLine(evolutionaryLine);
+            Species species = new Species(speciesDTO.getSign(), behaviorDecorator2, speciesDTO.getAdultPreferredBodyMass(), speciesDTO.getMaturityAge(), speciesDTO.getMaxAge());
             speciesList.add(species);
         }
         return speciesList;
     }
 
-    private List<Organism> buildOrganismsOfSpecies(Species species, EvolutionaryLine evolutionaryLine, Territory territory, NumberGenerator numberGenerator) {
+    private List<Organism> buildOrganismsOfSpecies(Species species, Territory territory, NumberGenerator numberGenerator) {
         List<Organism> organisms = new ArrayList<>();
         int rowCenter = numberGenerator.generateRandomInt(territory.getHeight());
         int colCenter = numberGenerator.generateRandomInt(territory.getWidth());
         for (int i = 0; i < Constants.NUMBER_OF_ORGANISMS_OF_SPECIES_AT_THE_BEGINNING; i++) {
-            Organism organism = new Organism(species, evolutionaryLine, evolutionaryLine.getAdultPreferredBodyMass(), evolutionaryLine.getAdultPreferredBodyMass(), territory, numberGenerator);
+            Organism organism = new Organism(species, species.getAdultPreferredBodyMass(), species.getAdultPreferredBodyMass(), territory, numberGenerator);
             do {
                 organism.setRow(rowCenter + numberGenerator.generateRandomInt(20) - 10);
                 organism.setCol(colCenter + numberGenerator.generateRandomInt(20) - 10);

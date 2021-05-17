@@ -7,8 +7,7 @@ import biodiversity.model.territory.Territory;
 public class Organism {
 
     private final Species species; // here Behavior
-    private final char sign; // get from species frequently accessed
-    private final EvolutionaryLine evolutionaryLine; // has all typical characteristics and functions
+    private final char sign; // get from species, frequently accessed performance
     private int row; // concrete organism
     private int col; // concrete organism
     private int iterationDone; // to prevent organism from doing new iteration after migrating
@@ -20,10 +19,9 @@ public class Organism {
     private final NumberGenerator numberGenerator;
     // many features are at Species - Behavior level
 
-    public Organism(Species species, EvolutionaryLine evolutionaryLine, int activeBodyMass, int storedEnergy, Territory territory, NumberGenerator numberGenerator) {
+    public Organism(Species species, int activeBodyMass, int storedEnergy, Territory territory, NumberGenerator numberGenerator) {
         this.species = species;
         this.sign = species.getSign();
-        this.evolutionaryLine = evolutionaryLine;
         this.iterationDone = -1;
         this.age = 0;
         this.activeBodyMass = activeBodyMass;
@@ -113,10 +111,6 @@ public class Organism {
         return sign;
     }
 
-    public EvolutionaryLine getEvolutionaryLine() {
-        return evolutionaryLine;
-    }
-
     public int getRow() {
         return row;
     }
@@ -149,18 +143,18 @@ public class Organism {
         return numberGenerator;
     }
 
-    // getters from Evolutionary line
+    // getters from Species
 
     public int getMaturityAge() {
-        return evolutionaryLine.getMaturityAge();
+        return species.getMaturityAge();
     }
 
     public int getMaxAge() {
-        return evolutionaryLine.getMaxAge();
+        return species.getMaxAge();
     }
 
     public int getAdultPreferredBodyMass() {
-        return evolutionaryLine.getAdultPreferredBodyMass();
+        return species.getAdultPreferredBodyMass();
     }
 
     // setters

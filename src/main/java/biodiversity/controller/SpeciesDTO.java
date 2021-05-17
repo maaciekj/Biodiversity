@@ -1,55 +1,30 @@
 package biodiversity.controller;
 
+
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
+@Builder
 public class SpeciesDTO {
 
-    @Getter
-    @Setter
+
     private char sign;
     private BehaviorDTO behaviorDTO;
-    private EvolutionaryLineDTO evolutionaryLineDTO;
+    private int adultPreferredBodyMass;
+    private int maturityAge;
+    private int maxAge;
 
     public SpeciesDTO() {
     }
 
-    public SpeciesDTO(char sign, BehaviorDTO behaviorDTO, EvolutionaryLineDTO evolutionaryLineDTO) {
+    public SpeciesDTO(char sign, BehaviorDTO behaviorDTO, int adultPreferredBodyMass, int maturityAge, int maxAge) {
         this.sign = sign;
         this.behaviorDTO = behaviorDTO;
-        this.evolutionaryLineDTO = evolutionaryLineDTO;
-    }
-
-    public char getSign() {
-        return sign;
-    }
-
-    public void setSign(char sign) {
-        this.sign = sign;
-    }
-
-    public BehaviorDTO getBehaviorDTO() {
-        return behaviorDTO;
-    }
-
-    public void setBehaviorDTO(BehaviorDTO behaviorDTO) {
-        this.behaviorDTO = behaviorDTO;
-    }
-
-    public EvolutionaryLineDTO getEvolutionaryLineDTO() {
-        return evolutionaryLineDTO;
-    }
-
-    public void setEvolutionaryLineDTO(EvolutionaryLineDTO evolutionaryLineDTO) {
-        this.evolutionaryLineDTO = evolutionaryLineDTO;
-    }
-
-    @Override
-    public String toString() {
-        return "SpeciesDTO{" +
-                "sign=" + sign +
-                ", behaviorDTO=" + behaviorDTO +
-                ", evolutionaryLineDTO=" + evolutionaryLineDTO +
-                '}';
+        this.adultPreferredBodyMass = adultPreferredBodyMass;
+        this.maturityAge = maturityAge;
+        this.maxAge = maxAge;
     }
 }

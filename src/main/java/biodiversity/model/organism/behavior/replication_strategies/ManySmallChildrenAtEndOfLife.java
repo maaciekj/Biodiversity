@@ -64,8 +64,7 @@ public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy {
 
     @Override
     protected void createCreatureAndAssignToTerritory(int row, int col, Organism organism) {
-        Organism creatureChild = new Organism(organism.getSpecies(), organism.getEvolutionaryLine(),
-            calculateChildMass(organism), calculateChildStoredEnergy(organism), organism.getTerritory(), organism.getNumberGenerator());
+        Organism creatureChild = new Organism(organism.getSpecies(), calculateChildMass(organism), calculateChildStoredEnergy(organism), organism.getTerritory(), organism.getNumberGenerator());
         creatureChild.setRow(row);
         creatureChild.setCol(col);
         territory.addInhabitant(creatureChild);

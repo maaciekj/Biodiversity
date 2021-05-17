@@ -51,9 +51,10 @@ public class SpeciesMenuController {
                 }
 
                 speciesDTO.setBehaviorDTO(behaviorDTO);
-                EvolutionaryLineDTO evolutionaryLineDTO = new EvolutionaryLineDTO(speciesDTO.getSign(), speciesMenu.getMass(), speciesMenu.getMaturityAge(), speciesMenu.getMaxAge());
-                speciesDTO.setEvolutionaryLineDTO(evolutionaryLineDTO);
-                System.out.println(speciesDTO);
+                speciesDTO.setAdultPreferredBodyMass(speciesMenu.getMass());
+                speciesDTO.setMaturityAge(speciesMenu.getMaturityAge());
+                speciesDTO.setMaxAge(speciesMenu.getMaxAge());
+                //System.out.println(speciesDTO);
                 territoryDTO.addSpeciesDTO(speciesDTO);
                 if (territoryDTO.getNumberOfSpecies()==territoryDTO.getSpeciesDTOs().size()){
                     proceedToSimulation();

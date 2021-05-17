@@ -2,22 +2,22 @@ package biodiversity.model.organism;
 
 import biodiversity.model.organism.behavior.Behavior;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Species {
 
     private final char sign;
     private final Behavior behavior;
+    private final int adultPreferredBodyMass;
+    private final int maturityAge;
+    private final int maxAge;
 
-    private List<EvolutionaryLine> evolutionaryLines; // only for creating new EvolutionaryLines and statistics
 
-    public Species(char sign, Behavior behavior) {
+    public Species(char sign, Behavior behavior, int adultPreferredBodyMass, int maturityAge, int maxAge) {
         this.sign = sign;
         this.behavior = behavior;
-        this.evolutionaryLines = new ArrayList<>();
+        this.adultPreferredBodyMass = adultPreferredBodyMass;
+        this.maturityAge = maturityAge;
+        this.maxAge = maxAge;
     }
-
 
     public void doOutsourcedFunctions(Organism organism){
         behavior.doOutsourcedFunctions(organism);
@@ -27,11 +27,15 @@ public class Species {
         return sign;
     }
 
-    public void addEvolutionaryLine(EvolutionaryLine evolutionaryLine){
-        evolutionaryLines.add(evolutionaryLine);
+    public int getAdultPreferredBodyMass() {
+        return adultPreferredBodyMass;
     }
 
-    public List<EvolutionaryLine> getEvolutionaryLines() {
-        return evolutionaryLines;
+    public int getMaturityAge() {
+        return maturityAge;
+    }
+
+    public int getMaxAge() {
+        return maxAge;
     }
 }
