@@ -1,39 +1,32 @@
 package biodiversity.model.organism;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 import biodiversity.model.territory.NumberGenerator;
 import biodiversity.model.territory.Territory;
 
 public class Organism {
 
-    private Species species; // here maybe Behavior and Replication Strategy
-    private final char sign; // get from species
-    private EvolutionaryLine evolutionaryLine; // has all typical characteristics and functions
+    private final Species species; // here Behavior
+    private final char sign; // get from species frequently accessed
+    private final EvolutionaryLine evolutionaryLine; // has all typical characteristics and functions
     private int row; // concrete organism
     private int col; // concrete organism
-    private int lastRow;
-    private int lastCol;
     private int iterationDone; // to prevent organism from doing new iteration after migrating
-    private boolean healthy; // concrete organism
     private int age; // concrete organism
-    private int activeBodyMass; // concrete organism - adult pref. body mass - ev Line  method grow(), method extractEnergy()
-    // predator must have greater ABM than prey ->
+    private int activeBodyMass; // concrete organism -
     private int storedEnergy; // concrete organism
-    private int energyConsumption;
+    private int energyConsumption; // once for turn calculated; frequently needed
     private final Territory territory;
-    private NumberGenerator numberGenerator;
+    private final NumberGenerator numberGenerator;
 
 
-    // many other features - some at species, most at evolutionary line level
+    // many features are at Species - Behavior level
 
     public Organism(Species species, EvolutionaryLine evolutionaryLine, int activeBodyMass, int storedEnergy, Territory territory, NumberGenerator numberGenerator) {
         this.species = species;
         this.sign = species.getSign();
         this.evolutionaryLine = evolutionaryLine;
-        this.lastRow = -1;
-        this.lastCol = -1;
         this.iterationDone = -1;
-        this.healthy = true;
         this.age = 0;
         this.activeBodyMass = activeBodyMass;
         this.storedEnergy = storedEnergy;
@@ -76,9 +69,6 @@ public class Organism {
         if (activeBodyMass>=getAdultPreferredBodyMass()){
             return;
         }
-        if (!healthy){
-            return;
-        }
         if (storedEnergy<getEnergyConsumption()*Constants.STORED_ENERGY_FACTOR_TO_START_GROWING){
             return;
         }
@@ -99,15 +89,6 @@ public class Organism {
     private void setIterationDone() {
         iterationDone = territory.getLastIteration();
     }
-
-    private void extractEnergyFromBodyMass(Organism organism){
-        if(organism.getStoredEnergy()>organism.getEnergyConsumption()){
-            return;
-        }
-        organism.subtractBodyMass(Math.round((organism.getEnergyConsumption())-organism.getStoredEnergy())/Constants.ENERGY_EXTRACTED_FROM_BODY_MASS_BY_ORGANISM_ITSELF);
-        organism.addEnergy(organism.getEnergyConsumption()-organism.getStoredEnergy());
-    }
-
 
     public void addEnergy(int howMuch){
         storedEnergy=storedEnergy+howMuch;
@@ -146,14 +127,6 @@ public class Organism {
 
     public int getCol() {
         return col;
-    }
-
-    public int getIterationDone() {
-        return iterationDone;
-    }
-
-    public boolean isHealthy() {
-        return healthy;
     }
 
     public int getAge() {
@@ -208,7 +181,6 @@ public class Organism {
     public String toString() {
         return "Organism{" +
                 "sign=" + sign +
-                ", healthy=" + healthy +
                 ", age=" + age +
                 ", activeBodyMass=" + activeBodyMass +
                 ", storedEnergy=" + storedEnergy +

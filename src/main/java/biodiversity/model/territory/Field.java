@@ -1,6 +1,6 @@
 package biodiversity.model.territory;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 
 import java.util.Objects;
 

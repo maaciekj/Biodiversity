@@ -1,6 +1,6 @@
 package biodiversity.model.organism.behavior.feeding_strategies;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.territory.Field;
@@ -40,7 +40,7 @@ public class Herbivore extends FeedingStrategy {
         try {
             fieldToGo = freeFields.stream().
                     max(Comparator.comparingInt(field -> field.getEdiblePlants())).orElseThrow(RuntimeException::new);
-        } catch (Exception e){
+        } catch (RuntimeException e){
             return;
         }
         moveTo(organism, fieldToGo.getRow(), fieldToGo.getCol());

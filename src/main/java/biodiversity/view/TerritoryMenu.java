@@ -1,7 +1,7 @@
 package biodiversity.view;
 
 import biodiversity.controller.FertilityTextInt;
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

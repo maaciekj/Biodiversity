@@ -1,6 +1,6 @@
 package biodiversity.controller;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 import biodiversity.view.Menu;
 import biodiversity.view.SpeciesMenu;
 import biodiversity.view.TerritoryMenu;

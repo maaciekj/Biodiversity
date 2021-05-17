@@ -6,7 +6,6 @@ import java.util.List;
 
 import lombok.*;
 
-
 @Getter
 @Setter
 public class BehaviorDTO {

@@ -1,6 +1,6 @@
 package biodiversity.controller;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 import biodiversity.model.organism.EvolutionaryLine;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.Species;
@@ -14,7 +14,7 @@ import biodiversity.model.organism.behavior.replication_strategies.ManySmallChil
 import biodiversity.model.organism.behavior.replication_strategies.ReplicationStrategy;
 import biodiversity.model.organism.behavior.replication_strategies.SmallChildren;
 import biodiversity.model.territory.*;
-import biodiversity.view.DisplayConstants;
+import biodiversity.DisplayConstants;
 import biodiversity.view.ObserverFX;
 import biodiversity.view.SimulationDisplay;
 import biodiversity.view.TerritoryObserver;
@@ -124,7 +124,7 @@ public class ApplicationConfig {
         List<Organism> organisms = new ArrayList<>();
         int rowCenter = numberGenerator.generateRandomInt(territory.getHeight());
         int colCenter = numberGenerator.generateRandomInt(territory.getWidth());
-        for (int i = 0; i < Constants.NUMBER_OF_ORGANISMS_AT_THE_BEGINNING; i++) {
+        for (int i = 0; i < Constants.NUMBER_OF_ORGANISMS_OF_SPECIES_AT_THE_BEGINNING; i++) {
             Organism organism = new Organism(species, evolutionaryLine, evolutionaryLine.getAdultPreferredBodyMass(), evolutionaryLine.getAdultPreferredBodyMass(), territory, numberGenerator);
             do{
                 organism.setRow(rowCenter+numberGenerator.generateRandomInt(20)-10);

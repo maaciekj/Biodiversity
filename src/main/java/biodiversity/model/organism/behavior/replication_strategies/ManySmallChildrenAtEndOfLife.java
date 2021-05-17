@@ -1,6 +1,6 @@
 package biodiversity.model.organism.behavior.replication_strategies;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.territory.Field;
@@ -11,9 +11,6 @@ import java.util.stream.Collectors;
 
 
 public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy{
-
-    // TODO Revise this strategy
-
 
     public ManySmallChildrenAtEndOfLife(Behavior behavior) {
         super(behavior);
@@ -42,21 +39,16 @@ public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy{
         if (organism.getAge() < organism.getMaturityAge()) {
             return false;
         }
-        if (!organism.isHealthy()) {
-            return false;
-        }
         if (organism.getActiveBodyMass() < organism.getAdultPreferredBodyMass() * Constants.MIN_MASS_FACTOR_TO_REPRODUCE) {
             return false;
         }
-        if (numberGenerator.generateDouble()>Constants.BASIC_REPLICATION_PROBABILITY){
-            return false;
-        }
-        return true;
+        return numberGenerator.generateDouble() < Constants.BASIC_REPLICATION_PROBABILITY;
     }
 
     @Override
     protected List<Field> checkForFreeFields(Organism organism) {
-        return territory.checkFreePlaces(organism.getRow(), organism.getCol(), 4);
+        int rangeOfOffspringDispersal = 4;
+        return territory.checkFreePlaces(organism.getRow(), organism.getCol(), rangeOfOffspringDispersal);
     }
 
     private int calculateNumberOfChildren(Organism organism){

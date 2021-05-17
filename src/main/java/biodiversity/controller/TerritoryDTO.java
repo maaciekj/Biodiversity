@@ -1,6 +1,6 @@
 package biodiversity.controller;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,6 @@ public class TerritoryDTO {
     private int numberOfSpecies;
     private int fertility;
     private int fertilityDiversity;
-    private int specialEventsProbability;  // TODO Whole set regarding special events
     private List<SpeciesDTO> speciesDTOs;
 
     public TerritoryDTO() {
@@ -51,14 +50,6 @@ public class TerritoryDTO {
         this.fertilityDiversity = fertilityDiversity;
     }
 
-    public int getSpecialEventsProbability() {
-        return specialEventsProbability;
-    }
-
-    public void setSpecialEventsProbability(int specialEventsProbability) {
-        this.specialEventsProbability = specialEventsProbability;
-    }
-
     public List<SpeciesDTO> getSpeciesDTOs() {
         return speciesDTOs;
     }
@@ -77,7 +68,6 @@ public class TerritoryDTO {
                 "numberOfSpecies=" + numberOfSpecies +
                 ", basicFertility=" + fertility +
                 ", fertilityDiversity=" + fertilityDiversity +
-                ", specialEventsProbability=" + specialEventsProbability +
                 ", speciesDTOs=" + speciesDTOs +
                 '}';
     }

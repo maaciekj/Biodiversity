@@ -1,6 +1,6 @@
 package biodiversity.model.organism.behavior.replication_strategies;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.territory.Field;
@@ -20,7 +20,8 @@ public class SmallChildren extends ReplicationStrategy{
 
     @Override
     protected List<Field> checkForFreeFields(Organism organism) {
-        return territory.checkFreePlaces(organism.getRow(), organism.getCol(), 2);
+        int rangeOfOffSpringDispersal = 2;
+        return territory.checkFreePlaces(organism.getRow(), organism.getCol(), rangeOfOffSpringDispersal);
     }
 
 }

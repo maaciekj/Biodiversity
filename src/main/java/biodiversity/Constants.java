@@ -1,8 +1,6 @@
-package biodiversity.model;
+package biodiversity;
 
 public class Constants {
-
-    // konfiguracja przez zewnętrzny plik lub od strony użytkownika, osobne metody
 
 
     public static final int TERRITORY_HEIGHT_DEFAULT = 150; // normal 200
@@ -15,7 +13,7 @@ public class Constants {
 
     public static final int FIELD_STORAGE_FACTOR = 5;
 
-    public static final int NUMBER_OF_ORGANISMS_AT_THE_BEGINNING = 5;
+    public static final int NUMBER_OF_ORGANISMS_OF_SPECIES_AT_THE_BEGINNING = 5;
 
     public static final double ENERGY_CONSUMPTION_EXPONENT = 0.75;
 

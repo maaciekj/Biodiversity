@@ -2,8 +2,6 @@ package biodiversity.view;
 
 import biodiversity.model.territory.Territory;
 
-// TODO separate interface for input form animation components
-
 public interface TerritoryObserver {
 
     void addTerritory(Territory territory);

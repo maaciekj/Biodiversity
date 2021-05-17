@@ -1,6 +1,7 @@
 package biodiversity.view;
 
 
+import biodiversity.DisplayConstants;
 import biodiversity.controller.TerritoryDTO;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

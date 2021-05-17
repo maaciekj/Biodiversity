@@ -1,6 +1,6 @@
 package biodiversity.model.organism.behavior.replication_strategies;
 
-import biodiversity.model.Constants;
+import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.organism.behavior.BehaviorDecorator;
@@ -40,19 +40,13 @@ public class ReplicationStrategy extends BehaviorDecorator {
         if (organism.getAge() < organism.getMaturityAge()) {
             return false;
         }
-        if (!organism.isHealthy()) {
-            return false;
-        }
         if (organism.getActiveBodyMass() < organism.getAdultPreferredBodyMass() * Constants.MIN_MASS_FACTOR_TO_REPRODUCE) {
             return false;
         }
         if (organism.getStoredEnergy() < calculateNeededEnergyForChildBodyMass(organism)) {
             return false;
         }
-        if (numberGenerator.generateDouble()>Constants.BASIC_REPLICATION_PROBABILITY){
-            return false;
-        }
-        return true;
+        return numberGenerator.generateDouble() < Constants.BASIC_REPLICATION_PROBABILITY;
     }
 
 

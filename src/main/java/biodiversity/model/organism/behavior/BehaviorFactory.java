@@ -9,7 +9,6 @@ public class BehaviorFactory {
 // here method creating decorated object
 //
     public Behavior createBehavior(BehaviorDTO behaviorDTO, Territory territory, NumberGenerator numberGenerator){
-        Behavior behavior = new BehaviorBasic(territory, numberGenerator);
-        return behavior;
+        return new BehaviorBasic(territory, numberGenerator);
     }
 }

@@ -1,4 +1,4 @@
-package biodiversity.view;
+package biodiversity;
 
 public class DisplayConstants {
 

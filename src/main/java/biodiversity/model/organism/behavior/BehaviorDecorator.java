@@ -1,8 +1,6 @@
 package biodiversity.model.organism.behavior;
 
 import biodiversity.model.organism.Organism;
-import biodiversity.model.organism.actions.Action;
-import biodiversity.model.special_events.SpecialEvent;
 
 public abstract class BehaviorDecorator extends Behavior {
 
@@ -17,15 +15,6 @@ public abstract class BehaviorDecorator extends Behavior {
     public void doOutsourcedFunctions(Organism organism) {
         behavior.doOutsourcedFunctions(organism);
         migrate(organism);
-    }
-
-    @Override
-    public void reactOnAction(Action action, Organism acting, Organism reacting) {
-        behavior.reactOnAction(action, acting, reacting);
-    }
-
-    @Override
-    public void reactOnSpecialEvent(SpecialEvent specialEvent, Organism reacting){
     }
 
     protected void migrate(Organism organism){
