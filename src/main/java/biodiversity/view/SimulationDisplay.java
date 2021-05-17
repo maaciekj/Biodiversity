@@ -8,22 +8,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-// tutaj event listener - żeby można było kliknąć na komórkę
-/*
-Klasa związana z wyświetlaniem, powinna mieć połączenie tylko z territory i pobierać
-tablicę char [][] - nic więcej
-
-tutaj zrobić player animacji kolejne widoki
-
-dziedziczenie po klasie Service
-nadpisanie metdod:
-addTask()
-start()
-setOnSucceded
-
-zob dixu productivity tracker
-
- */
 
 public class SimulationDisplay extends Stage {
 
@@ -38,7 +22,7 @@ public class SimulationDisplay extends Stage {
     // tablica
 
     public SimulationDisplay(TerritoryObserver territoryInput) {
-      //  scene.setOnMouseClicked((mouseEvent)->{
+        //  scene.setOnMouseClicked((mouseEvent)->{
         //    eventGenerator.createMeteor(mouseEvent.getX(),mouseEvent.getY());
         //});
         territoryObserver = territoryInput;
@@ -66,7 +50,7 @@ public class SimulationDisplay extends Stage {
         }
     }
 
-    private Color calculateColor(char organismSign){
+    private Color calculateColor(char organismSign) {
         return CharColorFX.findColorByChar(organismSign);
     }
 
@@ -90,18 +74,18 @@ public class SimulationDisplay extends Stage {
         }
     }
 
-    public void changeColorOfAnElementInDisplay (int cordX, int cordY, char sign){
+    public void changeColorOfAnElementInDisplay(int cordX, int cordY, char sign) {
         OrganismView toBeChanged = (OrganismView) root.getChildren().get(calculateNumberInDisplay(cordX, cordY));
         toBeChanged.updateColor(calculateColor(sign));
     }
 
-    private int calculateNumberInDisplay (int cordX, int cordY) {
+    private int calculateNumberInDisplay(int cordX, int cordY) {
         if (cordX >= columnCount || cordY >= rowsCount) {
-            try {
+            /*try {
                 throw new Exception("Given coordinates greater than territory size");
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+            }*/
         }
         return (cordY * columnCount) + cordX;
     }

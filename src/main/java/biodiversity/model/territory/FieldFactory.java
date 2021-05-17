@@ -22,7 +22,7 @@ public class FieldFactory {
         for (int i = 0; i < numberOfSpecialFields; i++) {
             specialFields.add(createSpecialField(baseFertility, fertilityDiversity));
         }
-        addSpecialFieldToArrayAndChangeNearbyFields(baseFertility, fertilityDiversity, specialFields);
+        addSpecialFieldToArrayAndChangeNearbyFields(baseFertility, specialFields);
         reduceFieldFertilityVariation(baseFertility);
         return fields;
     }
@@ -36,7 +36,7 @@ public class FieldFactory {
         }
     }
 
-    private int calculateNumberOfSpecialFields(int height, int width){
+    private int calculateNumberOfSpecialFields(int height, int width) {
         double specialFieldsProbability = 0.02;
         return (int) Math.round(height * width * specialFieldsProbability);
 
@@ -52,19 +52,18 @@ public class FieldFactory {
         return new Field(fertility, numberGenerator.generateRandomInt(fields.length), numberGenerator.generateRandomInt(fields[0].length));
     }
 
-    private void addSpecialFieldToArrayAndChangeNearbyFields(int baseFertility, int fertilityDiversity, Set<Field> specialFields) {
+    private void addSpecialFieldToArrayAndChangeNearbyFields(int baseFertility, Set<Field> specialFields) {
         for (Field specialField : specialFields) {
             fields[specialField.getRow()][specialField.getCol()] = specialField;
             for (int row = 0; row < fields.length; row++) {
                 for (int col = 0; col < fields[row].length; col++) {
                     int baseRangeOfSpecialField = 3;
-                    int furtherRangeOfSpecialField = baseRangeOfSpecialField*2;
+                    int furtherRangeOfSpecialField = baseRangeOfSpecialField * 2;
                     if (fieldIsInCircle(fields[row][col], specialField, baseRangeOfSpecialField)) {
-                        fields[row][col].changeGrowForTurnBuilding(specialField.getGrowForTurn()- baseFertility);
-                    }
-                    else {
-                        if (fieldIsInCircle(fields[row][col], specialField, furtherRangeOfSpecialField)){
-                            fields[row][col].changeGrowForTurnBuilding((specialField.getGrowForTurn()- baseFertility)/2);
+                        fields[row][col].changeGrowForTurnBuilding(specialField.getGrowForTurn() - baseFertility);
+                    } else {
+                        if (fieldIsInCircle(fields[row][col], specialField, furtherRangeOfSpecialField)) {
+                            fields[row][col].changeGrowForTurnBuilding((specialField.getGrowForTurn() - baseFertility) / 2);
                         }
                     }
                 }
@@ -90,20 +89,17 @@ public class FieldFactory {
         if (checked.getCol() < 0) {
             return false;
         }
-        if (checked.getCol() >= fields[0].length) {
-            return false;
-        }
-        return true;
+        return checked.getCol() < fields[0].length;
     }
 
     private void reduceFieldFertilityVariation(int baseFertility) {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields[i].length; j++) {
-                if(fields[i][j].getGrowForTurn()<0){
+                if (fields[i][j].getGrowForTurn() < 0) {
                     fields[i][j].setGrowForTurn(0);
                 }
-                if (fields[i][j].getGrowForTurn()> baseFertility *3){
-                    fields[i][j].setGrowForTurn(baseFertility *3);
+                if (fields[i][j].getGrowForTurn() > baseFertility * 3) {
+                    fields[i][j].setGrowForTurn(baseFertility * 3);
                 }
             }
         }

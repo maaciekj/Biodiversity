@@ -7,21 +7,21 @@ public class MenuController {
 
     private final Menu menu;
 
-    public MenuController(Menu menu){
+    public MenuController(Menu menu) {
         this.menu = menu;
         addButtonsActions();
     }
 
-    public void addButtonsActions(){
+    public void addButtonsActions() {
         menu.addStartDefaultButtonAction(event -> startDefaultAction());
         menu.addConfigButtonAction(event -> configAction());
         menu.addExitButtonAction(event -> exitAction());
     }
 
-    private void startDefaultAction(){
-       ApplicationConfig applicationConfig = new ApplicationConfig();
-       applicationConfig.startDefaultSimulation();
-       menu.close();
+    private void startDefaultAction() {
+        ApplicationConfig applicationConfig = new ApplicationConfig();
+        applicationConfig.startDefaultSimulation();
+        menu.close();
     }
 
     private void configAction() {

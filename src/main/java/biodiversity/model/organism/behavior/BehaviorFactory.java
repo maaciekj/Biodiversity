@@ -6,9 +6,8 @@ import biodiversity.model.territory.Territory;
 
 public class BehaviorFactory {
 
-// here method creating decorated object
-//
-    public Behavior createBehavior(BehaviorDTO behaviorDTO, Territory territory, NumberGenerator numberGenerator){
+
+    public Behavior createBehavior(BehaviorDTO behaviorDTO, Territory territory, NumberGenerator numberGenerator) {
         return new BehaviorBasic(territory, numberGenerator);
     }
 }

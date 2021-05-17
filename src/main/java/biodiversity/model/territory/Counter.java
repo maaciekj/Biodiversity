@@ -1,9 +1,7 @@
 package biodiversity.model.territory;
 
 public class Counter {
-
-    // TODO Counter counts all statistics from Territory
-
+    
     private int iterationsNumber;
 
     private long lastTime;

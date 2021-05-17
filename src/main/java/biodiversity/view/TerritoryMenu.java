@@ -57,9 +57,7 @@ public class TerritoryMenu extends Stage {
         setScene(scene);
 
         onSpecies = new Text("How many species you'd like to have at the beginning? ("+ Constants.MIN_NUMBER_OF_SPECIES+"-"+Constants.MAX_NUMBER_OF_SPECIES+")");
-        //String text ="How many species you'd like to have at the beginning? ("+ Constants.MIN_NUMBER_OF_SPECIES+"-"+Constants.MAX_NUMBER_OF_SPECIES+")";
 
-        //onSpecies.setText("How many species you'd like to have at the beginning? ("+ Constants.MIN_NUMBER_OF_SPECIES+"-"+Constants.MAX_NUMBER_OF_SPECIES)+")");
         howManySpecies = new TextField();
 
         onFertility = new Text();

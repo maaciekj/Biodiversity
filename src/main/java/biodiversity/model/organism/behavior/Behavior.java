@@ -6,8 +6,6 @@ import biodiversity.model.territory.Territory;
 
 public abstract class Behavior {
 
-    // TODO Behavior consists only DoItsTurn or
-
     protected Territory territory;
     protected NumberGenerator numberGenerator;
 
@@ -15,7 +13,7 @@ public abstract class Behavior {
     public Behavior() {
     }
 
-    public Behavior(Behavior behavior){
+    public Behavior(Behavior behavior) {
         this.territory = behavior.getTerritory();
         this.numberGenerator = behavior.getNumberGenerator();
     }

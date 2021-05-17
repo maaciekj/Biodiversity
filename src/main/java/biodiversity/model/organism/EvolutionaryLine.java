@@ -10,7 +10,7 @@ public class EvolutionaryLine {
 
     public EvolutionaryLine(Species species, int adultPreferredBodyMass, int maturityAge, int maxAge) {
         this.species = species;
-        code = species.getSign()+".0"; // this only for first ev line in species
+        code = species.getSign() + ".0"; // this only for first ev line in species
         this.adultPreferredBodyMass = adultPreferredBodyMass;
         this.maturityAge = maturityAge;
         this.maxAge = maxAge;

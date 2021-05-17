@@ -17,10 +17,10 @@ public abstract class BehaviorDecorator extends Behavior {
         migrate(organism);
     }
 
-    protected void migrate(Organism organism){
+    protected void migrate(Organism organism) {
     }
 
-    protected void moveTo (Organism organism, int newRow, int newCol){
+    protected void moveTo(Organism organism, int newRow, int newCol) {
         int oldRow = organism.getRow();
         int oldCol = organism.getCol();
         organism.setRow(newRow);

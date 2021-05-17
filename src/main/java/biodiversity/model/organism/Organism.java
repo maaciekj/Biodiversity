@@ -18,8 +18,6 @@ public class Organism {
     private int energyConsumption; // once for turn calculated; frequently needed
     private final Territory territory;
     private final NumberGenerator numberGenerator;
-
-
     // many features are at Species - Behavior level
 
     public Organism(Species species, EvolutionaryLine evolutionaryLine, int activeBodyMass, int storedEnergy, Territory territory, NumberGenerator numberGenerator) {
@@ -35,9 +33,8 @@ public class Organism {
         this.numberGenerator = numberGenerator;
     }
 
-
-    public void doItsTurn () {
-        if (iterationDone>=territory.getLastIteration()){
+    public void doItsTurn() {
+        if (iterationDone >= territory.getLastIteration()) {
             return;
         }
         dieOfAge();
@@ -50,8 +47,8 @@ public class Organism {
         setIterationDone();
     }
 
-    private void dieOfAge(){
-        if (age<getMaxAge()){
+    private void dieOfAge() {
+        if (age < getMaxAge()) {
             return;
         }
         territory.removeInhabitant(row, col);
@@ -61,27 +58,27 @@ public class Organism {
         age += 1;
     }
 
-    private void calculateEnergyConsumption(){
-        energyConsumption = (int)Math.round(Math.pow(activeBodyMass, Constants.ENERGY_CONSUMPTION_EXPONENT));
+    private void calculateEnergyConsumption() {
+        energyConsumption = (int) Math.round(Math.pow(activeBodyMass, Constants.ENERGY_CONSUMPTION_EXPONENT));
     }
 
     private void grow() {
-        if (activeBodyMass>=getAdultPreferredBodyMass()){
+        if (activeBodyMass >= getAdultPreferredBodyMass()) {
             return;
         }
-        if (storedEnergy<getEnergyConsumption()*Constants.STORED_ENERGY_FACTOR_TO_START_GROWING){
+        if (storedEnergy < getEnergyConsumption() * Constants.STORED_ENERGY_FACTOR_TO_START_GROWING) {
             return;
         }
         addBodyMass(1);
         consumeEnergy(Constants.ENERGY_NEED_FOR_BODY_MASS);
     }
 
-    private void consumeEnergy(){
-        storedEnergy=storedEnergy- getEnergyConsumption();
+    private void consumeEnergy() {
+        storedEnergy = storedEnergy - getEnergyConsumption();
     }
 
-    private void dieOfStarving(){
-        if (storedEnergy<0||activeBodyMass<=0){
+    private void dieOfStarving() {
+        if (storedEnergy < 0 || activeBodyMass <= 0) {
             territory.removeInhabitant(row, col);
         }
     }
@@ -90,21 +87,20 @@ public class Organism {
         iterationDone = territory.getLastIteration();
     }
 
-    public void addEnergy(int howMuch){
-        storedEnergy=storedEnergy+howMuch;
+    public void addEnergy(int howMuch) {
+        storedEnergy = storedEnergy + howMuch;
     }
 
-    public void consumeEnergy(int howMuch){
-        storedEnergy=storedEnergy-howMuch;
+    public void consumeEnergy(int howMuch) {
+        storedEnergy = storedEnergy - howMuch;
     }
 
-    public void subtractBodyMass(int howMuch){
-        activeBodyMass = activeBodyMass-howMuch;
+    public void subtractBodyMass(int howMuch) {
+        activeBodyMass = activeBodyMass - howMuch;
     }
 
-    public void addBodyMass(int howMuch){
-        activeBodyMass=activeBodyMass+howMuch;
-
+    public void addBodyMass(int howMuch) {
+        activeBodyMass = activeBodyMass + howMuch;
     }
 
     // getters from fields
@@ -163,7 +159,7 @@ public class Organism {
         return evolutionaryLine.getMaxAge();
     }
 
-    public int getAdultPreferredBodyMass(){
+    public int getAdultPreferredBodyMass() {
         return evolutionaryLine.getAdultPreferredBodyMass();
     }
 

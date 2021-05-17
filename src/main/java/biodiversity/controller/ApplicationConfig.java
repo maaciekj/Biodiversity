@@ -1,6 +1,7 @@
 package biodiversity.controller;
 
 import biodiversity.Constants;
+import biodiversity.DisplayConstants;
 import biodiversity.model.organism.EvolutionaryLine;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.Species;
@@ -14,7 +15,6 @@ import biodiversity.model.organism.behavior.replication_strategies.ManySmallChil
 import biodiversity.model.organism.behavior.replication_strategies.ReplicationStrategy;
 import biodiversity.model.organism.behavior.replication_strategies.SmallChildren;
 import biodiversity.model.territory.*;
-import biodiversity.DisplayConstants;
 import biodiversity.view.ObserverFX;
 import biodiversity.view.SimulationDisplay;
 import biodiversity.view.TerritoryObserver;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 public class ApplicationConfig {
 
-    public void startDefaultSimulation(){
+    public void startDefaultSimulation() {
         TerritoryDTO territoryDTO = buildDefaultDTO();
         startSimulation(territoryDTO);
     }
@@ -59,7 +59,7 @@ public class ApplicationConfig {
         return territoryDTO;
     }
 
-    public void startSimulation(TerritoryDTO territoryDTO){
+    public void startSimulation(TerritoryDTO territoryDTO) {
         int height = territoryDTO.getHeight();
         int width = territoryDTO.getWidth();
         TerritoryObserver observer = new ObserverFX();
@@ -87,7 +87,7 @@ public class ApplicationConfig {
         territory.setCarnivores(carnivoreOrganisms);
     }
 
-    private List<Species> createListOfSpecies(List<SpeciesDTO> speciesDTOs, Territory territory, NumberGenerator numberGenerator){
+    private List<Species> createListOfSpecies(List<SpeciesDTO> speciesDTOs, Territory territory, NumberGenerator numberGenerator) {
         List<Species> speciesList = new ArrayList<>();
         for (SpeciesDTO speciesDTO : speciesDTOs) {
             Behavior behavior = new BehaviorBasic(territory, numberGenerator);
@@ -98,7 +98,7 @@ public class ApplicationConfig {
                 behaviorDecorator1 = new Herbivore(behavior);
             }
             BehaviorDecorator behaviorDecorator2;
-            switch (speciesDTO.getBehaviorDTO().getReplicationStrategy()){
+            switch (speciesDTO.getBehaviorDTO().getReplicationStrategy()) {
                 case DisplayConstants.BIG_CHILDREN:
                     behaviorDecorator2 = new BigChildren(behaviorDecorator1);
                     break;
@@ -120,15 +120,15 @@ public class ApplicationConfig {
         return speciesList;
     }
 
-    private List<Organism> buildOrganismsOfSpecies(Species species, EvolutionaryLine evolutionaryLine, Territory territory, NumberGenerator numberGenerator){
+    private List<Organism> buildOrganismsOfSpecies(Species species, EvolutionaryLine evolutionaryLine, Territory territory, NumberGenerator numberGenerator) {
         List<Organism> organisms = new ArrayList<>();
         int rowCenter = numberGenerator.generateRandomInt(territory.getHeight());
         int colCenter = numberGenerator.generateRandomInt(territory.getWidth());
         for (int i = 0; i < Constants.NUMBER_OF_ORGANISMS_OF_SPECIES_AT_THE_BEGINNING; i++) {
             Organism organism = new Organism(species, evolutionaryLine, evolutionaryLine.getAdultPreferredBodyMass(), evolutionaryLine.getAdultPreferredBodyMass(), territory, numberGenerator);
-            do{
-                organism.setRow(rowCenter+numberGenerator.generateRandomInt(20)-10);
-                organism.setCol(colCenter+numberGenerator.generateRandomInt(20)-10);
+            do {
+                organism.setRow(rowCenter + numberGenerator.generateRandomInt(20) - 10);
+                organism.setCol(colCenter + numberGenerator.generateRandomInt(20) - 10);
             } while (territory.placeIsOutOfTerritoryBoundaries(organism.getRow(), organism.getCol()));
             organisms.add(organism);
         }

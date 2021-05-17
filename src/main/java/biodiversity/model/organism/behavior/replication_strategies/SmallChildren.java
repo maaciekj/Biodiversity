@@ -7,7 +7,7 @@ import biodiversity.model.territory.Field;
 
 import java.util.List;
 
-public class SmallChildren extends ReplicationStrategy{
+public class SmallChildren extends ReplicationStrategy {
 
     public SmallChildren(Behavior behavior) {
         super(behavior);

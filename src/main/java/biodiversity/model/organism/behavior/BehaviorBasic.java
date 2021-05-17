@@ -11,6 +11,7 @@ public class BehaviorBasic extends Behavior {
     }
 
     @Override
-    public void doOutsourcedFunctions(Organism organism) {    }
+    public void doOutsourcedFunctions(Organism organism) {
+    }
 
 }

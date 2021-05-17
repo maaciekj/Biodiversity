@@ -7,7 +7,7 @@ public class NumberGeneratorSecureRandom implements NumberGenerator {
     SecureRandom random = new SecureRandom();
 
     @Override
-    public int generateRandomInt (int maxExcl){
+    public int generateRandomInt(int maxExcl) {
         return random.nextInt(maxExcl);
     }
 

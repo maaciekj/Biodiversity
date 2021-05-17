@@ -18,24 +18,24 @@ public class Field {
         this.col = col;
     }
 
-    public void growPlants(){
-        if(ediblePlants>growForTurn*Constants.FIELD_STORAGE_FACTOR){
+    public void growPlants() {
+        if (ediblePlants > growForTurn * Constants.FIELD_STORAGE_FACTOR) {
             return;
         }
-        ediblePlants = ediblePlants+growForTurn;
+        ediblePlants = ediblePlants + growForTurn;
     }
 
-    public void destroyPlants (int howMany){  // in case of a special event
+    public void destroyPlants(int howMany) {  // in case of a special event
         ediblePlants = Math.max(ediblePlants - howMany, 0);
     }
 
-    public void destroyPlants(){
+    public void destroyPlants() {
         ediblePlants = 0;
     }
 
-    public int feed (int demand){
-        if (ediblePlants-demand>=0){
-            ediblePlants = ediblePlants-demand;
+    public int feed(int demand) {
+        if (ediblePlants - demand >= 0) {
+            ediblePlants = ediblePlants - demand;
             return demand;
         } else {
             int availablePlants = ediblePlants;
@@ -73,12 +73,12 @@ public class Field {
         this.growForTurn = growForTurn;
     }
 
-    public void changeGrowForTurnBuilding(int howMuch){
-        growForTurn = growForTurn+howMuch;
+    public void changeGrowForTurnBuilding(int howMuch) {
+        growForTurn = growForTurn + howMuch;
     }
 
-    public void changeGrowForTurnRuntime(int howMuch){
-        growForTurn= Math.max(growForTurn+howMuch, 0);
+    public void changeGrowForTurnRuntime(int howMuch) {
+        growForTurn = Math.max(growForTurn + howMuch, 0);
     }
 
     public int getEdiblePlants() {

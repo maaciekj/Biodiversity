@@ -5,7 +5,6 @@ import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.organism.behavior.BehaviorDecorator;
 import biodiversity.model.territory.Field;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class ReplicationStrategy extends BehaviorDecorator {
     }
 
     protected void replicate(Organism organism) {
-        if (!checkInternalConditions(organism)){
+        if (!checkInternalConditions(organism)) {
             return;
         }
         List<Field> freeFields = checkForFreeFields(organism);
@@ -36,7 +35,7 @@ public class ReplicationStrategy extends BehaviorDecorator {
         applyCostForParentOrganism(organism);
     }
 
-    protected boolean checkInternalConditions(Organism organism){
+    protected boolean checkInternalConditions(Organism organism) {
         if (organism.getAge() < organism.getMaturityAge()) {
             return false;
         }

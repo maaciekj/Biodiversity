@@ -2,12 +2,12 @@ package biodiversity.model.territory;
 
 import java.util.Random;
 
-public class NumberGeneratorRandom implements NumberGenerator{
+public class NumberGeneratorRandom implements NumberGenerator {
 
     Random random = new Random();
 
     @Override
-    public int generateRandomInt (int maxExcl){
+    public int generateRandomInt(int maxExcl) {
         return random.nextInt(maxExcl);
     }
 

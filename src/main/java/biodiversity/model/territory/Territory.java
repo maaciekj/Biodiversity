@@ -13,7 +13,7 @@ public class Territory {
     Organism[][] inhabitants;
     TerritoryObserver observer;
     Counter counter;
-    List<Organism> carnivores = new ArrayList<>();// TODO Clear after use
+    List<Organism> carnivores = new ArrayList<>();
 
     public Territory(char emptyFieldSign, int height, int width, Field[][] places, TerritoryObserver observer, Counter counter) {
         this.emptyFieldSign = emptyFieldSign;
@@ -71,7 +71,7 @@ public class Territory {
     }
 
     private void introduceCarnivores() {
-        if(carnivores.isEmpty()){
+        if (carnivores.isEmpty()) {
             return;
         }
         for (Organism carnivore : carnivores) {

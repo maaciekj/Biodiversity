@@ -20,7 +20,7 @@ public class OrganismView extends Rectangle {
         setY(cordY * size);
     }
 
-    public void updateColor (Color color){
+    public void updateColor(Color color) {
         setFill(color);
     }
 
@@ -29,7 +29,7 @@ public class OrganismView extends Rectangle {
         return "OrganismView{" +
                 "cordX=" + cordX +
                 ", cordY=" + cordY +
-                ", size=" + size + " color"+getFill()+
+                ", size=" + size + " color" + getFill() +
                 '}';
     }
 }

@@ -4,7 +4,7 @@ import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 
-public class BigChildren extends ReplicationStrategy{
+public class BigChildren extends ReplicationStrategy {
 
     public BigChildren(Behavior behavior) {
         super(behavior);
@@ -18,13 +18,13 @@ public class BigChildren extends ReplicationStrategy{
     @Override
     protected int calculateNeededEnergyForChildBodyMass(Organism organism) {
         double costFactorForParentalOrganismEnergy = 0.5;
-        return (int)Math.round(calculateChildMass(organism) * (Constants.ENERGY_NEED_FOR_BODY_MASS*costFactorForParentalOrganismEnergy));
+        return (int) Math.round(calculateChildMass(organism) * (Constants.ENERGY_NEED_FOR_BODY_MASS * costFactorForParentalOrganismEnergy));
     }
 
     @Override
     protected void applyCostForParentOrganism(Organism organism) {
         organism.consumeEnergy(calculateNeededEnergyForChildBodyMass(organism) + calculateChildStoredEnergy(organism));
         double costFactorForParentalOrganismBodyMass = 0.5;
-        organism.subtractBodyMass((int)Math.round(calculateChildMass(organism)*costFactorForParentalOrganismBodyMass));
+        organism.subtractBodyMass((int) Math.round(calculateChildMass(organism) * costFactorForParentalOrganismBodyMass));
     }
 }

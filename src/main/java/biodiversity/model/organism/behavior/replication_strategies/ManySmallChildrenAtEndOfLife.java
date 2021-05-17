@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy{
+public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy {
 
     public ManySmallChildrenAtEndOfLife(Behavior behavior) {
         super(behavior);
@@ -18,12 +18,13 @@ public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy{
 
     @Override
     protected void replicate(Organism organism) {
-        if (!checkInternalConditions(organism)){
+        if (!checkInternalConditions(organism)) {
             return;
         }
         List<Field> freeFields = checkForFreeFields(organism);
         int numberOfChildren = calculateNumberOfChildren(organism);
-        if (freeFields.size() < numberOfChildren*0.75) {
+        double freeFieldsNeededFactor = 0.75;
+        if (freeFields.size() < numberOfChildren * freeFieldsNeededFactor) {
             return;
         }
         Collections.shuffle(freeFields);
@@ -51,8 +52,8 @@ public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy{
         return territory.checkFreePlaces(organism.getRow(), organism.getCol(), rangeOfOffspringDispersal);
     }
 
-    private int calculateNumberOfChildren(Organism organism){
-        return (int) (organism.getActiveBodyMass()/(calculateChildMass(organism))*Constants.MANY_SMALL_CHILDREN_STRATEGY_EFFICIENCY);
+    private int calculateNumberOfChildren(Organism organism) {
+        return (int) (organism.getActiveBodyMass() / (calculateChildMass(organism)) * Constants.MANY_SMALL_CHILDREN_STRATEGY_EFFICIENCY);
     }
 
     @Override
@@ -64,23 +65,22 @@ public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy{
     @Override
     protected void createCreatureAndAssignToTerritory(int row, int col, Organism organism) {
         Organism creatureChild = new Organism(organism.getSpecies(), organism.getEvolutionaryLine(),
-                calculateChildMass(organism), calculateChildStoredEnergy(organism), organism.getTerritory(), organism.getNumberGenerator());
-            // TODO here inf from maternal organism something due to clone(); something by setters
-            creatureChild.setRow(row);
-            creatureChild.setCol(col);
-            territory.addInhabitant(creatureChild);
+            calculateChildMass(organism), calculateChildStoredEnergy(organism), organism.getTerritory(), organism.getNumberGenerator());
+        creatureChild.setRow(row);
+        creatureChild.setCol(col);
+        territory.addInhabitant(creatureChild);
     }
 
     @Override
     protected int calculateChildStoredEnergy(Organism organism) {
-        return organism.getStoredEnergy()/calculateNumberOfChildren(organism);
+        return organism.getStoredEnergy() / calculateNumberOfChildren(organism);
     }
 
     @Override
     protected void applyCostForParentOrganism(Organism organism) {
     }
 
-    private void dieFromExhaustion(Organism organism){
+    private void dieFromExhaustion(Organism organism) {
         territory.removeInhabitant(organism.getRow(), organism.getCol());
     }
 

@@ -8,7 +8,6 @@ import java.util.List;
 public class Species {
 
     private final char sign;
-
     private final Behavior behavior;
 
     private List<EvolutionaryLine> evolutionaryLines; // only for creating new EvolutionaryLines and statistics
