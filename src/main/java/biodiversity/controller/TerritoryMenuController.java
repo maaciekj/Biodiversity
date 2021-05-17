@@ -1,11 +1,10 @@
 package biodiversity.controller;
 
 import biodiversity.Constants;
+import biodiversity.view.InvalidUsersInputException;
 import biodiversity.view.Menu;
 import biodiversity.view.SpeciesMenu;
 import biodiversity.view.TerritoryMenu;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 public class TerritoryMenuController {
 
@@ -18,50 +17,44 @@ public class TerritoryMenuController {
     }
 
     private void addBackAction() {
-        territoryMenu.addBackButtonAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                new MenuController(new Menu());
-                territoryMenu.close();
-            }
+        territoryMenu.addBackButtonAction(event -> {
+            new MenuController(new Menu());
+            territoryMenu.close();
         });
     }
 
     private void addProceedAction() {
-        territoryMenu.addProceedButtonAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("proceeding"); // TODO gathering info to TerritoryDTO and pass to Species Menu
-                TerritoryDTO territoryDTO = new TerritoryDTO();
-                try {
-                    territoryDTO.setNumberOfSpecies(collectAndValidateNumberOfSpecies());
-                } catch (Exception e){
-                    setNewTerritoryMenuAndClosePresent();
-                    return;
-                }
-
-                try {
-                    territoryDTO.setFertility(collectAndValidateFertility());
-                } catch (Exception e) {
-                    setNewTerritoryMenuAndClosePresent();
-                    return;
-                }
-                try {
-                    String diversity = territoryMenu.getDiversity();
-                    territoryDTO.setFertilityDiversity(DiversityTextInt.valueOf(diversity.toUpperCase()).getDiversityCode());
-                } catch (Exception e) {
-                    setNewTerritoryMenuAndClosePresent();
-                    return;
-                }
-                goToSpeciesMenu(territoryDTO);
+        territoryMenu.addProceedButtonAction(event -> {
+            System.out.println("proceeding");
+            TerritoryDTO territoryDTO = new TerritoryDTO();
+            try {
+                territoryDTO.setNumberOfSpecies(collectAndValidateNumberOfSpecies());
+            } catch (InvalidUsersInputException e){
+                setNewTerritoryMenuAndClosePresent();
+                return;
             }
+
+            try {
+                territoryDTO.setFertility(collectAndValidateFertility());
+            } catch (Exception e) {
+                setNewTerritoryMenuAndClosePresent();
+                return;
+            }
+            try {
+                String diversity = territoryMenu.getDiversity();
+                territoryDTO.setFertilityDiversity(DiversityTextInt.valueOf(diversity.toUpperCase()).getDiversityCode());
+            } catch (Exception e) {
+                setNewTerritoryMenuAndClosePresent();
+                return;
+            }
+            goToSpeciesMenu(territoryDTO);
         });
     }
 
-    private int collectAndValidateNumberOfSpecies() throws Exception{
+    private int collectAndValidateNumberOfSpecies() throws InvalidUsersInputException {
         int numberOfSpecies = Integer.parseInt(territoryMenu.getHowManySpecies());
         if (numberOfSpecies< Constants.MIN_NUMBER_OF_SPECIES ||numberOfSpecies>Constants.MAX_NUMBER_OF_SPECIES){
-            throw new Exception();
+            throw new InvalidUsersInputException("You didn't type number of species ");
         }
         return numberOfSpecies;
     }
@@ -71,7 +64,7 @@ public class TerritoryMenuController {
         territoryMenu.close();
     }
 
-    private int collectAndValidateFertility() throws Exception {
+    private int collectAndValidateFertility() throws InvalidUsersInputException {
         String fertility = territoryMenu.getFertility();
         return FertilityTextInt.valueOf(fertility.toUpperCase()).getFertilityNumber();
     }

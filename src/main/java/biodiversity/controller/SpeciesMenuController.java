@@ -1,6 +1,7 @@
 package biodiversity.controller;
 
 import biodiversity.view.CharColorFX;
+import biodiversity.view.InvalidUsersInputException;
 import biodiversity.view.Menu;
 import biodiversity.view.SpeciesMenu;
 import javafx.event.ActionEvent;
@@ -38,13 +39,13 @@ public class SpeciesMenuController {
                 BehaviorDTO behaviorDTO = new BehaviorDTO();
                 try {
                     behaviorDTO.setFeedingStrategy(speciesMenu.getFeeding());
-                } catch (Exception e){
+                } catch (InvalidUsersInputException e){
                     setNewSpeciesMenu();
                     return;
                 }
                 try{
                     behaviorDTO.setReplicationStrategy(speciesMenu.getReplication());
-                } catch (Exception e){
+                } catch (InvalidUsersInputException e){
                     setNewSpeciesMenu();
                     return;
                 }

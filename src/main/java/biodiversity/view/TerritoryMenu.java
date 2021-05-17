@@ -110,22 +110,21 @@ public class TerritoryMenu extends Stage {
        return howManySpecies.getText();
     }
 
-    public String getFertility() throws Exception{
-
+    public String getFertility() throws InvalidUsersInputException{
         if (toggleFertility.getSelectedToggle()!=null){
             RadioButton chosen = (RadioButton) toggleFertility.getSelectedToggle();
             return chosen.getText();
         } else {
-            throw new Exception();
+            throw new InvalidUsersInputException("You didn't choose fertility level");
         }
     }
 
-    public String getDiversity() throws Exception{
+    public String getDiversity() throws InvalidUsersInputException {
         if (toggleDiversity.getSelectedToggle()!=null){
             RadioButton chosen = (RadioButton) toggleDiversity.getSelectedToggle();
             return chosen.getText();
         } else {
-            throw new Exception();
+            throw new InvalidUsersInputException("You didn't choose diversity level");
         }
     }
 

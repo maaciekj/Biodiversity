@@ -143,21 +143,21 @@ public class SpeciesMenu extends Stage {
         proceed.setOnAction(event);
     }
 
-    public String getFeeding() throws Exception{
+    public String getFeeding() throws InvalidUsersInputException {
         if (toggleFeeding.getSelectedToggle()!=null){
             RadioButton chosen = (RadioButton) toggleFeeding.getSelectedToggle();
             return chosen.getText();
         } else {
-            throw new Exception();
+            throw new InvalidUsersInputException("You didn't select feeding strategy");
         }
     }
 
-    public String getReplication() throws Exception{
+    public String getReplication() throws InvalidUsersInputException {
         if (toggleReplication.getSelectedToggle()!=null){
             RadioButton chosen = (RadioButton) toggleReplication.getSelectedToggle();
             return chosen.getText();
         } else {
-            throw new Exception();
+            throw new InvalidUsersInputException("You didn't select replication strategy");
         }
     }
 
