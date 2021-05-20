@@ -8,20 +8,68 @@ import java.util.*;
 
 public class Territory {
 
-    char emptyFieldSign;
-    Field[][] places;
-    Organism[][] inhabitants;
-    TerritoryObserver observer;
-    Counter counter;
-    List<Organism> carnivores = new ArrayList<>();
+    private char emptyFieldSign;
+    private Field[][] places;
+    private Organism[][] inhabitants;
+    private TerritoryObserver observer;
+    private Counter counter;
+    private List<Organism> carnivores = new ArrayList<>();
 
-    public Territory(char emptyFieldSign, int height, int width, Field[][] places, TerritoryObserver observer, Counter counter) {
-        this.emptyFieldSign = emptyFieldSign;
-        this.places = places;
-        this.inhabitants = new Organism[height][width];
-        this.observer = observer;
-        this.counter = counter;
+
+    public static class Builder {
+        private char emptyFieldSign;
+        private Field[][] places;
+        private int height;
+        private int width;
+        private TerritoryObserver observer;
+        private Counter counter;
+
+        public Builder emptyFieldSign(char emptyFieldSign) {
+            this.emptyFieldSign = emptyFieldSign;
+            return this;
+        }
+
+        public Builder fields(Field[][] places) {
+            this.places = places;
+            return this;
+        }
+
+        public Builder height(int height) {
+            this.height = height;
+            return this;
+        }
+
+        public Builder width(int width) {
+            this.width = width;
+            return this;
+        }
+
+        public Builder observer(TerritoryObserver observer) {
+            this.observer = observer;
+            return this;
+        }
+
+        public Builder counter(Counter counter) {
+            this.counter = counter;
+            return this;
+        }
+
+        public Territory build() {
+            Territory territory = new Territory();
+            territory.emptyFieldSign = this.emptyFieldSign;
+            territory.places = this.places;
+            territory.inhabitants = new Organism[this.height][this.width];
+            territory.observer = this.observer;
+            territory.counter = this.counter;
+            territory.carnivores = new ArrayList<>();
+            return territory;
+        }
     }
+
+    private Territory() {
+    }
+
+
 
     public void doItsTurn() {
         placesDoTheirTurn();
@@ -40,7 +88,6 @@ public class Territory {
         if (counter.getIterationNumber() == Constants.CARNIVORES_APPEAR_AT_ITERATION) {
             introduceCarnivores();
         }
-        collectStatistics(); // TODO displaying at SimulationDisplay
         printStatistics(); // only testing feature
         counter.addIteration();
     }
@@ -60,7 +107,7 @@ public class Territory {
             System.out.println(places[10][10].toString());
             try {
                 System.out.println(inhabitants[10][10].toString());
-            } catch (Exception e) {
+            } catch (NullPointerException e) {
                 System.out.println("null at the place");
             }
             System.out.println("number of organisms " + getNumberOfOrganisms());
@@ -78,10 +125,6 @@ public class Territory {
             addInhabitant(carnivore);
         }
         carnivores.clear();
-    }
-
-    private void collectStatistics() {
-        // TODO
     }
 
     public Organism getInhabitant(int row, int col) {

@@ -39,22 +39,36 @@ public class ApplicationConfig {
         SpeciesDTO speciesDTO1 = new SpeciesDTO.SpeciesDTOBuilder()
                 .sign('a')
                 .behaviorDTO(behaviorDTO1)
-                .adultPreferredBodyMass(60)
-                .maturityAge(20)
+                .adultPreferredBodyMass(65)
                 .maxAge(100)
                 .build();
         territoryDTO.addSpeciesDTO(speciesDTO1);
 
         BehaviorDTO behaviorDTO2 = new BehaviorDTO("carnivore", "big children");
-        SpeciesDTO speciesDTO2 = new SpeciesDTO('b', behaviorDTO2, 80, 80, 400);
+        SpeciesDTO speciesDTO2 = new SpeciesDTO.SpeciesDTOBuilder()
+                .sign('b')
+                .behaviorDTO(behaviorDTO2)
+                .adultPreferredBodyMass(80)
+                .maxAge(300)
+                .build();
         territoryDTO.addSpeciesDTO(speciesDTO2);
 
         BehaviorDTO behaviorDTO3 = new BehaviorDTO("herbivore", "small children");
-        SpeciesDTO speciesDTO3 = new SpeciesDTO('c', behaviorDTO3, 80, 40, 200);
+        SpeciesDTO speciesDTO3 = new SpeciesDTO.SpeciesDTOBuilder()
+                .sign('c')
+                .behaviorDTO(behaviorDTO3)
+                .adultPreferredBodyMass(80)
+                .maxAge(200)
+                .build();
         territoryDTO.addSpeciesDTO(speciesDTO3);
 
         BehaviorDTO behaviorDTO4 = new BehaviorDTO("herbivore", "many small children at end of life");
-        SpeciesDTO speciesDTO4 = new SpeciesDTO('d', behaviorDTO4, 70, 80, 400);
+        SpeciesDTO speciesDTO4 = new SpeciesDTO.SpeciesDTOBuilder()
+                .sign('d')
+                .behaviorDTO(behaviorDTO4)
+                .adultPreferredBodyMass(70)
+                .maxAge(300)
+                .build();
         territoryDTO.addSpeciesDTO(speciesDTO4);
 
         return territoryDTO;
@@ -67,13 +81,25 @@ public class ApplicationConfig {
         NumberGenerator numberGenerator = new NumberGeneratorRandom();
         FieldFactory fieldFactory = new FieldFactory(numberGenerator);
         Counter counter = new Counter();
-        Territory territory = new Territory(' ', height, width, fieldFactory.createFieldPattern(height, width, territoryDTO.getFertility(), territoryDTO.getFertilityDiversity()), observer, counter);
+        Territory territory = new Territory.Builder()
+                .emptyFieldSign(' ')
+                .fields(fieldFactory.createFieldPattern(territoryDTO))
+                .height(height)
+                .width(width)
+                .observer(observer)
+                .counter(counter)
+                .build();
         observer.addTerritory(territory);
         SimulationDisplay simulationDisplay = new SimulationDisplay(observer);
+
         List<SpeciesDTO> speciesDTOsHerbivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.HERBIVORE)).collect(Collectors.toList());
+
         List<SpeciesDTO> speciesDTOsCarnivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.CARNIVORE)).collect(Collectors.toList());
+
         List<Species> carnivores = createListOfSpecies(speciesDTOsCarnivores, territory, numberGenerator);
         List<Species> herbivores = createListOfSpecies(speciesDTOsHerbivores, territory, numberGenerator);
+
+
         List<Organism> herbivoreOrganisms = new ArrayList<>();
         for (Species species : herbivores) {
             herbivoreOrganisms.addAll(buildOrganismsOfSpecies(species, territory, numberGenerator));
@@ -112,7 +138,7 @@ public class ApplicationConfig {
                 default:
                     behaviorDecorator2 = new ReplicationStrategy(behaviorDecorator1);
             }
-            Species species = new Species(speciesDTO.getSign(), behaviorDecorator2, speciesDTO.getAdultPreferredBodyMass(), speciesDTO.getMaturityAge(), speciesDTO.getMaxAge());
+            Species species = new Species(speciesDTO.getSign(), behaviorDecorator2, speciesDTO.getAdultPreferredBodyMass(), speciesDTO.getMaxAge());
             speciesList.add(species);
         }
         return speciesList;

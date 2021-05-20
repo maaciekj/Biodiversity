@@ -1,10 +1,14 @@
 package biodiversity.controller;
 
 import biodiversity.Constants;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class TerritoryDTO {
 
     private final int height = Constants.TERRITORY_HEIGHT_DEFAULT;
@@ -16,42 +20,6 @@ public class TerritoryDTO {
 
     public TerritoryDTO() {
         speciesDTOs = new ArrayList<>();
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getNumberOfSpecies() {
-        return numberOfSpecies;
-    }
-
-    public void setNumberOfSpecies(int numberOfSpecies) {
-        this.numberOfSpecies = numberOfSpecies;
-    }
-
-    public int getFertility() {
-        return fertility;
-    }
-
-    public void setFertility(int basicFertility) {
-        this.fertility = basicFertility;
-    }
-
-    public int getFertilityDiversity() {
-        return fertilityDiversity;
-    }
-
-    public void setFertilityDiversity(int fertilityDiversity) {
-        this.fertilityDiversity = fertilityDiversity;
-    }
-
-    public List<SpeciesDTO> getSpeciesDTOs() {
-        return speciesDTOs;
     }
 
     public void addSpeciesDTO(SpeciesDTO speciesDTO){

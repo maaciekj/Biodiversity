@@ -11,7 +11,7 @@ public class Constants {
 
     public static final int MAX_NUMBER_OF_SPECIES = 6;
 
-    public static final int FIELD_STORAGE_FACTOR = 5;
+    public static final int FIELD_STORAGE_FACTOR = 8;
 
     public static final int NUMBER_OF_ORGANISMS_OF_SPECIES_AT_THE_BEGINNING = 5;
 
@@ -32,6 +32,8 @@ public class Constants {
     public static final int CARNIVORES_DEMAND_FACTOR = 20;
 
     public static final int CARNIVORES_APPEAR_AT_ITERATION = 600;
+
+    public static final double MATURITY_AGE_TO_MAX_AGE_DEFAULT = 0.15;
 
     public static double CHILD_TO_ADULT_MASS_RATIO_STANDARD = 0.10; // best 0.15
 

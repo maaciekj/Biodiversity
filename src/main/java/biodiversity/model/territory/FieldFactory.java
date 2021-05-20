@@ -1,5 +1,7 @@
 package biodiversity.model.territory;
 
+import biodiversity.controller.TerritoryDTO;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +13,12 @@ public class FieldFactory {
     public FieldFactory(NumberGenerator numberGenerator) {
         this.numberGenerator = numberGenerator;
     }
+
+
+    public Field [][] createFieldPattern (TerritoryDTO territoryDTO){
+        return createFieldPattern(territoryDTO.getHeight(), territoryDTO.getWidth(), territoryDTO.getFertility(), territoryDTO.getFertilityDiversity());
+    }
+
 
     public Field[][] createFieldPattern(int height, int width, int baseFertility, int fertilityDiversity) {
         createBasicFields(height, width, baseFertility);

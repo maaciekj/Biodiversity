@@ -1,5 +1,6 @@
 package biodiversity.model.organism;
 
+import biodiversity.Constants;
 import biodiversity.model.organism.behavior.Behavior;
 
 public class Species {
@@ -11,11 +12,11 @@ public class Species {
     private final int maxAge;
 
 
-    public Species(char sign, Behavior behavior, int adultPreferredBodyMass, int maturityAge, int maxAge) {
+    public Species(char sign, Behavior behavior, int adultPreferredBodyMass, int maxAge) {
         this.sign = sign;
         this.behavior = behavior;
         this.adultPreferredBodyMass = adultPreferredBodyMass;
-        this.maturityAge = maturityAge;
+        this.maturityAge = (int) Math.round(maxAge*Constants.MATURITY_AGE_TO_MAX_AGE_DEFAULT);
         this.maxAge = maxAge;
     }
 

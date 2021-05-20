@@ -50,9 +50,6 @@ public class SpeciesMenu extends Stage {
     private Text onMaxAge;
     private Slider maxAge;
 
-    private Text onMaturityAge;
-    private Slider maturityAge;
-
     private HBox backOrProceed;
     private Button back;
     private Button proceed;
@@ -114,17 +111,11 @@ public class SpeciesMenu extends Stage {
         maxAge.setShowTickMarks(true);
         maxAge.setShowTickLabels(true);
 
-        onMaturityAge = new Text("set maturity age");
-        maturityAge = new Slider(10, 200, 40);
-        maturityAge.setMajorTickUnit(5);
-        maturityAge.setShowTickMarks(true);
-        maturityAge.setShowTickLabels(true);
-
         createBackOrProceedButtons();
 
 
         layout.getChildren().addAll(onColor, general, onFeeding, buttonsFeeding, onReplication, buttonsReplications,
-                onMass, mass, onMaxAge, maxAge, onMaturityAge, maturityAge, backOrProceed);
+                onMass, mass, onMaxAge, maxAge, backOrProceed);
         show();
     }
 
@@ -169,9 +160,7 @@ public class SpeciesMenu extends Stage {
         return (int) maxAge.getValue();
     }
 
-    public int getMaturityAge(){
-        return (int) maturityAge.getValue();
-    }
+
 
 
 }

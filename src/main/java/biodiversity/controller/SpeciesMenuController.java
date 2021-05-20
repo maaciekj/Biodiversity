@@ -34,7 +34,8 @@ public class SpeciesMenuController {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("proceeding");
-                SpeciesDTO speciesDTO = new SpeciesDTO();
+                SpeciesDTO speciesDTO = new SpeciesDTO.SpeciesDTOBuilder()
+                        .build();
                 speciesDTO.setSign(CharColorFX.findSignByNumber(territoryDTO.getOrdinalNumberOfSpeciesToBeCreated()));
                 BehaviorDTO behaviorDTO = new BehaviorDTO();
                 try {
@@ -52,7 +53,6 @@ public class SpeciesMenuController {
 
                 speciesDTO.setBehaviorDTO(behaviorDTO);
                 speciesDTO.setAdultPreferredBodyMass(speciesMenu.getMass());
-                speciesDTO.setMaturityAge(speciesMenu.getMaturityAge());
                 speciesDTO.setMaxAge(speciesMenu.getMaxAge());
                 //System.out.println(speciesDTO);
                 territoryDTO.addSpeciesDTO(speciesDTO);

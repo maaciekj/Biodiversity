@@ -46,9 +46,6 @@ public class TerritoryMenu extends Stage {
     private Button proceed;
 
 
-
-    //TODO refactor the constructor
-
     public TerritoryMenu() {
         layout = new VBox(30);
         layout.setAlignment(Pos.BASELINE_LEFT);
