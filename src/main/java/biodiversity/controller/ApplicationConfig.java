@@ -91,11 +91,8 @@ public class ApplicationConfig {
                 .build();
         observer.addTerritory(territory);
         SimulationDisplay simulationDisplay = new SimulationDisplay(observer);
-
         List<SpeciesDTO> speciesDTOsHerbivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.HERBIVORE)).collect(Collectors.toList());
-
         List<SpeciesDTO> speciesDTOsCarnivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.CARNIVORE)).collect(Collectors.toList());
-
         List<Species> carnivores = createListOfSpecies(speciesDTOsCarnivores, territory, numberGenerator);
         List<Species> herbivores = createListOfSpecies(speciesDTOsHerbivores, territory, numberGenerator);
 
@@ -149,7 +146,13 @@ public class ApplicationConfig {
         int rowCenter = numberGenerator.generateRandomInt(territory.getHeight());
         int colCenter = numberGenerator.generateRandomInt(territory.getWidth());
         for (int i = 0; i < Constants.NUMBER_OF_ORGANISMS_OF_SPECIES_AT_THE_BEGINNING; i++) {
-            Organism organism = new Organism(species, species.getAdultPreferredBodyMass(), species.getAdultPreferredBodyMass(), territory, numberGenerator);
+            Organism organism = new Organism.Builder()
+                    .species(species)
+                    .activeBodyMass(species.getAdultPreferredBodyMass())
+                    .storedEnergy(species.getAdultPreferredBodyMass())
+                    .territory(territory)
+                    .numberGenerator(numberGenerator)
+                    .build();
             do {
                 organism.setRow(rowCenter + numberGenerator.generateRandomInt(20) - 10);
                 organism.setCol(colCenter + numberGenerator.generateRandomInt(20) - 10);

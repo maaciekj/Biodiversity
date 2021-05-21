@@ -7,34 +7,66 @@ import biodiversity.model.territory.Territory;
 public class Organism {
 
     private final Species species; // here Behavior
-    private final char sign; // get from species, frequently accessed performance
+    private final char sign; // get from species, frequently accessed performance issue
     private int row; // concrete organism
     private int col; // concrete organism
-    private int iterationDone; // to prevent organism from doing new iteration after migrating
     private int age; // concrete organism
     private int activeBodyMass; // concrete organism -
     private int storedEnergy; // concrete organism
-    private int energyConsumption; // once for turn calculated; frequently needed
+    private int energyConsumption; // once for turn calculated; frequently needed performance issue
     private final Territory territory;
     private final NumberGenerator numberGenerator;
     // many features are at Species - Behavior level
 
-    public Organism(Species species, int activeBodyMass, int storedEnergy, Territory territory, NumberGenerator numberGenerator) {
-        this.species = species;
+    public static class Builder {
+        private Species species;
+        private int activeBodyMass;
+        private int storedEnergy;
+        private Territory territory;
+        private NumberGenerator numberGenerator;
+
+        public Builder species(Species species){
+            this.species = species;
+            return this;
+        }
+
+        public Builder activeBodyMass(int activeBodyMass){
+            this.activeBodyMass = activeBodyMass;
+            return this;
+        }
+
+        public Builder storedEnergy(int storedEnergy){
+            this.storedEnergy = storedEnergy;
+            return this;
+        }
+
+        public Builder territory(Territory territory){
+            this.territory = territory;
+            return this;
+        }
+
+        public Builder numberGenerator(NumberGenerator numberGenerator){
+            this.numberGenerator = numberGenerator;
+            return this;
+        }
+
+        public Organism build(){
+            return new Organism(this);
+        }
+    }
+
+    public Organism(Builder builder) {
+        this.species = builder.species;
         this.sign = species.getSign();
-        this.iterationDone = -1;
         this.age = 0;
-        this.activeBodyMass = activeBodyMass;
-        this.storedEnergy = storedEnergy;
+        this.activeBodyMass = builder.activeBodyMass;
+        this.storedEnergy = builder.storedEnergy;
         this.energyConsumption = 0;
-        this.territory = territory;
-        this.numberGenerator = numberGenerator;
+        this.territory = builder.territory;
+        this.numberGenerator = builder.numberGenerator;
     }
 
     public void doItsTurn() {
-        if (iterationDone >= territory.getLastIteration()) {
-            return;
-        }
         dieOfAge();
         getOlder();
         calculateEnergyConsumption();
@@ -42,7 +74,6 @@ public class Organism {
         species.doOutsourcedFunctions(this);
         consumeEnergy();
         dieOfStarving();
-        setIterationDone();
     }
 
     private void dieOfAge() {
@@ -79,10 +110,6 @@ public class Organism {
         if (storedEnergy < 0 || activeBodyMass <= 0) {
             territory.removeInhabitant(row, col);
         }
-    }
-
-    private void setIterationDone() {
-        iterationDone = territory.getLastIteration();
     }
 
     public void addEnergy(int howMuch) {
