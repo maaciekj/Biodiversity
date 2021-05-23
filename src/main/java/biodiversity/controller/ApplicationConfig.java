@@ -14,10 +14,16 @@ import biodiversity.model.organism.behavior.replication_strategies.ManySmallChil
 import biodiversity.model.organism.behavior.replication_strategies.ReplicationStrategy;
 import biodiversity.model.organism.behavior.replication_strategies.SmallChildren;
 import biodiversity.model.territory.*;
+import biodiversity.view.Menu;
 import biodiversity.view.ObserverFX;
 import biodiversity.view.SimulationDisplay;
 import biodiversity.view.TerritoryObserver;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,53 +31,17 @@ import java.util.stream.Collectors;
 public class ApplicationConfig {
 
     public void startDefaultSimulation() {
-        TerritoryDTO territoryDTO = buildDefaultDTO();
-        startSimulation(territoryDTO);
-    }
-
-    private TerritoryDTO buildDefaultDTO() {
-        TerritoryDTO territoryDTO = new TerritoryDTO();
-        territoryDTO.setFertility(7);
-        territoryDTO.setFertilityDiversity(1);
-        territoryDTO.setNumberOfSpecies(4);
-
-        BehaviorDTO behaviorDTO1 = new BehaviorDTO("herbivore", "default");
-        SpeciesDTO speciesDTO1 = new SpeciesDTO.SpeciesDTOBuilder()
-                .sign('a')
-                .behaviorDTO(behaviorDTO1)
-                .adultPreferredBodyMass(65)
-                .maxAge(100)
-                .build();
-        territoryDTO.addSpeciesDTO(speciesDTO1);
-
-        BehaviorDTO behaviorDTO2 = new BehaviorDTO("carnivore", "big children");
-        SpeciesDTO speciesDTO2 = new SpeciesDTO.SpeciesDTOBuilder()
-                .sign('b')
-                .behaviorDTO(behaviorDTO2)
-                .adultPreferredBodyMass(80)
-                .maxAge(300)
-                .build();
-        territoryDTO.addSpeciesDTO(speciesDTO2);
-
-        BehaviorDTO behaviorDTO3 = new BehaviorDTO("herbivore", "small children");
-        SpeciesDTO speciesDTO3 = new SpeciesDTO.SpeciesDTOBuilder()
-                .sign('c')
-                .behaviorDTO(behaviorDTO3)
-                .adultPreferredBodyMass(80)
-                .maxAge(200)
-                .build();
-        territoryDTO.addSpeciesDTO(speciesDTO3);
-
-        BehaviorDTO behaviorDTO4 = new BehaviorDTO("herbivore", "many small children at end of life");
-        SpeciesDTO speciesDTO4 = new SpeciesDTO.SpeciesDTOBuilder()
-                .sign('d')
-                .behaviorDTO(behaviorDTO4)
-                .adultPreferredBodyMass(70)
-                .maxAge(300)
-                .build();
-        territoryDTO.addSpeciesDTO(speciesDTO4);
-
-        return territoryDTO;
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setPropertyNamingStrategy(new PropertyNamingStrategies.SnakeCaseStrategy());
+            ApplicationConfig applicationConfig = new ApplicationConfig();
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            TerritoryDTO territoryDTO = objectMapper.readValue(new File("config.json"), TerritoryDTO.class);
+            startSimulation(territoryDTO);
+        } catch (IOException e) {
+            Menu menu = new Menu();
+            MenuController menuController = new MenuController(menu);
+        }
     }
 
     public void startSimulation(TerritoryDTO territoryDTO) {
@@ -91,12 +61,8 @@ public class ApplicationConfig {
                 .build();
         observer.addTerritory(territory);
         SimulationDisplay simulationDisplay = new SimulationDisplay(observer);
-        List<SpeciesDTO> speciesDTOsHerbivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.HERBIVORE)).collect(Collectors.toList());
-        List<SpeciesDTO> speciesDTOsCarnivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.CARNIVORE)).collect(Collectors.toList());
-        List<Species> carnivores = createListOfSpecies(speciesDTOsCarnivores, territory, numberGenerator);
-        List<Species> herbivores = createListOfSpecies(speciesDTOsHerbivores, territory, numberGenerator);
-
-
+        List<Species> herbivores = getHerbivoreSpecies(territoryDTO, numberGenerator, territory);
+        List<Species> carnivores = getCarnivoreSpecies(territoryDTO, numberGenerator, territory);
         List<Organism> herbivoreOrganisms = new ArrayList<>();
         for (Species species : herbivores) {
             herbivoreOrganisms.addAll(buildOrganismsOfSpecies(species, territory, numberGenerator));
@@ -109,6 +75,11 @@ public class ApplicationConfig {
             carnivoreOrganisms.addAll(buildOrganismsOfSpecies(carnivore, territory, numberGenerator));
         }
         territory.setCarnivores(carnivoreOrganisms);
+    }
+
+    private List<Species> getHerbivoreSpecies(TerritoryDTO territoryDTO, NumberGenerator numberGenerator, Territory territory) {
+        List<SpeciesDTO> speciesDTOsHerbivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.HERBIVORE)).collect(Collectors.toList());
+        return createListOfSpecies(speciesDTOsHerbivores, territory, numberGenerator);
     }
 
     private List<Species> createListOfSpecies(List<SpeciesDTO> speciesDTOs, Territory territory, NumberGenerator numberGenerator) {
@@ -140,6 +111,12 @@ public class ApplicationConfig {
         }
         return speciesList;
     }
+
+    private List<Species> getCarnivoreSpecies(TerritoryDTO territoryDTO, NumberGenerator numberGenerator, Territory territory) {
+        List<SpeciesDTO> speciesDTOsCarnivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.CARNIVORE)).collect(Collectors.toList());
+        return createListOfSpecies(speciesDTOsCarnivores, territory, numberGenerator);
+    }
+
 
     private List<Organism> buildOrganismsOfSpecies(Species species, Territory territory, NumberGenerator numberGenerator) {
         List<Organism> organisms = new ArrayList<>();

@@ -1,0 +1,50 @@
+{
+  "height": 150,
+  "width": 200,
+  "number_of_species": 4,
+  "fertility": 7,
+  "fertility_diversity": 1,
+  "species_dtos": [
+    {
+      "sign": "a",
+      "behavior_dto": {
+        "feeding_strategy": "herbivore",
+        "replication_strategy": "default",
+        "special_features": []
+      },
+      "adult_preferred_body_mass": 65,
+      "max_age": 100
+    },
+    {
+      "sign": "b",
+      "behavior_dto": {
+        "feeding_strategy": "carnivore",
+        "replication_strategy": "big children",
+        "special_features": []
+      },
+      "adult_preferred_body_mass": 80,
+      "max_age": 300
+    },
+    {
+      "sign": "c",
+      "behavior_dto": {
+        "feeding_strategy": "herbivore",
+        "replication_strategy": "small children",
+        "special_features": []
+      },
+      "adult_preferred_body_mass": 80,
+      "max_age": 200
+    },
+    {
+      "sign": "d",
+      "behavior_dto": {
+        "feeding_strategy": "herbivore",
+        "replication_strategy": "many small children at end of life",
+        "special_features": []
+      },
+      "adult_preferred_body_mass": 80,
+      "max_age": 300
+    }
+  ],
+  "ordinal_number_of_species_to_be_created": 5
+}
