@@ -21,6 +21,8 @@ import biodiversity.view.TerritoryObserver;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,13 +32,16 @@ import java.util.stream.Collectors;
 
 public class ApplicationConfig {
 
+    private static final Logger logger = LogManager.getLogger(ApplicationConfig.class);
+
+
     public void startDefaultSimulation() {
         try{
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setPropertyNamingStrategy(new PropertyNamingStrategies.SnakeCaseStrategy());
             ApplicationConfig applicationConfig = new ApplicationConfig();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            TerritoryDTO territoryDTO = objectMapper.readValue(new File("config.json"), TerritoryDTO.class);
+            TerritoryDTO territoryDTO = objectMapper.readValue(new File("src/main/resources/config.json"), TerritoryDTO.class);
             startSimulation(territoryDTO);
         } catch (IOException e) {
             Menu menu = new Menu();
@@ -75,6 +80,7 @@ public class ApplicationConfig {
             carnivoreOrganisms.addAll(buildOrganismsOfSpecies(carnivore, territory, numberGenerator));
         }
         territory.setCarnivores(carnivoreOrganisms);
+        logger.info("simulation start");
     }
 
     private List<Species> getHerbivoreSpecies(TerritoryDTO territoryDTO, NumberGenerator numberGenerator, Territory territory) {

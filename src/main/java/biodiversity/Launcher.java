@@ -17,6 +17,7 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        logger.info("App starts");
         Menu menu = new Menu();
         MenuController menuController = new MenuController(menu);
     }

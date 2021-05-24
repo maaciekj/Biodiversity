@@ -4,8 +4,12 @@ import biodiversity.view.CharColorFX;
 import biodiversity.view.InvalidUsersInputException;
 import biodiversity.view.Menu;
 import biodiversity.view.SpeciesMenu;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SpeciesMenuController {
+
+    private static final Logger logger = LogManager.getLogger(SpeciesMenuController.class);
 
     private final SpeciesMenu speciesMenu;
     private final TerritoryDTO territoryDTO;
@@ -26,7 +30,6 @@ public class SpeciesMenuController {
 
     private void addProceedAction(){
         speciesMenu.addProceedButtonAction(event -> {
-            System.out.println("proceeding");
             SpeciesDTO speciesDTO = new SpeciesDTO.SpeciesDTOBuilder()
                     .build();
             speciesDTO.setSign(CharColorFX.findSignByNumber(territoryDTO.getOrdinalNumberOfSpeciesToBeCreated()));
@@ -57,12 +60,11 @@ public class SpeciesMenuController {
 
     private void setNewSpeciesMenu() {
         new SpeciesMenuController(new SpeciesMenu(territoryDTO));
-        System.out.println(territoryDTO);
         speciesMenu.close();
     }
 
     private void proceedToSimulation(){
-        System.out.println(territoryDTO);
+        logger.info("info from user complete. proceeding do build app");
         ApplicationConfig applicationConfig = new ApplicationConfig();
         applicationConfig.startSimulation(territoryDTO);
         speciesMenu.close();
