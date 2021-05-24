@@ -160,7 +160,7 @@ public class SpeciesMenu extends Stage {
         return (int) maxAge.getValue();
     }
 
-
-
-
+    public TerritoryDTO getTerritoryDTO() {
+        return territoryDTO;
+    }
 }

@@ -33,7 +33,6 @@ public class TerritoryMenuController {
                 setNewTerritoryMenuAndClosePresent();
                 return;
             }
-
             try {
                 territoryDTO.setFertility(collectAndValidateFertility());
             } catch (Exception e) {
@@ -70,7 +69,7 @@ public class TerritoryMenuController {
     }
 
     private void goToSpeciesMenu(TerritoryDTO territoryDTO) {
-        new SpeciesMenuController(new SpeciesMenu(territoryDTO), territoryDTO);
+        new SpeciesMenuController(new SpeciesMenu(territoryDTO));
         System.out.println(territoryDTO);
         territoryMenu.close();
     }

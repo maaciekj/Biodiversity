@@ -9,6 +9,11 @@ import lombok.Setter;
 @Builder
 public class SpeciesDTO {
 
+    private char sign;
+    private BehaviorDTO behaviorDTO;
+    private int adultPreferredBodyMass;
+    private int maxAge;
+
     public SpeciesDTO() {
     }
 
@@ -18,12 +23,5 @@ public class SpeciesDTO {
         this.adultPreferredBodyMass = adultPreferredBodyMass;
         this.maxAge = maxAge;
     }
-
-    private char sign;
-    private BehaviorDTO behaviorDTO;
-    private int adultPreferredBodyMass;
-    private int maxAge;
-
-
 
 }
