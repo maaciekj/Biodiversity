@@ -5,8 +5,12 @@ import biodiversity.view.InvalidUsersInputException;
 import biodiversity.view.Menu;
 import biodiversity.view.SpeciesMenu;
 import biodiversity.view.TerritoryMenu;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TerritoryMenuController {
+
+    private static final Logger logger = LogManager.getLogger(TerritoryMenuController.class);
 
     private TerritoryMenu territoryMenu;
 
@@ -25,24 +29,26 @@ public class TerritoryMenuController {
 
     private void addProceedAction() {
         territoryMenu.addProceedButtonAction(event -> {
-            System.out.println("proceeding");
             TerritoryDTO territoryDTO = new TerritoryDTO();
             try {
                 territoryDTO.setNumberOfSpecies(collectAndValidateNumberOfSpecies());
             } catch (InvalidUsersInputException e){
+              logger.warn(e.getMessage());
                 setNewTerritoryMenuAndClosePresent();
                 return;
             }
             try {
                 territoryDTO.setFertility(collectAndValidateFertility());
-            } catch (Exception e) {
+            } catch (InvalidUsersInputException e) {
+                logger.warn(e.getMessage());
                 setNewTerritoryMenuAndClosePresent();
                 return;
             }
             try {
                 String diversity = territoryMenu.getDiversity();
                 territoryDTO.setFertilityDiversity(DiversityTextInt.valueOf(diversity.toUpperCase()).getDiversityCode());
-            } catch (Exception e) {
+            } catch (InvalidUsersInputException e) {
+                logger.warn(e.getMessage());
                 setNewTerritoryMenuAndClosePresent();
                 return;
             }
@@ -70,7 +76,6 @@ public class TerritoryMenuController {
 
     private void goToSpeciesMenu(TerritoryDTO territoryDTO) {
         new SpeciesMenuController(new SpeciesMenu(territoryDTO));
-        System.out.println(territoryDTO);
         territoryMenu.close();
     }
 }

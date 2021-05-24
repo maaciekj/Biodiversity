@@ -3,10 +3,14 @@ package biodiversity.model.territory;
 import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
 import biodiversity.view.TerritoryObserver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
 public class Territory {
+
+    private static final Logger logger = LogManager.getLogger(Territory.class);
 
     private char emptyFieldSign;
     private Field[][] places;
@@ -14,7 +18,6 @@ public class Territory {
     private TerritoryObserver observer;
     private Counter counter;
     private List<Organism> carnivores = new ArrayList<>();
-
 
     public static class Builder {
         private char emptyFieldSign;
@@ -69,8 +72,6 @@ public class Territory {
     private Territory() {
     }
 
-
-
     public void doItsTurn() {
         placesDoTheirTurn();
         List<Organism> organisms = new LinkedList<>();
@@ -88,7 +89,7 @@ public class Territory {
         if (counter.getIterationNumber() == Constants.CARNIVORES_APPEAR_AT_ITERATION) {
             introduceCarnivores();
         }
-        printStatistics(); // only testing feature
+        printStatistics();
         counter.addIteration();
     }
 
@@ -104,15 +105,9 @@ public class Territory {
 
     private void printStatistics() {
         if (counter.getIterationNumber() % 100 == 0) { // only testing feature
-            System.out.println(places[10][10].toString());
-            try {
-                System.out.println(inhabitants[10][10].toString());
-            } catch (NullPointerException e) {
-                System.out.println("null at the place");
-            }
-            System.out.println("number of organisms " + getNumberOfOrganisms());
-            System.out.println("iteration: " + counter.getIterationNumber());
-            System.out.println(counter.getTime() + "\n");
+            logger.info("number of organisms " + getNumberOfOrganisms());
+            logger.info("iteration: " + counter.getIterationNumber());
+            logger.info(counter.getTime() + "\n");
             counter.setTime();
         }
     }
