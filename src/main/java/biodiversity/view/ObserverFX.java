@@ -42,4 +42,15 @@ public class ObserverFX implements TerritoryObserver {
         simulationDisplay.changeColorOfAnElementInDisplay(col, row, sign);
     }
 
+    @Override
+    public int getNumberOfOrganismsOfSpecies(char sign) {
+        return territory.getNumberOfOrganismsOfSpecies(sign);
+    }
+
+    @Override
+    public int getIteration() {
+        return territory.getIteration();
+    }
+
+
 }

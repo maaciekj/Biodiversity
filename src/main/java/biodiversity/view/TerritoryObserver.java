@@ -18,4 +18,8 @@ public interface TerritoryObserver {
 
     void updateDisplay(int row, int col, char sign);
 
+    int getNumberOfOrganismsOfSpecies(char sign);
+
+    int getIteration();
+
 }

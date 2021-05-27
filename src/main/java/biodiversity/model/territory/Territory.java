@@ -19,6 +19,9 @@ public class Territory {
     private Counter counter;
     private List<Organism> carnivores = new ArrayList<>();
 
+
+
+
     public static class Builder {
         private char emptyFieldSign;
         private Field[][] places;
@@ -138,6 +141,22 @@ public class Territory {
         return numberOfOrganisms;
     }
 
+    public int getNumberOfOrganismsOfSpecies(char sign) {
+        int numberOfOrganisms = 0;
+        for (int row = 0; row < inhabitants.length; row++) {
+            for (int col = 0; col < inhabitants[row].length; col++) {
+                if (inhabitants[row][col] != null){
+                    if (inhabitants[row][col].getSign()==sign){
+                        numberOfOrganisms++;
+                    }
+                }
+            }
+        }
+        return numberOfOrganisms;
+    }
+
+
+
     public char[][] getTerritorySigns() {
         char[][] signs = new char[inhabitants.length][inhabitants[0].length];
         for (int row = 0; row < inhabitants.length; row++) {
@@ -229,6 +248,10 @@ public class Territory {
 
     public int getHeight() {
         return inhabitants.length;
+    }
+
+    public int getIteration() {
+        return counter.getIterationNumber();
     }
 
     public void setCarnivores(List<Organism> carnivores) {

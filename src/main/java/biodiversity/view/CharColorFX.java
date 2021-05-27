@@ -13,6 +13,8 @@ public enum CharColorFX {
     A(1, 'a', CORNFLOWERBLUE), B(2, 'b', DARKORANGE), C(3, 'c', LEMONCHIFFON), D(4, 'd', OLIVE), E(5, 'e', CRIMSON),
     F(6, 'f', SLATEGRAY), G(7, 'g', CADETBLUE), H(8, 'h', PALEGREEN), I(8, 'i', BLUEVIOLET), J(9, 'j', DARKKHAKI);
 
+    //
+
     private int number;
     private char sign;
     private Color color;
