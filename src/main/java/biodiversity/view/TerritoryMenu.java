@@ -1,7 +1,7 @@
 package biodiversity.view;
 
-import biodiversity.controller.FertilityTextInt;
 import biodiversity.Constants;
+import biodiversity.controller.FertilityTextInt;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -53,7 +53,7 @@ public class TerritoryMenu extends Stage {
         scene = new Scene(layout);
         setScene(scene);
 
-        onSpecies = new Text("How many species you'd like to have at the beginning? ("+ Constants.MIN_NUMBER_OF_SPECIES+"-"+Constants.MAX_NUMBER_OF_SPECIES+")");
+        onSpecies = new Text("How many species you'd like to have at the beginning? (" + Constants.MIN_NUMBER_OF_SPECIES + "-" + Constants.MAX_NUMBER_OF_SPECIES + ")");
 
         howManySpecies = new TextField();
 
@@ -95,20 +95,20 @@ public class TerritoryMenu extends Stage {
         show();
     }
 
-    public void addBackButtonAction(EventHandler<ActionEvent> event){
+    public void addBackButtonAction(EventHandler<ActionEvent> event) {
         back.setOnAction(event);
     }
 
-    public void addProceedButtonAction(EventHandler<ActionEvent> event){
+    public void addProceedButtonAction(EventHandler<ActionEvent> event) {
         proceed.setOnAction(event);
     }
 
-    public String getHowManySpecies (){
-       return howManySpecies.getText();
+    public String getHowManySpecies() {
+        return howManySpecies.getText();
     }
 
-    public String getFertility() throws InvalidUsersInputException{
-        if (toggleFertility.getSelectedToggle()!=null){
+    public String getFertility() throws InvalidUsersInputException {
+        if (toggleFertility.getSelectedToggle() != null) {
             RadioButton chosen = (RadioButton) toggleFertility.getSelectedToggle();
             return chosen.getText();
         } else {
@@ -117,7 +117,7 @@ public class TerritoryMenu extends Stage {
     }
 
     public String getDiversity() throws InvalidUsersInputException {
-        if (toggleDiversity.getSelectedToggle()!=null){
+        if (toggleDiversity.getSelectedToggle() != null) {
             RadioButton chosen = (RadioButton) toggleDiversity.getSelectedToggle();
             return chosen.getText();
         } else {

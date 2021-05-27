@@ -107,7 +107,7 @@ public class Territory {
         if (counter.getIterationNumber() % 100 == 0) {
             logger.info("number of organisms: " + getNumberOfOrganisms());
             logger.info("iteration: " + counter.getIterationNumber());
-            if(counter.getIterationNumber()==0){
+            if (counter.getIterationNumber() == 0) {
                 logger.info("animation complete \n");
             } else {
                 logger.info("Time from last measure: " + counter.getTime() + "\n");
@@ -204,7 +204,7 @@ public class Territory {
         List<Organism> organismsNearby = new ArrayList<>();
         for (int i = 0; i < 2 * range + 1; i++) {
             for (int j = 0; j < 2 * range + 1; j++) {
-                if (placeIsInhabited(row + i - range, col + j - range) && inhabitants[row + i - range][col + j - range].getSign()!=askingSign) {
+                if (placeIsInhabited(row + i - range, col + j - range) && inhabitants[row + i - range][col + j - range].getSign() != askingSign) {
                     organismsNearby.add(inhabitants[row + i - range][col + j - range]);
                 }
             }

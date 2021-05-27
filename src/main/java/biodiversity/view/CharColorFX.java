@@ -59,12 +59,4 @@ public enum CharColorFX {
         return CHARS_BY_NUMBERS.get(number);
     }
 
-    public char getSign() {
-        return sign;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
 }

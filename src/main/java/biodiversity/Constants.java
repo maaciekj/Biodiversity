@@ -20,8 +20,6 @@ public class Constants {
 
     public static final int ENERGY_EXTRACTED_FROM_BODY_MASS_BY_PREDATOR = 4;
 
-    public static final int ENERGY_EXTRACTED_FROM_BODY_MASS_BY_ORGANISM_ITSELF = 3;
-
     public static final double BASIC_REPLICATION_PROBABILITY = 0.75;
 
     public static final double CARNIVORES_BASIC_EFFICIENCY = 0.65;

@@ -11,16 +11,15 @@ public class Species {
     private final int maturityAge;
     private final int maxAge;
 
-
     public Species(char sign, Behavior behavior, int adultPreferredBodyMass, int maxAge) {
         this.sign = sign;
         this.behavior = behavior;
         this.adultPreferredBodyMass = adultPreferredBodyMass;
-        this.maturityAge = (int) Math.round(maxAge*Constants.MATURITY_AGE_TO_MAX_AGE_DEFAULT);
+        this.maturityAge = (int) Math.round(maxAge * Constants.MATURITY_AGE_TO_MAX_AGE_DEFAULT);
         this.maxAge = maxAge;
     }
 
-    public void doOutsourcedFunctions(Organism organism){
+    public void doOutsourcedFunctions(Organism organism) {
         behavior.doOutsourcedFunctions(organism);
     }
 

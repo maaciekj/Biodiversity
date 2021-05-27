@@ -36,7 +36,7 @@ public class ApplicationConfig {
 
 
     public void startDefaultSimulation() {
-        try{
+        try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setPropertyNamingStrategy(new PropertyNamingStrategies.SnakeCaseStrategy());
             ApplicationConfig applicationConfig = new ApplicationConfig();

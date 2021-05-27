@@ -14,14 +14,4 @@ public class SpeciesDTO {
     private int adultPreferredBodyMass;
     private int maxAge;
 
-    public SpeciesDTO() {
-    }
-
-    public SpeciesDTO(char sign, BehaviorDTO behaviorDTO, int adultPreferredBodyMass, int maxAge) {
-        this.sign = sign;
-        this.behaviorDTO = behaviorDTO;
-        this.adultPreferredBodyMass = adultPreferredBodyMass;
-        this.maxAge = maxAge;
-    }
-
 }

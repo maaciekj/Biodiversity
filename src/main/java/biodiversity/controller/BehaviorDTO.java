@@ -2,7 +2,7 @@ package biodiversity.controller;
 
 import lombok.Getter;
 import lombok.Setter;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Getter
@@ -14,12 +14,6 @@ public class BehaviorDTO {
     private List<String> specialFeatures;
 
     public BehaviorDTO() {
-    }
-
-    public BehaviorDTO(String feedingStrategy, String replicationStrategy) {
-        this.feedingStrategy = feedingStrategy;
-        this.replicationStrategy = replicationStrategy;
-        specialFeatures = new ArrayList<>();
     }
 
 }

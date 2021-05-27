@@ -32,8 +32,8 @@ public class TerritoryMenuController {
             TerritoryDTO territoryDTO = new TerritoryDTO();
             try {
                 territoryDTO.setNumberOfSpecies(collectAndValidateNumberOfSpecies());
-            } catch (InvalidUsersInputException e){
-              logger.warn(e.getMessage());
+            } catch (InvalidUsersInputException e) {
+                logger.warn(e.getMessage());
                 setNewTerritoryMenuAndClosePresent();
                 return;
             }
@@ -58,13 +58,13 @@ public class TerritoryMenuController {
 
     private int collectAndValidateNumberOfSpecies() throws InvalidUsersInputException {
         int numberOfSpecies = Integer.parseInt(territoryMenu.getHowManySpecies());
-        if (numberOfSpecies< Constants.MIN_NUMBER_OF_SPECIES ||numberOfSpecies>Constants.MAX_NUMBER_OF_SPECIES){
+        if (numberOfSpecies < Constants.MIN_NUMBER_OF_SPECIES || numberOfSpecies > Constants.MAX_NUMBER_OF_SPECIES) {
             throw new InvalidUsersInputException("You didn't type number of species ");
         }
         return numberOfSpecies;
     }
 
-    private void setNewTerritoryMenuAndClosePresent(){
+    private void setNewTerritoryMenuAndClosePresent() {
         new TerritoryMenuController(new TerritoryMenu());
         territoryMenu.close();
     }

@@ -12,7 +12,7 @@ public interface TerritoryObserver {
 
     int getHeight();
 
-    char [][] getSigns();
+    char[][] getSigns();
 
     void initializeIteration();
 

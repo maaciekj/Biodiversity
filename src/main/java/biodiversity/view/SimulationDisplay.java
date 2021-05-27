@@ -57,6 +57,7 @@ public class SimulationDisplay extends Stage {
     private void startTimer() {
         animationTimer = new AnimationTimer() {
             long lastTime;
+
             @Override
             public void handle(long now) {
                 if (now - lastTime > DisplayConstants.ANIMATION_TIME) {
@@ -81,7 +82,7 @@ public class SimulationDisplay extends Stage {
 
     private int calculateNumberInDisplay(int cordX, int cordY) {
         /*if (cordX >= columnCount || cordY >= rowsCount) {
-            *//*try {
+         *//*try {
                 throw new Exception("Given coordinates greater than territory size");
             } catch (Exception e) {
                 e.printStackTrace();

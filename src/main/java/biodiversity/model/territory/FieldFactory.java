@@ -15,7 +15,7 @@ public class FieldFactory {
     }
 
 
-    public Field [][] createFieldPattern (TerritoryDTO territoryDTO){
+    public Field[][] createFieldPattern(TerritoryDTO territoryDTO) {
         return createFieldPattern(territoryDTO.getHeight(), territoryDTO.getWidth(), territoryDTO.getFertility(), territoryDTO.getFertilityDiversity());
     }
 

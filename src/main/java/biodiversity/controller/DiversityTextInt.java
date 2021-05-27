@@ -4,7 +4,7 @@ public enum DiversityTextInt {
 
     NONE(0), LOW(1), MEDIUM(3), HIGH(5);
 
-    private int diversityCode;
+    private final int diversityCode;
 
     DiversityTextInt(int diversityCode) {
         this.diversityCode = diversityCode;

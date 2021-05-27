@@ -7,13 +7,13 @@ import biodiversity.model.territory.Territory;
 public class Organism {
 
     private final Species species; // here Behavior
-    private final char sign; // get from species, frequently accessed performance issue
+    private final char sign; // got from species, frequently needed
     private int row; // concrete organism
     private int col; // concrete organism
     private int age; // concrete organism
-    private int activeBodyMass; // concrete organism -
+    private int activeBodyMass; // concrete organism
     private int storedEnergy; // concrete organism
-    private int energyConsumption; // once for turn calculated; frequently needed performance issue
+    private int energyConsumption; //  calculated once for turn; frequently needed
     private final Territory territory;
     private final NumberGenerator numberGenerator;
     // many features are at Species - Behavior level
@@ -25,32 +25,32 @@ public class Organism {
         private Territory territory;
         private NumberGenerator numberGenerator;
 
-        public Builder species(Species species){
+        public Builder species(Species species) {
             this.species = species;
             return this;
         }
 
-        public Builder activeBodyMass(int activeBodyMass){
+        public Builder activeBodyMass(int activeBodyMass) {
             this.activeBodyMass = activeBodyMass;
             return this;
         }
 
-        public Builder storedEnergy(int storedEnergy){
+        public Builder storedEnergy(int storedEnergy) {
             this.storedEnergy = storedEnergy;
             return this;
         }
 
-        public Builder territory(Territory territory){
+        public Builder territory(Territory territory) {
             this.territory = territory;
             return this;
         }
 
-        public Builder numberGenerator(NumberGenerator numberGenerator){
+        public Builder numberGenerator(NumberGenerator numberGenerator) {
             this.numberGenerator = numberGenerator;
             return this;
         }
 
-        public Organism build(){
+        public Organism build() {
             return new Organism(this);
         }
     }

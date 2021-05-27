@@ -32,8 +32,6 @@ public class Menu extends Stage {
     }
 
 
-
-
     public void addStartDefaultButtonAction(EventHandler<ActionEvent> event) {
         startDefault.setOnAction(event);
     }

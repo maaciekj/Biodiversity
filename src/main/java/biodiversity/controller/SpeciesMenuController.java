@@ -28,7 +28,7 @@ public class SpeciesMenuController {
         });
     }
 
-    private void addProceedAction(){
+    private void addProceedAction() {
         speciesMenu.addProceedButtonAction(event -> {
             SpeciesDTO speciesDTO = new SpeciesDTO.SpeciesDTOBuilder()
                     .build();
@@ -36,13 +36,13 @@ public class SpeciesMenuController {
             BehaviorDTO behaviorDTO = new BehaviorDTO();
             try {
                 behaviorDTO.setFeedingStrategy(speciesMenu.getFeeding());
-            } catch (InvalidUsersInputException e){
+            } catch (InvalidUsersInputException e) {
                 setNewSpeciesMenu();
                 return;
             }
-            try{
+            try {
                 behaviorDTO.setReplicationStrategy(speciesMenu.getReplication());
-            } catch (InvalidUsersInputException e){
+            } catch (InvalidUsersInputException e) {
                 setNewSpeciesMenu();
                 return;
             }
@@ -50,7 +50,7 @@ public class SpeciesMenuController {
             speciesDTO.setAdultPreferredBodyMass(speciesMenu.getMass());
             speciesDTO.setMaxAge(speciesMenu.getMaxAge());
             territoryDTO.addSpeciesDTO(speciesDTO);
-            if (territoryDTO.getNumberOfSpecies()==territoryDTO.getSpeciesDTOs().size()){
+            if (territoryDTO.getNumberOfSpecies() == territoryDTO.getSpeciesDTOs().size()) {
                 proceedToSimulation();
             } else {
                 setNewSpeciesMenu();
@@ -63,7 +63,7 @@ public class SpeciesMenuController {
         speciesMenu.close();
     }
 
-    private void proceedToSimulation(){
+    private void proceedToSimulation() {
         logger.info("info from user complete. proceeding do build app");
         ApplicationConfig applicationConfig = new ApplicationConfig();
         applicationConfig.startSimulation(territoryDTO);
