@@ -6,8 +6,6 @@ public class DisplayConstants {
 
     public static final long ANIMATION_TIME = 50_000_000;
 
-    public static final int ITERATIONS_FOR_SCREEN = 1;
-
     public static final String HERBIVORE = "herbivore";
 
     public static final String CARNIVORE = "carnivore";

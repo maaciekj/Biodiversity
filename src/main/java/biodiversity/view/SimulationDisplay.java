@@ -13,7 +13,7 @@ public class SimulationDisplay extends Stage {
 
     private int columnCount;
     private int rowsCount;
-    //window  // TODO separate branches for main simulationDisplay and additional displays and controllers
+    //window  //
     private Pane root = new Pane();
     private Scene scene = new Scene(root);
     private AnimationTimer animationTimer;
@@ -70,9 +70,7 @@ public class SimulationDisplay extends Stage {
     }
 
     private void updateTerritory() {
-        for (int i = 0; i < DisplayConstants.ITERATIONS_FOR_SCREEN; i++) {  // TODO simplify this method or make really configurable
-            territoryObserver.initializeIteration();
-        }
+        territoryObserver.initializeIteration();
     }
 
     public void changeColorOfAnElementInDisplay(int cordX, int cordY, char sign) {
@@ -81,13 +79,6 @@ public class SimulationDisplay extends Stage {
     }
 
     private int calculateNumberInDisplay(int cordX, int cordY) {
-        /*if (cordX >= columnCount || cordY >= rowsCount) {
-         *//*try {
-                throw new Exception("Given coordinates greater than territory size");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }*//*
-        }*/
         return (cordY * columnCount) + cordX;
     }
 
