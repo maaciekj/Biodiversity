@@ -199,11 +199,12 @@ public class Territory {
         return col >= inhabitants[row].length;
     }
 
-    public List<Organism> checkOrganismsNearby(int row, int col, int range) {
+    // method with four parameters to avoid creating vast number of DTOs, which causes significant performance penalty
+    public List<Organism> checkOrganismsNearbyExcludingOwnSpecies(int row, int col, int range, char askingSign) {
         List<Organism> organismsNearby = new ArrayList<>();
         for (int i = 0; i < 2 * range + 1; i++) {
             for (int j = 0; j < 2 * range + 1; j++) {
-                if (placeIsInhabited(row + i - range, col + j - range) && isNotAPlaceOfAskingOrganism(row, col, range, i, j)) {
+                if (placeIsInhabited(row + i - range, col + j - range) && inhabitants[row + i - range][col + j - range].getSign()!=askingSign) {
                     organismsNearby.add(inhabitants[row + i - range][col + j - range]);
                 }
             }
@@ -216,10 +217,6 @@ public class Territory {
             return false;
         }
         return inhabitants[row][col] != null;
-    }
-
-    private boolean isNotAPlaceOfAskingOrganism(int row, int col, int range, int i, int j) {
-        return row + i - range != row || col + j - range != col;
     }
 
     public int feedOnPlants(int row, int col, int demand) {

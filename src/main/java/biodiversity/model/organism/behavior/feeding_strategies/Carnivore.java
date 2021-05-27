@@ -46,22 +46,20 @@ public class Carnivore extends FeedingStrategy {
     }
 
     protected List<Organism> getListOfOrganismInNearby(Organism organism){
-        return territory.checkOrganismsNearby(organism.getRow(), organism.getCol(), 1);
+        return territory.checkOrganismsNearbyExcludingOwnSpecies(organism.getRow(), organism.getCol(), 1, organism.getSign());
     }
 
     protected void migrate(Organism organism) {
-        List<Field> freeFields = territory.checkFreePlaces(organism.getRow(), organism.getCol(), 2);
+        int rangeOfSearching = 2;
+        List<Field> freeFields = territory.checkFreePlaces(organism.getRow(), organism.getCol(), rangeOfSearching);
         if (freeFields.size()==0){
             return;
         }
         Collections.shuffle(freeFields);
-        // Streams have significant impact on performance due to creating huge number of new objects during simulation
-        int rangeOfSearching = 2;
         int numberOfPossiblePreyNeededToAttract = 3;
         List<Field> freeFieldsWithEnoughOrganismsNearby = freeFields.stream()
-                .filter(field ->  territory.checkOrganismsNearby(field.getRow(), field.getCol(), rangeOfSearching)  // TODO try to remove second stream
-                        .stream().filter(organism1 -> organism1.getSign() != organism.getSign()).count() >= numberOfPossiblePreyNeededToAttract)
-                .collect(Collectors.toList());  // TODO findAny or findFirst
+                .filter(field ->  territory.checkOrganismsNearbyExcludingOwnSpecies(field.getRow(), field.getCol(), rangeOfSearching, organism.getSign()).size()>=numberOfPossiblePreyNeededToAttract)
+                .collect(Collectors.toList());
         if (freeFieldsWithEnoughOrganismsNearby.isEmpty()){
             Field fieldToGo = freeFields.get(numberGenerator.generateRandomInt(freeFields.size()));
             moveTo(organism, fieldToGo.getRow(), fieldToGo.getCol());
