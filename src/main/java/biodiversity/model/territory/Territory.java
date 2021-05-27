@@ -89,7 +89,7 @@ public class Territory {
         if (counter.getIterationNumber() == Constants.CARNIVORES_APPEAR_AT_ITERATION) {
             introduceCarnivores();
         }
-        printStatistics();
+        sendStatisticsToLogger();
         counter.addIteration();
     }
 
@@ -103,11 +103,15 @@ public class Territory {
         }
     }
 
-    private void printStatistics() {
-        if (counter.getIterationNumber() % 100 == 0) { // only testing feature
-            logger.info("number of organisms " + getNumberOfOrganisms());
+    private void sendStatisticsToLogger() {
+        if (counter.getIterationNumber() % 100 == 0) {
+            logger.info("number of organisms: " + getNumberOfOrganisms());
             logger.info("iteration: " + counter.getIterationNumber());
-            logger.info(counter.getTime() + "\n");
+            if(counter.getIterationNumber()==0){
+                logger.info("animation complete \n");
+            } else {
+                logger.info("Time from last measure: " + counter.getTime() + "\n");
+            }
             counter.setTime();
         }
     }
@@ -120,10 +124,6 @@ public class Territory {
             addInhabitant(carnivore);
         }
         carnivores.clear();
-    }
-
-    public Organism getInhabitant(int row, int col) {
-        return inhabitants[row][col];
     }
 
     private int getNumberOfOrganisms() {
@@ -168,7 +168,6 @@ public class Territory {
     }
 
     public List<Field> checkFreePlaces(int row, int col, int range) {
-        // generating list of free fields in square ranging from the organism searching both rectangular and diagonal
         List<Field> freeFields = new ArrayList<>();
         for (int i = 0; i < 2 * range + 1; i++) {
             for (int j = 0; j < 2 * range + 1; j++) {
@@ -204,8 +203,7 @@ public class Territory {
         List<Organism> organismsNearby = new ArrayList<>();
         for (int i = 0; i < 2 * range + 1; i++) {
             for (int j = 0; j < 2 * range + 1; j++) {
-                // (row+i-range!=row||col+j-range!=col) mechanism preventing including asking organism to list
-                if (placeIsInhabited(row + i - range, col + j - range) && (row + i - range != row || col + j - range != col)) {
+                if (placeIsInhabited(row + i - range, col + j - range) && isNotAPlaceOfAskingOrganism(row, col, range, i, j)) {
                     organismsNearby.add(inhabitants[row + i - range][col + j - range]);
                 }
             }
@@ -220,12 +218,12 @@ public class Territory {
         return inhabitants[row][col] != null;
     }
 
-    public int feedOnPlants(int row, int col, int demand) {
-        return places[row][col].feed(demand);
+    private boolean isNotAPlaceOfAskingOrganism(int row, int col, int range, int i, int j) {
+        return row + i - range != row || col + j - range != col;
     }
 
-    public Field getField(int row, int col) {
-        return places[row][col];
+    public int feedOnPlants(int row, int col, int demand) {
+        return places[row][col].feed(demand);
     }
 
     public int getWidth() {
@@ -234,10 +232,6 @@ public class Territory {
 
     public int getHeight() {
         return inhabitants.length;
-    }
-
-    public int getLastIteration() {
-        return counter.getIterationNumber();
     }
 
     public void setCarnivores(List<Organism> carnivores) {

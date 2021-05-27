@@ -18,8 +18,8 @@ public class Counter {
         lastTime = System.currentTimeMillis();
     }
 
-    public String getTime (){
-        return "Time from last measure "+(System.currentTimeMillis()-lastTime);
+    public int getTime (){
+        return (int) (System.currentTimeMillis()-lastTime);
     }
 
 }

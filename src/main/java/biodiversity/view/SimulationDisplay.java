@@ -80,13 +80,13 @@ public class SimulationDisplay extends Stage {
     }
 
     private int calculateNumberInDisplay(int cordX, int cordY) {
-        if (cordX >= columnCount || cordY >= rowsCount) {
-            /*try {
+        /*if (cordX >= columnCount || cordY >= rowsCount) {
+            *//*try {
                 throw new Exception("Given coordinates greater than territory size");
             } catch (Exception e) {
                 e.printStackTrace();
-            }*/
-        }
+            }*//*
+        }*/
         return (cordY * columnCount) + cordX;
     }
 

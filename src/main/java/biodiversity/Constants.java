@@ -2,10 +2,9 @@ package biodiversity;
 
 public class Constants {
 
+    public static final int TERRITORY_HEIGHT_DEFAULT = 150;
 
-    public static final int TERRITORY_HEIGHT_DEFAULT = 150; // normal 200
-
-    public static final int TERRITORY_WIDTH_DEFAULT = 200; // normal 300
+    public static final int TERRITORY_WIDTH_DEFAULT = 200;
 
     public static final int MIN_NUMBER_OF_SPECIES = 1;
 
@@ -35,13 +34,13 @@ public class Constants {
 
     public static final double MATURITY_AGE_TO_MAX_AGE_DEFAULT = 0.15;
 
-    public static double CHILD_TO_ADULT_MASS_RATIO_STANDARD = 0.10; // best 0.15
+    public static double CHILD_TO_ADULT_MASS_RATIO_STANDARD = 0.10;
 
-    public static double CHILD_TO_ADULT_MASS_RATIO_BIG_CHILDREN = 0.25; // best 0.25
+    public static double CHILD_TO_ADULT_MASS_RATIO_BIG_CHILDREN = 0.25;
 
-    public static double CHILD_TO_ADULT_MASS_RATIO_SMALL_CHILDREN = 0.06; // best 0.03
+    public static double CHILD_TO_ADULT_MASS_RATIO_SMALL_CHILDREN = 0.06;
 
-    public static double CHILD_TO_ADULT_MASS_RATIO_MANY_SMALL_CHILDREN = 0.06; // best 0.05
+    public static double CHILD_TO_ADULT_MASS_RATIO_MANY_SMALL_CHILDREN = 0.06;
 
     public static double MANY_SMALL_CHILDREN_STRATEGY_EFFICIENCY = 0.75;
 
