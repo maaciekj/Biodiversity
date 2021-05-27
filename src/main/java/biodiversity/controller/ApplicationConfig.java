@@ -44,6 +44,7 @@ public class ApplicationConfig {
             TerritoryDTO territoryDTO = objectMapper.readValue(new File("src/main/resources/config.json"), TerritoryDTO.class);
             startSimulation(territoryDTO);
         } catch (IOException e) {
+            logger.warn(e.getMessage());
             Menu menu = new Menu();
             MenuController menuController = new MenuController(menu);
         }
