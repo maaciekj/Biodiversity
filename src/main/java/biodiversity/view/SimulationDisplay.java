@@ -7,11 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,21 +20,25 @@ import java.util.Locale;
 
 public class SimulationDisplay extends Stage {
 
-    private static Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger();
 
-    private TerritoryObserver territoryObserver;
+    private final TerritoryObserver territoryObserver;
     private final int columnCount;
     private final int rowsCount;
 
-    private Pane root;
-    private Pane animationPane;
-    private Pane statisticsPane;
-    private Scene scene;
+    private final Pane root;
+    private final Pane animationPane;
+
+    private final Scene scene;
     private AnimationTimer animationTimer;
 
-    private int iterationNumber;
-
-    private Pane iterationNumberDisplay;
+    private HBox statisticsHBox;
+    private Label iterationNumberLabel;
+    private Label speciesLabelA;
+    private Label speciesLabelB;
+    private Label speciesLabelC;
+    private Label speciesLabelD;
+    private Label speciesLabelE;
 
 
     //  scene.setOnMouseClicked((mouseEvent)->{
@@ -72,7 +75,6 @@ public class SimulationDisplay extends Stage {
 
     private void initComponents() {
         root.getChildren().add(animationPane);
-
     }
 
     private void initAnimationPane(char[][] organismSigns) {
@@ -92,15 +94,38 @@ public class SimulationDisplay extends Stage {
     }
 
     private void addIterationNumberDisplay(){
-        iterationNumberDisplay = new Pane();
-        iterationNumberDisplay.setLayoutX(0);
-        iterationNumberDisplay.setLayoutY(450);
-        Label labelWithNumber = new Label("Iteration: "+iterationNumber);
-        labelWithNumber.setBackground(new Background((new BackgroundFill(Paint.valueOf("red"), null, null))));
-        iterationNumberDisplay.getChildren().add(new Label("Iteration: "+iterationNumber));
+        statisticsHBox = new HBox();
+        statisticsHBox.setLayoutX(0);
+        statisticsHBox.setLayoutY(rowsCount * DisplayConstants.FIELD_SIZE);
+        statisticsHBox.setPrefHeight(25);
+        statisticsHBox.setPrefWidth(columnCount * DisplayConstants.FIELD_SIZE);
+        statisticsHBox.setBackground(new Background((new BackgroundFill(Paint.valueOf(CharColorFX.NONE.getColor().toString()), null, null))));
+        iterationNumberLabel = new Label("Iteration: 0 ");
+        iterationNumberLabel.setStyle("-fx-text-fill: white;");
+        //iterationNumberLabel.setBackground(new Background((new BackgroundFill(Paint.valueOf(CharColorFX.NONE.getColor().toString().toLowerCase(Locale.ROOT)), null, null))));
+        statisticsHBox.getChildren().add(iterationNumberLabel);
+        speciesLabelA = new Label (" Species B: 0 ");
+        //CharColorFX.A.getColor().toString().toLowerCase(Locale.ROOT)
+        speciesLabelA.setStyle("-fx-text-fill: "+CharColorFX.A.getColorDescription()+";");
+        statisticsHBox.getChildren().add(speciesLabelA);
 
-        //iterationNumberDisplay.getChildren().add(new Label("Iteration: "+iterationNumber));
-        root.getChildren().add(iterationNumberDisplay);
+        speciesLabelB = new Label (" Species B: 0 ");
+        speciesLabelB.setStyle("-fx-text-fill: "+CharColorFX.B.getColorDescription()+";");
+        statisticsHBox.getChildren().add(speciesLabelB);
+
+        speciesLabelC = new Label (" Species C: 0 ");
+        speciesLabelC.setStyle("-fx-text-fill: "+CharColorFX.C.getColorDescription()+";");
+        statisticsHBox.getChildren().add(speciesLabelC);
+
+        speciesLabelD = new Label (" Species D: 0 ");
+        speciesLabelD.setStyle("-fx-text-fill: "+CharColorFX.D.getColorDescription()+";");
+        statisticsHBox.getChildren().add(speciesLabelD);
+
+        speciesLabelE = new Label (" Species E: 0 ");
+        speciesLabelE.setStyle("-fx-text-fill: "+CharColorFX.E.getColorDescription()+";");
+        statisticsHBox.getChildren().add(speciesLabelE);
+
+        root.getChildren().add(statisticsHBox);
     }
 
 
@@ -113,6 +138,7 @@ public class SimulationDisplay extends Stage {
                     lastTime = now;
                     updateTerritory();
                     updateIterationNumber();
+                    updateOrganismsNumber();
                 }
             }
         };
@@ -120,18 +146,26 @@ public class SimulationDisplay extends Stage {
     }
 
     private void updateIterationNumber() {
-        iterationNumber = territoryObserver.getIteration();
-        //iterationNumberDisplay.getChildren().get(0).
-                //.setAccessibleText("Iteration: "+iterationNumber);
-        iterationNumberDisplay.getChildren().clear();
+        int iterationNumber = territoryObserver.getIteration();
+        String textToSet = " Iteration: "+ iterationNumber +" ";
+        iterationNumberLabel.setText(textToSet);
+    }
 
-        Label labelWithNumber = new Label(" Iteration: "+iterationNumber+" ");
-        //Text textToSet = new Text("Iteration by set: "+iterationNumber);
+    private void updateOrganismsNumber(){
+        String textToSet1 = "Species A: "+territoryObserver.getNumberOfOrganismsOfSpecies('a')+" ";
+        speciesLabelA.setText(textToSet1);
 
-        labelWithNumber.setStyle("-fx-text-fill: crimson;");
-        //labelWithNumber.setTtText(textToSet);
-        labelWithNumber.setBackground(new Background((new BackgroundFill(Paint.valueOf(CharColorFX.NONE.getColor().toString().toLowerCase(Locale.ROOT)), null, null))));
-        iterationNumberDisplay.getChildren().add(labelWithNumber);
+        String textToSet2 = "Species B: "+territoryObserver.getNumberOfOrganismsOfSpecies('b')+" ";
+        speciesLabelB.setText(textToSet2);
+
+        String textToSet3 = "Species C: "+territoryObserver.getNumberOfOrganismsOfSpecies('c')+" ";
+        speciesLabelC.setText(textToSet3);
+
+        String textToSet4 = "Species D: "+territoryObserver.getNumberOfOrganismsOfSpecies('d')+" ";
+        speciesLabelD.setText(textToSet4);
+
+        String textToSet5 = "Species E: "+territoryObserver.getNumberOfOrganismsOfSpecies('e')+" ";
+        speciesLabelE.setText(textToSet5);
 
     }
 

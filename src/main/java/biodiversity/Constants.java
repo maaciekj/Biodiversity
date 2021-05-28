@@ -8,7 +8,7 @@ public class Constants {
 
     public static final int MIN_NUMBER_OF_SPECIES = 1;
 
-    public static final int MAX_NUMBER_OF_SPECIES = 6;
+    public static final int MAX_NUMBER_OF_SPECIES = 5;
 
     public static final int FIELD_STORAGE_FACTOR = 8;
 

@@ -10,20 +10,24 @@ import static javafx.scene.paint.Color.*;
 public enum CharColorFX {
 
     //NONE(0, ' ', Color.color(0.15, 0.15, 0.15)),
-    NONE(0, ' ', BLACK),
-    A(1, 'a', CORNFLOWERBLUE), B(2, 'b', DARKORANGE), C(3, 'c', LEMONCHIFFON), D(4, 'd', OLIVE), E(5, 'e', CRIMSON),
-    F(6, 'f', GOLD), G(7, 'g', CADETBLUE), H(8, 'h', PALEGREEN), I(8, 'i', BLUEVIOLET), J(9, 'j', DARKKHAKI);
+    NONE(0, ' ', BLACK, "black"),
+    A(1, 'a', CORNFLOWERBLUE, "cornflowerblue"), B(2, 'b', DARKORANGE, "darkorange"),
+    C(3, 'c', LEMONCHIFFON, "lemonchiffon"), D(4, 'd', OLIVE, "olive"), E(5, 'e', CRIMSON, "crimson"),
+    F(6, 'f', GOLD, "gold"), G(7, 'g', CADETBLUE, ""), H(8, 'h', PALEGREEN, ""),
+    I(8, 'i', BLUEVIOLET, ""), J(9, 'j', DARKKHAKI, "");
 
     //
 
     private int number;
     private char sign;
     private Color color;
+    private String description;
 
-    CharColorFX(int number, char sign, Color color) {
+    CharColorFX(int number, char sign, Color color, String description) {
         this.number = number;
         this.sign = sign;
         this.color = color;
+        this.description = description;
     }
 
     private static final Map<Character, Color> COLORS_BY_CHARS = new HashMap<>();
@@ -65,4 +69,9 @@ public enum CharColorFX {
     public Color getColor() {
         return color;
     }
+
+    public String getColorDescription() {
+        return description;
+    }
+
 }
