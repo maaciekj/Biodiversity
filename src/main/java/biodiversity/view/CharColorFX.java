@@ -9,9 +9,10 @@ import static javafx.scene.paint.Color.*;
 
 public enum CharColorFX {
 
-    NONE(0, ' ', Color.color(0.15, 0.15, 0.15)),
+    //NONE(0, ' ', Color.color(0.15, 0.15, 0.15)),
+    NONE(0, ' ', BLACK),
     A(1, 'a', CORNFLOWERBLUE), B(2, 'b', DARKORANGE), C(3, 'c', LEMONCHIFFON), D(4, 'd', OLIVE), E(5, 'e', CRIMSON),
-    F(6, 'f', SLATEGRAY), G(7, 'g', CADETBLUE), H(8, 'h', PALEGREEN), I(8, 'i', BLUEVIOLET), J(9, 'j', DARKKHAKI);
+    F(6, 'f', GOLD), G(7, 'g', CADETBLUE), H(8, 'h', PALEGREEN), I(8, 'i', BLUEVIOLET), J(9, 'j', DARKKHAKI);
 
     //
 
@@ -61,4 +62,7 @@ public enum CharColorFX {
         return CHARS_BY_NUMBERS.get(number);
     }
 
+    public Color getColor() {
+        return color;
+    }
 }

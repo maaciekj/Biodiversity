@@ -4,7 +4,7 @@ public class DisplayConstants {
 
     public static final int FIELD_SIZE = 3;
 
-    public static final long ANIMATION_TIME = 50_000_000;
+    public static final long ANIMATION_TIME = 75_000_000;
 
     public static final String HERBIVORE = "herbivore";
 

@@ -5,12 +5,18 @@ import biodiversity.DisplayConstants;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Locale;
 
 
 public class SimulationDisplay extends Stage {
@@ -18,11 +24,12 @@ public class SimulationDisplay extends Stage {
     private static Logger logger = LogManager.getLogger();
 
     private TerritoryObserver territoryObserver;
-    private int columnCount;
-    private int rowsCount;
+    private final int columnCount;
+    private final int rowsCount;
 
     private Pane root;
     private Pane animationPane;
+    private Pane statisticsPane;
     private Scene scene;
     private AnimationTimer animationTimer;
 
@@ -31,10 +38,13 @@ public class SimulationDisplay extends Stage {
     private Pane iterationNumberDisplay;
 
 
+    //  scene.setOnMouseClicked((mouseEvent)->{
+    //    eventGenerator.createMeteor(mouseEvent.getX(),mouseEvent.getY());
+    //});
+
+
     public SimulationDisplay(TerritoryObserver territoryObserverInput) {
-        //  scene.setOnMouseClicked((mouseEvent)->{
-        //    eventGenerator.createMeteor(mouseEvent.getX(),mouseEvent.getY());
-        //});
+
         territoryObserver = territoryObserverInput;
         columnCount = territoryObserver.getWidth();
         rowsCount = territoryObserver.getHeight();
@@ -43,12 +53,11 @@ public class SimulationDisplay extends Stage {
         territoryObserver.addDisplay(this);
         initAnimationPane(territoryObserver.getSigns());
         initComponents();
-        addIterationNumber();
+        addIterationNumberDisplay();
         scene = new Scene(root);
         initStage();
         startTimer();
     }
-
 
 
     private void initStage() {
@@ -68,6 +77,8 @@ public class SimulationDisplay extends Stage {
 
     private void initAnimationPane(char[][] organismSigns) {
         logger.info("animation pane started");
+
+
         for (int i = 0; i < organismSigns.length; i++) {
             for (int j = 0; j < organismSigns[0].length; j++) {
                 animationPane.getChildren().add(new OrganismView(j, i, calculateColor(organismSigns[i][j])));
@@ -80,11 +91,15 @@ public class SimulationDisplay extends Stage {
         return CharColorFX.findColorByChar(organismSign);
     }
 
-    private void addIterationNumber(){
+    private void addIterationNumberDisplay(){
         iterationNumberDisplay = new Pane();
-        iterationNumberDisplay.setLayoutX(10);
+        iterationNumberDisplay.setLayoutX(0);
         iterationNumberDisplay.setLayoutY(450);
+        Label labelWithNumber = new Label("Iteration: "+iterationNumber);
+        labelWithNumber.setBackground(new Background((new BackgroundFill(Paint.valueOf("red"), null, null))));
         iterationNumberDisplay.getChildren().add(new Label("Iteration: "+iterationNumber));
+
+        //iterationNumberDisplay.getChildren().add(new Label("Iteration: "+iterationNumber));
         root.getChildren().add(iterationNumberDisplay);
     }
 
@@ -109,7 +124,14 @@ public class SimulationDisplay extends Stage {
         //iterationNumberDisplay.getChildren().get(0).
                 //.setAccessibleText("Iteration: "+iterationNumber);
         iterationNumberDisplay.getChildren().clear();
-        iterationNumberDisplay.getChildren().add(new Label("Iteration: "+iterationNumber));
+
+        Label labelWithNumber = new Label(" Iteration: "+iterationNumber+" ");
+        //Text textToSet = new Text("Iteration by set: "+iterationNumber);
+
+        labelWithNumber.setStyle("-fx-text-fill: crimson;");
+        //labelWithNumber.setTtText(textToSet);
+        labelWithNumber.setBackground(new Background((new BackgroundFill(Paint.valueOf(CharColorFX.NONE.getColor().toString().toLowerCase(Locale.ROOT)), null, null))));
+        iterationNumberDisplay.getChildren().add(labelWithNumber);
 
     }
 

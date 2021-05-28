@@ -10,5 +10,6 @@ module Biodiversity {
     requires org.apache.logging.log4j;
     opens biodiversity;
     exports biodiversity.controller to com.fasterxml.jackson.databind;
+    exports biodiversity.view to javafx.graphics;
 
 }

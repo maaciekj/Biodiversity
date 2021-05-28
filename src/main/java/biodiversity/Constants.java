@@ -28,7 +28,7 @@ public class Constants {
 
     public static final int CARNIVORES_DEMAND_FACTOR = 20;
 
-    public static final int CARNIVORES_APPEAR_AT_ITERATION = 600;
+    public static final int CARNIVORES_APPEAR_AT_ITERATION = 400;
 
     public static final double MATURITY_AGE_TO_MAX_AGE_DEFAULT = 0.15;
 
