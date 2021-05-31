@@ -20,104 +20,94 @@ import javafx.stage.Stage;
 
 public class SpeciesMenu extends Stage {
 
-    private TerritoryDTO territoryDTO;
+    private final TerritoryDTO territoryDTO;
 
-    private VBox layout;
-    private Scene scene;
-
-    private Text general;
     private HBox onColor;
-    private Text colorExplained;
-    private Rectangle colored;
-
     private Text onFeeding;
     private HBox buttonsFeeding;
     private ToggleGroup toggleFeeding;
-    private RadioButton buttonFeeding1;
-    private RadioButton buttonFeeding2;
-
     private Text onReplication;
     private HBox buttonsReplications;
     private ToggleGroup toggleReplication;
-    private RadioButton buttonReplication1;
-    private RadioButton buttonReplication2;
-    private RadioButton buttonReplication3;
-    private RadioButton buttonReplication4;
-
     private Text onMass;
     private Slider mass;
-
     private Text onMaxAge;
     private Slider maxAge;
-
     private HBox backOrProceed;
     private Button back;
     private Button proceed;
 
-    //TODO refactor the constructor
-    // TODO SceneBuilder
-
     public SpeciesMenu(TerritoryDTO territoryDTO) {
-
         this.territoryDTO = territoryDTO;
         setTitle("Species Menu");
-        layout = new VBox(30);
+        VBox layout = new VBox(30);
         layout.setAlignment(Pos.BASELINE_LEFT);
         layout.setPadding(new Insets(40));
-        scene = new Scene(layout);
+        Scene scene = new Scene(layout);
         setScene(scene);
-
-        onColor = new HBox(20);
-        colored =new Rectangle(30,15, CharColorFX.findColorByNumber(territoryDTO.getOrdinalNumberOfSpeciesToBeCreated()));
-        colorExplained = new Text("species no "+territoryDTO.getOrdinalNumberOfSpeciesToBeCreated()+". creatures will appear this color on simulation");
-
-        onColor.getChildren().addAll(colored, colorExplained);
-
-        general = new Text("please note: system does prevent from creating species incapable to live\n" +
+        initializeColorInfoBlock(territoryDTO);
+        Text general = new Text("please note: system does prevent from creating species incapable to live\n" +
                 "or from dominate the ecosystem by one species. carnivores will appear later during simulation");
+        initializeFeedingBlock();
+        initializeReplicationBlock();
+        initializeMassBlock();
+        initializeMaxAgeBlock();
+        createBackOrProceedButtons();
+        layout.getChildren().addAll(onColor, general, onFeeding, buttonsFeeding, onReplication, buttonsReplications,
+                onMass, mass, onMaxAge, maxAge, backOrProceed);
+        show();
+    }
 
+    private void initializeColorInfoBlock(TerritoryDTO territoryDTO) {
+        onColor = new HBox(20);
+        Rectangle colored = new Rectangle(30, 15, CharColorFX.findColorByNumber(territoryDTO.getOrdinalNumberOfSpeciesToBeCreated()));
+        Text colorExplained = new Text("species no " + territoryDTO.getOrdinalNumberOfSpeciesToBeCreated() +
+                ". creatures will appear this color on simulation");
+        onColor.getChildren().addAll(colored, colorExplained);
+    }
+
+    private void initializeFeedingBlock() {
         onFeeding = new Text("Select feeding strategy");
-
         buttonsFeeding = new HBox(20);
         toggleFeeding = new ToggleGroup();
-        buttonFeeding1 = new RadioButton(DisplayConstants.HERBIVORE);
-        buttonFeeding2 = new RadioButton(DisplayConstants.CARNIVORE);
+        RadioButton buttonFeeding1 = new RadioButton(DisplayConstants.HERBIVORE);
+        RadioButton buttonFeeding2 = new RadioButton(DisplayConstants.CARNIVORE);
         buttonFeeding1.setToggleGroup(toggleFeeding);
         buttonFeeding2.setToggleGroup(toggleFeeding);
         buttonsFeeding.getChildren().addAll(buttonFeeding1, buttonFeeding2);
+    }
 
+    private void initializeReplicationBlock() {
         onReplication = new Text("Select replication strategy");
         buttonsReplications = new HBox(20);
         toggleReplication = new ToggleGroup();
-        buttonReplication1 = new RadioButton(DisplayConstants.REPLICATION_DEFAULT);
-        buttonReplication2 = new RadioButton(DisplayConstants.BIG_CHILDREN);
-        buttonReplication3 = new RadioButton(DisplayConstants.SMALL_CHILDREN);
-        buttonReplication4 = new RadioButton(DisplayConstants.MANY_SMALL_AT_END);
+        RadioButton buttonReplication1 = new RadioButton(DisplayConstants.REPLICATION_DEFAULT);
+        RadioButton buttonReplication2 = new RadioButton(DisplayConstants.BIG_CHILDREN);
+        RadioButton buttonReplication3 = new RadioButton(DisplayConstants.SMALL_CHILDREN);
+        RadioButton buttonReplication4 = new RadioButton(DisplayConstants.MANY_SMALL_AT_END);
         buttonReplication1.setToggleGroup(toggleReplication);
         buttonReplication2.setToggleGroup(toggleReplication);
         buttonReplication3.setToggleGroup(toggleReplication);
         buttonReplication4.setToggleGroup(toggleReplication);
         buttonsReplications.getChildren().addAll(buttonReplication1, buttonReplication2, buttonReplication3, buttonReplication4);
+    }
 
+    private void initializeMassBlock() {
         onMass = new Text("set pref mass of adult creature");
         mass = new Slider(10, 200, 70);
         mass.setMajorTickUnit(5);
         mass.setShowTickMarks(true);
         mass.setShowTickLabels(true);
+    }
 
+    private void initializeMaxAgeBlock() {
         onMaxAge = new Text("set max age");
         maxAge = new Slider(20, 400, 150);
         maxAge.setMajorTickUnit(10);
         maxAge.setShowTickMarks(true);
         maxAge.setShowTickLabels(true);
-
-        createBackOrProceedButtons();
-
-
-        layout.getChildren().addAll(onColor, general, onFeeding, buttonsFeeding, onReplication, buttonsReplications,
-                onMass, mass, onMaxAge, maxAge, backOrProceed);
-        show();
     }
+
 
     private void createBackOrProceedButtons() {
         backOrProceed = new HBox(20);

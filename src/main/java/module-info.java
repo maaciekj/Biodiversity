@@ -1,6 +1,6 @@
 module Biodiversity {
 
-    // pliki konfiguracyjne oprócz pom i gitignore w resources
+    // configuration files except pom and .gitignore to resources
 
     requires javafx.graphics;
     requires javafx.controls;
