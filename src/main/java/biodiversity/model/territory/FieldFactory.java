@@ -47,7 +47,6 @@ public class FieldFactory {
     private int calculateNumberOfSpecialFields(int height, int width) {
         double specialFieldsProbability = 0.02;
         return (int) Math.round(height * width * specialFieldsProbability);
-
     }
 
     private Field createSpecialField(int baseFertility, int fertilityDiversity) {
@@ -101,13 +100,13 @@ public class FieldFactory {
     }
 
     private void reduceFieldFertilityVariation(int baseFertility) {
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields[i].length; j++) {
-                if (fields[i][j].getGrowForTurn() < 0) {
-                    fields[i][j].setGrowForTurn(0);
+        for (int row = 0; row < fields.length; row++) {
+            for (int col = 0; col < fields[row].length; col++) {
+                if (fields[row][col].getGrowForTurn() < 0) {
+                    fields[row][col].setGrowForTurn(0);
                 }
-                if (fields[i][j].getGrowForTurn() > baseFertility * 3) {
-                    fields[i][j].setGrowForTurn(baseFertility * 3);
+                if (fields[row][col].getGrowForTurn() > baseFertility * 3) {
+                    fields[row][col].setGrowForTurn(baseFertility * 3);
                 }
             }
         }

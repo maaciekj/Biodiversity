@@ -9,14 +9,11 @@ import static javafx.scene.paint.Color.*;
 
 public enum CharColorFX {
 
-    //NONE(0, ' ', Color.color(0.15, 0.15, 0.15)),
     NONE(0, ' ', BLACK, "black"),
     A(1, 'a', CORNFLOWERBLUE, "cornflowerblue"), B(2, 'b', DARKORANGE, "darkorange"),
     C(3, 'c', LEMONCHIFFON, "lemonchiffon"), D(4, 'd', OLIVE, "olive"), E(5, 'e', CRIMSON, "crimson"),
     F(6, 'f', GOLD, "gold"), G(7, 'g', CADETBLUE, ""), H(8, 'h', PALEGREEN, ""),
     I(8, 'i', BLUEVIOLET, ""), J(9, 'j', DARKKHAKI, "");
-
-    //
 
     private int number;
     private char sign;

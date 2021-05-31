@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,8 +50,6 @@ public class ApplicationConfig {
     }
 
     public void startSimulation(TerritoryDTO territoryDTO) {
-        int height = territoryDTO.getHeight();
-        int width = territoryDTO.getWidth();
         TerritoryObserver observer = new ObserverFX();
         NumberGenerator numberGenerator = new NumberGeneratorRandom();
         FieldFactory fieldFactory = new FieldFactory(numberGenerator);
@@ -60,8 +57,8 @@ public class ApplicationConfig {
         Territory territory = new Territory.Builder()
                 .emptyFieldSign(' ')
                 .fields(fieldFactory.createFieldPattern(territoryDTO))
-                .height(height)
-                .width(width)
+                .height(territoryDTO.getHeight())
+                .width(territoryDTO.getWidth())
                 .observer(observer)
                 .counter(counter)
                 .build();
@@ -69,18 +66,11 @@ public class ApplicationConfig {
         SimulationDisplay simulationDisplay = new SimulationDisplay(observer);
         List<Species> herbivores = getHerbivoreSpecies(territoryDTO, numberGenerator, territory);
         List<Species> carnivores = getCarnivoreSpecies(territoryDTO, numberGenerator, territory);
-        List<Organism> herbivoreOrganisms = new ArrayList<>();
-        for (Species species : herbivores) {
-            herbivoreOrganisms.addAll(buildOrganismsOfSpecies(species, territory, numberGenerator));
-        }
+        List<Organism> herbivoreOrganisms = createOrganismsFromSpeciesList(numberGenerator, territory, herbivores);
         for (Organism herbivoreOrganism : herbivoreOrganisms) {
             territory.addInhabitant(herbivoreOrganism);
         }
-        List<Organism> carnivoreOrganisms = new ArrayList<>();
-        for (Species carnivore : carnivores) {
-            carnivoreOrganisms.addAll(buildOrganismsOfSpecies(carnivore, territory, numberGenerator));
-        }
-        territory.setCarnivores(carnivoreOrganisms);
+        territory.setCarnivores(createOrganismsFromSpeciesList(numberGenerator, territory, carnivores));
         logger.info("simulation start");
     }
 
@@ -124,6 +114,13 @@ public class ApplicationConfig {
         return createListOfSpecies(speciesDTOsCarnivores, territory, numberGenerator);
     }
 
+    private List<Organism> createOrganismsFromSpeciesList(NumberGenerator numberGenerator, Territory territory, List<Species> speciesList) {
+        List<Organism> organisms = new ArrayList<>();
+        for (Species species : speciesList) {
+            organisms.addAll(buildOrganismsOfSpecies(species, territory, numberGenerator));
+        }
+        return organisms;
+    }
 
     private List<Organism> buildOrganismsOfSpecies(Species species, Territory territory, NumberGenerator numberGenerator) {
         List<Organism> organisms = new ArrayList<>();

@@ -18,10 +18,7 @@ public class Territory {
     private TerritoryObserver observer;
     private Counter counter;
     private List<Organism> carnivores = new ArrayList<>();
-
-
-
-
+    
     public static class Builder {
         private char emptyFieldSign;
         private Field[][] places;
@@ -111,7 +108,7 @@ public class Territory {
             logger.info("number of organisms: " + getNumberOfOrganisms());
             logger.info("iteration: " + counter.getIterationNumber());
             if (counter.getIterationNumber() == 0) {
-                logger.info("animation complete \n");
+                logger.info("animation started \n");
             } else {
                 logger.info("Time from last measure: " + counter.getTime() + "\n");
             }

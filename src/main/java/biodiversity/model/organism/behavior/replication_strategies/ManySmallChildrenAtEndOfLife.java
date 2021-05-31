@@ -4,7 +4,6 @@ import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.territory.Field;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

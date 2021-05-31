@@ -12,7 +12,7 @@ public class TerritoryMenuController {
 
     private static final Logger logger = LogManager.getLogger(TerritoryMenuController.class);
 
-    private TerritoryMenu territoryMenu;
+    private final TerritoryMenu territoryMenu;
 
     public TerritoryMenuController(TerritoryMenu territoryMenu) {
         this.territoryMenu = territoryMenu;

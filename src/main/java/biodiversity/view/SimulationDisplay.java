@@ -46,11 +46,10 @@ public class SimulationDisplay extends Stage {
         startTimer();
     }
 
-
     private void initStage() {
         setScene(scene);
         setWidth(columnCount * DisplayConstants.FIELD_SIZE + 15);
-        setHeight(rowsCount * DisplayConstants.FIELD_SIZE + 30 + 30);
+        setHeight(rowsCount * DisplayConstants.FIELD_SIZE + 60);
         setTitle("Biodiversity Game");
         show();
     }
@@ -74,7 +73,7 @@ public class SimulationDisplay extends Stage {
         statisticsHBox = new HBox();
         statisticsHBox.setLayoutX(0);
         statisticsHBox.setLayoutY(rowsCount * DisplayConstants.FIELD_SIZE);
-        statisticsHBox.setPrefHeight(25);
+        statisticsHBox.setPrefHeight(35);
         statisticsHBox.setPrefWidth(columnCount * DisplayConstants.FIELD_SIZE);
         statisticsHBox.setBackground(new Background((new BackgroundFill(Paint.valueOf(CharColorFX.NONE.getColor().toString()), null, null))));
         iterationNumberLabel = new Label("Iteration: 0 ");
@@ -97,7 +96,6 @@ public class SimulationDisplay extends Stage {
         statisticsHBox.getChildren().add(speciesLabelE);
         root.getChildren().add(statisticsHBox);
     }
-
 
     private void startTimer() {
         animationTimer = new AnimationTimer() {
@@ -122,16 +120,11 @@ public class SimulationDisplay extends Stage {
     }
 
     private void updateOrganismsNumber(){
-        String textToSet1 = "Species A: "+territoryObserver.getNumberOfOrganismsOfSpecies('a')+" ";
-        speciesLabelA.setText(textToSet1);
-        String textToSet2 = "Species B: "+territoryObserver.getNumberOfOrganismsOfSpecies('b')+" ";
-        speciesLabelB.setText(textToSet2);
-        String textToSet3 = "Species C: "+territoryObserver.getNumberOfOrganismsOfSpecies('c')+" ";
-        speciesLabelC.setText(textToSet3);
-        String textToSet4 = "Species D: "+territoryObserver.getNumberOfOrganismsOfSpecies('d')+" ";
-        speciesLabelD.setText(textToSet4);
-        String textToSet5 = "Species E: "+territoryObserver.getNumberOfOrganismsOfSpecies('e')+" ";
-        speciesLabelE.setText(textToSet5);
+        speciesLabelA.setText("Species A: "+territoryObserver.getNumberOfOrganismsOfSpecies('a')+" ");
+        speciesLabelB.setText("Species B: "+territoryObserver.getNumberOfOrganismsOfSpecies('b')+" ");
+        speciesLabelC.setText("Species C: "+territoryObserver.getNumberOfOrganismsOfSpecies('c')+" ");
+        speciesLabelD.setText("Species D: "+territoryObserver.getNumberOfOrganismsOfSpecies('d')+" ");
+        speciesLabelE.setText("Species E: "+territoryObserver.getNumberOfOrganismsOfSpecies('e')+" ");
     }
 
     private void updateTerritory() {

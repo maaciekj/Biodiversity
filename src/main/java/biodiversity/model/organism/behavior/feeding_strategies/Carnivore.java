@@ -27,7 +27,7 @@ public class Carnivore extends FeedingStrategy {
             return;
         }
         List<Organism> toPreyOn = getListOfOrganismInNearby(organism);
-        if (toPreyOn.size()==0){
+        if (toPreyOn.isEmpty()){
             return;
         }
         Collections.shuffle(toPreyOn);
@@ -68,6 +68,5 @@ public class Carnivore extends FeedingStrategy {
         Field fieldToGo = freeFieldsWithEnoughOrganismsNearby.get(numberGenerator.generateRandomInt(freeFieldsWithEnoughOrganismsNearby.size()));
         moveTo(organism, fieldToGo.getRow(), fieldToGo.getCol());
     }
-
 
 }
