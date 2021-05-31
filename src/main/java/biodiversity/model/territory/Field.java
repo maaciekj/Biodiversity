@@ -25,15 +25,10 @@ public class Field {
         ediblePlants = ediblePlants + growForTurn;
     }
 
-    public void destroyPlants(int howMany) {  // in case of a special event
-        ediblePlants = Math.max(ediblePlants - howMany, 0);
-    }
-
-    public void destroyPlants() {
-        ediblePlants = 0;
-    }
-
     public int feed(int demand) {
+        if(demand<0){
+            return 0;
+        }
         if (ediblePlants - demand >= 0) {
             ediblePlants = ediblePlants - demand;
             return demand;
@@ -73,12 +68,9 @@ public class Field {
         this.growForTurn = growForTurn;
     }
 
+    // it may cause dropping below zero, but such is needed for temp use by Field Factory
     public void changeGrowForTurnBuilding(int howMuch) {
         growForTurn = growForTurn + howMuch;
-    }
-
-    public void changeGrowForTurnRuntime(int howMuch) {
-        growForTurn = Math.max(growForTurn + howMuch, 0);
     }
 
     public int getEdiblePlants() {
