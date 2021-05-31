@@ -19,80 +19,69 @@ import javafx.stage.Stage;
 
 public class TerritoryMenu extends Stage {
 
-    private VBox layout;
-    private Scene scene;
-
-    private Text onSpecies;
-    private TextField howManySpecies;
-
+    private final TextField howManySpecies;
     private Text onFertility;
     private HBox buttonsFertility;
     private ToggleGroup toggleFertility;
-    private RadioButton buttonFertility1;
-    private RadioButton buttonFertility2;
-    private RadioButton buttonFertility3;
-    private RadioButton buttonFertility4;
-
     private Text onDiversity;
     private HBox buttonsDiversity;
     private ToggleGroup toggleDiversity;
-    private RadioButton buttonDiversity1;
-    private RadioButton buttonDiversity2;
-    private RadioButton buttonDiversity3;
-    private RadioButton buttonDiversity4;
-
     private HBox backOrProceed;
     private Button back;
     private Button proceed;
 
-
     public TerritoryMenu() {
-        layout = new VBox(30);
+        VBox layout = new VBox(30);
         layout.setAlignment(Pos.BASELINE_LEFT);
         layout.setPadding(new Insets(40));
-        scene = new Scene(layout);
+        Scene scene = new Scene(layout);
         setScene(scene);
-
-        onSpecies = new Text("How many species you'd like to have at the beginning? (" + Constants.MIN_NUMBER_OF_SPECIES + "-" + Constants.MAX_NUMBER_OF_SPECIES + ")");
-
+        Text onSpecies = new Text("How many species you'd like to have at the beginning? (" + Constants.MIN_NUMBER_OF_SPECIES + "-" + Constants.MAX_NUMBER_OF_SPECIES + ")");
         howManySpecies = new TextField();
+        initializeFertilityBlock();
+        initializeDiversityBlock();
+        initializeBackOrProceedButtons();
+        layout.getChildren().addAll(onSpecies, howManySpecies, onFertility, buttonsFertility, onDiversity, buttonsDiversity, backOrProceed);
+        show();
+    }
 
+    private void initializeFertilityBlock() {
         onFertility = new Text();
-        onFertility.setText("The higher fertility of the territory, " +
+        onFertility.setText("Select ground fertility. The higher fertility," +
                 "\n the more and the bigger creatures can survive");
         buttonsFertility = new HBox(20);
         toggleFertility = new ToggleGroup();
-        buttonFertility1 = new RadioButton(FertilityTextInt.SPARSE.toString().toLowerCase());
-        buttonFertility2 = new RadioButton(FertilityTextInt.LOW.toString().toLowerCase());
-        buttonFertility3 = new RadioButton(FertilityTextInt.MEDIUM.toString().toLowerCase());
-        buttonFertility4 = new RadioButton(FertilityTextInt.HIGH.toString().toLowerCase());
+        RadioButton buttonFertility1 = new RadioButton(FertilityTextInt.SPARSE.toString().toLowerCase());
+        RadioButton buttonFertility2 = new RadioButton(FertilityTextInt.LOW.toString().toLowerCase());
+        RadioButton buttonFertility3 = new RadioButton(FertilityTextInt.MEDIUM.toString().toLowerCase());
+        RadioButton buttonFertility4 = new RadioButton(FertilityTextInt.HIGH.toString().toLowerCase());
         buttonFertility1.setToggleGroup(toggleFertility);
         buttonFertility2.setToggleGroup(toggleFertility);
         buttonFertility3.setToggleGroup(toggleFertility);
         buttonFertility4.setToggleGroup(toggleFertility);
         buttonsFertility.getChildren().addAll(buttonFertility1, buttonFertility2, buttonFertility3, buttonFertility4);
+    }
 
-        onDiversity = new Text("Variation of the fertility can be lower or higher");
+    private void initializeDiversityBlock() {
+        onDiversity = new Text("Select variation of ground fertility");
         buttonsDiversity = new HBox(20);
         toggleDiversity = new ToggleGroup();
-        buttonDiversity1 = new RadioButton("none");
-        buttonDiversity2 = new RadioButton("low");
-        buttonDiversity3 = new RadioButton("medium");
-        buttonDiversity4 = new RadioButton("high");
+        RadioButton buttonDiversity1 = new RadioButton("none");
+        RadioButton buttonDiversity2 = new RadioButton("low");
+        RadioButton buttonDiversity3 = new RadioButton("medium");
+        RadioButton buttonDiversity4 = new RadioButton("high");
         buttonDiversity1.setToggleGroup(toggleDiversity);
         buttonDiversity2.setToggleGroup(toggleDiversity);
         buttonDiversity3.setToggleGroup(toggleDiversity);
         buttonDiversity4.setToggleGroup(toggleDiversity);
         buttonsDiversity.getChildren().addAll(buttonDiversity1, buttonDiversity2, buttonDiversity3, buttonDiversity4);
+    }
 
+    private void initializeBackOrProceedButtons() {
         backOrProceed = new HBox(20);
         back = new Button("Back to main menu");
         proceed = new Button("Proceed");
         backOrProceed.getChildren().addAll(back, proceed);
-
-        //proceed.setAlignment(Pos.BOTTOM_RIGHT); // TODO Make this alignment work
-        layout.getChildren().addAll(onSpecies, howManySpecies, onFertility, buttonsFertility, onDiversity, buttonsDiversity, backOrProceed);
-        show();
     }
 
     public void addBackButtonAction(EventHandler<ActionEvent> event) {
