@@ -152,8 +152,6 @@ public class Territory {
         return numberOfOrganisms;
     }
 
-
-
     public char[][] getTerritorySigns() {
         char[][] signs = new char[inhabitants.length][inhabitants[0].length];
         for (int row = 0; row < inhabitants.length; row++) {
