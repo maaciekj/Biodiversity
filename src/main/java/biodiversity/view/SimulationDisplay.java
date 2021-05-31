@@ -1,6 +1,5 @@
 package biodiversity.view;
 
-
 import biodiversity.DisplayConstants;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -15,23 +14,16 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Locale;
-
-
 public class SimulationDisplay extends Stage {
 
     private static final Logger logger = LogManager.getLogger();
-
     private final TerritoryObserver territoryObserver;
     private final int columnCount;
     private final int rowsCount;
-
     private final Pane root;
     private final Pane animationPane;
-
     private final Scene scene;
     private AnimationTimer animationTimer;
-
     private HBox statisticsHBox;
     private Label iterationNumberLabel;
     private Label speciesLabelA;
@@ -40,14 +32,7 @@ public class SimulationDisplay extends Stage {
     private Label speciesLabelD;
     private Label speciesLabelE;
 
-
-    //  scene.setOnMouseClicked((mouseEvent)->{
-    //    eventGenerator.createMeteor(mouseEvent.getX(),mouseEvent.getY());
-    //});
-
-
     public SimulationDisplay(TerritoryObserver territoryObserverInput) {
-
         territoryObserver = territoryObserverInput;
         columnCount = territoryObserver.getWidth();
         rowsCount = territoryObserver.getHeight();
@@ -55,8 +40,7 @@ public class SimulationDisplay extends Stage {
         animationPane = new Pane();
         territoryObserver.addDisplay(this);
         initAnimationPane(territoryObserver.getSigns());
-        initComponents();
-        addIterationNumberDisplay();
+        initStatisticsPane();
         scene = new Scene(root);
         initStage();
         startTimer();
@@ -71,21 +55,14 @@ public class SimulationDisplay extends Stage {
         show();
     }
 
-
-
-    private void initComponents() {
-        root.getChildren().add(animationPane);
-    }
-
     private void initAnimationPane(char[][] organismSigns) {
         logger.info("animation pane started");
-
-
         for (int i = 0; i < organismSigns.length; i++) {
             for (int j = 0; j < organismSigns[0].length; j++) {
                 animationPane.getChildren().add(new OrganismView(j, i, calculateColor(organismSigns[i][j])));
             }
         }
+        root.getChildren().add(animationPane);
         logger.info("animation pane complete");
     }
 
@@ -93,7 +70,7 @@ public class SimulationDisplay extends Stage {
         return CharColorFX.findColorByChar(organismSign);
     }
 
-    private void addIterationNumberDisplay(){
+    private void initStatisticsPane(){
         statisticsHBox = new HBox();
         statisticsHBox.setLayoutX(0);
         statisticsHBox.setLayoutY(rowsCount * DisplayConstants.FIELD_SIZE);
@@ -102,29 +79,22 @@ public class SimulationDisplay extends Stage {
         statisticsHBox.setBackground(new Background((new BackgroundFill(Paint.valueOf(CharColorFX.NONE.getColor().toString()), null, null))));
         iterationNumberLabel = new Label("Iteration: 0 ");
         iterationNumberLabel.setStyle("-fx-text-fill: white;");
-        //iterationNumberLabel.setBackground(new Background((new BackgroundFill(Paint.valueOf(CharColorFX.NONE.getColor().toString().toLowerCase(Locale.ROOT)), null, null))));
         statisticsHBox.getChildren().add(iterationNumberLabel);
         speciesLabelA = new Label (" Species B: 0 ");
-        //CharColorFX.A.getColor().toString().toLowerCase(Locale.ROOT)
         speciesLabelA.setStyle("-fx-text-fill: "+CharColorFX.A.getColorDescription()+";");
         statisticsHBox.getChildren().add(speciesLabelA);
-
         speciesLabelB = new Label (" Species B: 0 ");
         speciesLabelB.setStyle("-fx-text-fill: "+CharColorFX.B.getColorDescription()+";");
         statisticsHBox.getChildren().add(speciesLabelB);
-
         speciesLabelC = new Label (" Species C: 0 ");
         speciesLabelC.setStyle("-fx-text-fill: "+CharColorFX.C.getColorDescription()+";");
         statisticsHBox.getChildren().add(speciesLabelC);
-
         speciesLabelD = new Label (" Species D: 0 ");
         speciesLabelD.setStyle("-fx-text-fill: "+CharColorFX.D.getColorDescription()+";");
         statisticsHBox.getChildren().add(speciesLabelD);
-
         speciesLabelE = new Label (" Species E: 0 ");
         speciesLabelE.setStyle("-fx-text-fill: "+CharColorFX.E.getColorDescription()+";");
         statisticsHBox.getChildren().add(speciesLabelE);
-
         root.getChildren().add(statisticsHBox);
     }
 
@@ -154,19 +124,14 @@ public class SimulationDisplay extends Stage {
     private void updateOrganismsNumber(){
         String textToSet1 = "Species A: "+territoryObserver.getNumberOfOrganismsOfSpecies('a')+" ";
         speciesLabelA.setText(textToSet1);
-
         String textToSet2 = "Species B: "+territoryObserver.getNumberOfOrganismsOfSpecies('b')+" ";
         speciesLabelB.setText(textToSet2);
-
         String textToSet3 = "Species C: "+territoryObserver.getNumberOfOrganismsOfSpecies('c')+" ";
         speciesLabelC.setText(textToSet3);
-
         String textToSet4 = "Species D: "+territoryObserver.getNumberOfOrganismsOfSpecies('d')+" ";
         speciesLabelD.setText(textToSet4);
-
         String textToSet5 = "Species E: "+territoryObserver.getNumberOfOrganismsOfSpecies('e')+" ";
         speciesLabelE.setText(textToSet5);
-
     }
 
     private void updateTerritory() {
