@@ -30,25 +30,30 @@ public class SpeciesMenuController {
 
     private void addProceedAction() {
         speciesMenu.addProceedButtonAction(event -> {
-            SpeciesDTO speciesDTO = new SpeciesDTO.SpeciesDTOBuilder()
+            String feedingStrategy;
+            try {
+                feedingStrategy = speciesMenu.getFeeding();
+            } catch (InvalidUsersInputException e) {
+                setNewSpeciesMenu();
+                return;
+            }
+            String replicationStrategy;
+            try {
+                 replicationStrategy = speciesMenu.getReplication();
+            } catch (InvalidUsersInputException e) {
+                setNewSpeciesMenu();
+                return;
+            }
+            BehaviorDTO behaviorDTO = new BehaviorDTO.BehaviorDTOBuilder()
+                    .feedingStrategy(feedingStrategy)
+                    .replicationStrategy(replicationStrategy)
                     .build();
-            speciesDTO.setSign(CharColorFX.findSignByNumber(territoryDTO.getOrdinalNumberOfSpeciesToBeCreated()));
-            BehaviorDTO behaviorDTO = new BehaviorDTO();
-            try {
-                behaviorDTO.setFeedingStrategy(speciesMenu.getFeeding());
-            } catch (InvalidUsersInputException e) {
-                setNewSpeciesMenu();
-                return;
-            }
-            try {
-                behaviorDTO.setReplicationStrategy(speciesMenu.getReplication());
-            } catch (InvalidUsersInputException e) {
-                setNewSpeciesMenu();
-                return;
-            }
-            speciesDTO.setBehaviorDTO(behaviorDTO);
-            speciesDTO.setAdultPreferredBodyMass(speciesMenu.getMass());
-            speciesDTO.setMaxAge(speciesMenu.getMaxAge());
+            SpeciesDTO speciesDTO = new SpeciesDTO.SpeciesDTOBuilder()
+                    .sign(CharColorFX.findSignByNumber(territoryDTO.getOrdinalNumberOfSpeciesToBeCreated()))
+                    .behaviorDTO(behaviorDTO)
+                    .adultPreferredBodyMass(speciesMenu.getMass())
+                    .maxAge(speciesMenu.getMaxAge())
+                    .build();
             territoryDTO.addSpeciesDTO(speciesDTO);
             if (territoryDTO.getNumberOfSpecies() == territoryDTO.getSpeciesDTOs().size()) {
                 proceedToSimulation();
@@ -57,6 +62,7 @@ public class SpeciesMenuController {
             }
         });
     }
+
 
     private void setNewSpeciesMenu() {
         new SpeciesMenuController(new SpeciesMenu(territoryDTO));
