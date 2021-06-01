@@ -50,6 +50,7 @@ public class ApplicationConfig {
     }
 
     public void startSimulation(TerritoryDTO territoryDTO) {
+
         TerritoryObserver observer = new ObserverFX();
         NumberGenerator numberGenerator = new NumberGeneratorRandom();
         FieldFactory fieldFactory = new FieldFactory(numberGenerator);
@@ -135,8 +136,9 @@ public class ApplicationConfig {
                     .numberGenerator(numberGenerator)
                     .build();
             do {
-                organism.setRow(rowCenter + numberGenerator.generateRandomInt(20) - 10);
-                organism.setCol(colCenter + numberGenerator.generateRandomInt(20) - 10);
+                int radiusOfSettingOrganisms = 10;
+                organism.setRow(rowCenter + numberGenerator.generateRandomInt(2*radiusOfSettingOrganisms) - radiusOfSettingOrganisms);
+                organism.setCol(colCenter + numberGenerator.generateRandomInt(2*radiusOfSettingOrganisms) - radiusOfSettingOrganisms);
             } while (territory.placeIsOutOfTerritoryBoundaries(organism.getRow(), organism.getCol()));
             organisms.add(organism);
         }

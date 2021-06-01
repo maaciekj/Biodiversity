@@ -6,15 +6,12 @@ import biodiversity.model.territory.FieldFactory;
 import biodiversity.model.territory.NumberGenerator;
 import biodiversity.model.territory.NumberGeneratorRandom;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 
 public class FieldFactoryTest {
 
-
-    //private TerritoryDTO territoryDTO = Mockito.mock(TerritoryDTO.class);
     private TerritoryDTO territoryDTO = new TerritoryDTO();
     private NumberGenerator numberGenerator = new NumberGeneratorRandom();
     private FieldFactory fieldFactory = new FieldFactory(numberGenerator);
@@ -22,16 +19,16 @@ public class FieldFactoryTest {
     private int width = 30;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
 
         territoryDTO.setHeight(height);
         territoryDTO.setWidth(width);
         territoryDTO.setFertility(5);
-        territoryDTO.setFertilityDiversity(0);
+        territoryDTO.setFertilityDiversity(3);
     }
 
     @Test
-    public void fieldFactoryShouldProduceFieldArrayOfDimensionsGivenByTerritoryDTO(){
+    public void fieldFactoryShouldProduceFieldArrayOfDimensionsGivenByTerritoryDTO() {
         /*Mockito.when(territoryDTO.getHeight()).thenReturn(height);
         Mockito.when(territoryDTO.getWidth()).thenReturn(width);
         Mockito.when(territoryDTO.getFertility()).thenReturn(4);
@@ -44,7 +41,18 @@ public class FieldFactoryTest {
     }
 
     @Test
-    public void whenFertilityDiversityEqualsZeroAllFieldsShouldHaveSameFertility(){
+    public void fieldsShouldHaveNotNegativeGrowForTurn(){
+        Field[][] fields = fieldFactory.createFieldPattern(territoryDTO);
+        for (int row = 0; row < fields.length; row++) {
+            for (int col = 0; col < fields[row].length; col++) {
+                Assertions.assertTrue(fields[row][col].getGrowForTurn()>=0);
+            }
+        }
+    }
+
+    @Test
+    public void whenFertilityDiversityEqualsZeroAllFieldsShouldHaveSameFertility() {
+        territoryDTO.setFertilityDiversity(0);
         Field[][] fields = fieldFactory.createFieldPattern(territoryDTO);
         for (int row = 0; row < fields.length; row++) {
             for (int col = 0; col < fields[row].length; col++) {
