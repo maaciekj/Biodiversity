@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Test;
 
 public class FieldFactoryTest {
 
-    private TerritoryDTO territoryDTO = new TerritoryDTO();
-    private NumberGenerator numberGenerator = new NumberGeneratorRandom();
-    private FieldFactory fieldFactory = new FieldFactory(numberGenerator);
-    private int height = 20;
-    private int width = 30;
+    private final TerritoryDTO territoryDTO = new TerritoryDTO();
+    private final NumberGenerator numberGenerator = new NumberGeneratorRandom();
+    private final FieldFactory fieldFactory = new FieldFactory(numberGenerator);
+    private final int height = 20;
+    private final int width = 30;
 
     @BeforeEach
     public void beforeEach() {

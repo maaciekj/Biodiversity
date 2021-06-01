@@ -12,6 +12,8 @@ public class Constants {
 
     public static final int FIELD_STORAGE_FACTOR = 8;
 
+    public static final int EDIBLE_PLANTS_FACTOR_TO_GROWTH_FOR_TURN_AT_THE_BEGINNING = 2;
+
     public static final int NUMBER_OF_ORGANISMS_OF_SPECIES_AT_THE_BEGINNING = 5;
 
     public static final double ENERGY_CONSUMPTION_EXPONENT = 0.75;

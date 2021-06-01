@@ -120,7 +120,16 @@ public class Territory {
         if (carnivores.isEmpty()) {
             return;
         }
+        int rangeForSearchingPrey = 3;
+        int reasonableNumberOfPrey = 3;
+        int maxNumberOfTries = 20;
         for (Organism carnivore : carnivores) {
+            int actualNumberOfTries = 0;
+            while (checkOrganismsNearbyExcludingOwnSpecies(carnivore.getRow(), carnivore.getCol(), rangeForSearchingPrey, carnivore.getSign()).size()<reasonableNumberOfPrey&&actualNumberOfTries<maxNumberOfTries){
+                 carnivore.setRandomCol();
+                 carnivore.setRandomRow();
+                 actualNumberOfTries++;
+            }
             addInhabitant(carnivore);
         }
         carnivores.clear();

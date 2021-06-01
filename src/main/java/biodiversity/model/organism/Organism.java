@@ -186,13 +186,23 @@ public class Organism {
 
     // setters
 
+    public void setRandomRow() {
+        row = numberGenerator.generateRandomInt(territory.getHeight());
+    }
+
     public void setRow(int row) {
         this.row = row;
+    }
+
+    public void setRandomCol(){
+        col = numberGenerator.generateRandomInt(territory.getWidth());
     }
 
     public void setCol(int col) {
         this.col = col;
     }
+
+
 
     @Override
     public String toString() {

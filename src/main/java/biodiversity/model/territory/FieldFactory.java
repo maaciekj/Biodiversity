@@ -67,10 +67,10 @@ public class FieldFactory {
                     int baseRangeOfSpecialField = 3;
                     int furtherRangeOfSpecialField = baseRangeOfSpecialField * 2;
                     if (fieldIsInCircle(fields[row][col], specialField, baseRangeOfSpecialField)) {
-                        fields[row][col].changeGrowForTurnBuilding(specialField.getGrowForTurn() - baseFertility);
+                        fields[row][col].changeGrowForTurnAtAppStarting(specialField.getGrowForTurn() - baseFertility);
                     } else {
                         if (fieldIsInCircle(fields[row][col], specialField, furtherRangeOfSpecialField)) {
-                            fields[row][col].changeGrowForTurnBuilding((specialField.getGrowForTurn() - baseFertility) / 2);
+                            fields[row][col].changeGrowForTurnAtAppStarting((specialField.getGrowForTurn() - baseFertility) / 2);
                         }
                     }
                 }

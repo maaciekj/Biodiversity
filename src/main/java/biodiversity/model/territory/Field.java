@@ -12,7 +12,7 @@ public class Field {
     private final int col;
 
     public Field(int growForTurn, int row, int col) {
-        ediblePlants = 0;
+        ediblePlants = Constants.EDIBLE_PLANTS_FACTOR_TO_GROWTH_FOR_TURN_AT_THE_BEGINNING*growForTurn;
         this.growForTurn = growForTurn;
         this.row = row;
         this.col = col;
@@ -69,7 +69,7 @@ public class Field {
     }
 
     // it may cause dropping below zero, but such is needed for temp use by Field Factory
-    public void changeGrowForTurnBuilding(int howMuch) {
+    public void changeGrowForTurnAtAppStarting(int howMuch) {
         growForTurn = growForTurn + howMuch;
     }
 
