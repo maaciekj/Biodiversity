@@ -7,12 +7,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Box;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Menu extends Stage {
 
-    private HBox layout;
+    private VBox container;
+    private HBox chooseBox;
     private Scene scene;
     private Button startDefault;
     private Button configure;
@@ -20,36 +21,36 @@ public class Menu extends Stage {
 
     public Menu() {
         setTitle("Biodiversity Game");
-        layout = new HBox(10);
-        layout.setAlignment(Pos.CENTER);
-        layout.setPadding(new Insets(25));
-        scene = new Scene(layout);
+        container = new VBox();
+        scene = new Scene(container);
+        chooseBox = new HBox(10);
+        chooseBox.setAlignment(Pos.CENTER);
+        chooseBox.setPadding(new Insets(25));
+
         startDefault = new Button("Start default");
         configure = new Button("Configure");
         exit = new Button("EXIT");
         setScene(scene);
-        layout.getChildren().addAll(startDefault, configure, exit);
+        chooseBox.getChildren().addAll(startDefault, configure, exit);
+        container.getChildren().add(chooseBox);
         show();
     }
 
     public Menu(String specialInfo){
         setTitle("Biodiversity Game");
 
-        layout = new HBox(10);
-        layout.setAlignment(Pos.CENTER);
-        layout.setPadding(new Insets(25));
-        scene = new Scene(layout);
+        chooseBox = new HBox(10);
+        chooseBox.setAlignment(Pos.CENTER);
+        chooseBox.setPadding(new Insets(25));
+        scene = new Scene(chooseBox);
         startDefault = new Button("Start default");
         configure = new Button("Configure");
         exit = new Button("EXIT");
         setScene(scene);
-        layout.getChildren().addAll(startDefault, configure, exit);
+        chooseBox.getChildren().addAll(startDefault, configure, exit);
         show();
 
-
     }
-
-
 
     public void addStartDefaultButtonAction(EventHandler<ActionEvent> event) {
         startDefault.setOnAction(event);

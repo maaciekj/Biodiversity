@@ -57,9 +57,14 @@ public class TerritoryMenuController {
     }
 
     private int collectAndValidateNumberOfSpecies() throws InvalidUsersInputException {
-        int numberOfSpecies = Integer.parseInt(territoryMenu.getHowManySpecies());
+       int numberOfSpecies = 0;
+        try {
+            numberOfSpecies = Integer.parseInt(territoryMenu.getHowManySpecies());
+        } catch (NumberFormatException e){
+            throw new InvalidUsersInputException("You didn't type proper number of species ");
+        }
         if (numberOfSpecies < Constants.MIN_NUMBER_OF_SPECIES || numberOfSpecies > Constants.MAX_NUMBER_OF_SPECIES) {
-            throw new InvalidUsersInputException("You didn't type number of species ");
+            throw new InvalidUsersInputException("You didn't type proper number of species ");
         }
         return numberOfSpecies;
     }

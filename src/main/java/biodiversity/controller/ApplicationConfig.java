@@ -14,10 +14,7 @@ import biodiversity.model.organism.behavior.replication_strategies.ManySmallChil
 import biodiversity.model.organism.behavior.replication_strategies.ReplicationStrategy;
 import biodiversity.model.organism.behavior.replication_strategies.SmallChildren;
 import biodiversity.model.territory.*;
-import biodiversity.view.Menu;
-import biodiversity.view.ObserverFX;
-import biodiversity.view.SimulationDisplay;
-import biodiversity.view.TerritoryObserver;
+import biodiversity.view.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
@@ -47,9 +44,9 @@ public class ApplicationConfig {
             MenuController menuController = new MenuController(new Menu());
             return;
         }
-        try{
+        try {
             startSimulation(territoryDTO);
-        } catch (InvalidDTOException e){
+        } catch (InvalidDTOException e) {
             logger.warn(e.getMessage());
             MenuController menuController = new MenuController(new Menu());
         }
@@ -57,9 +54,9 @@ public class ApplicationConfig {
     }
 
     public void startSimulation(TerritoryDTO territoryDTO) throws InvalidDTOException {
-        /*if (!validateTerritoryDTO(territoryDTO)){
+        if (!validateTerritoryDTO(territoryDTO)) {
             throw new InvalidDTOException("invalid input data");
-        }*/
+        }
         TerritoryObserver observer = new ObserverFX();
         NumberGenerator numberGenerator = new NumberGeneratorRandom();
         FieldFactory fieldFactory = new FieldFactory(numberGenerator);
@@ -85,13 +82,54 @@ public class ApplicationConfig {
     }
 
     private boolean validateTerritoryDTO(TerritoryDTO territoryDTO) {
-    if (territoryDTO.getHeight()<=0){
-        return false;
+        if (territoryDTO.getHeight() <= 0) {
+            return false;
+        }
+        if (territoryDTO.getWidth() <= 0) {
+            return false;
+        }
+        if (territoryDTO.getFertility() <= 0) {
+            return false;
+        }
+        if (territoryDTO.getFertilityDiversity() < 0) {
+            return false;
+        }
+        if (!validateSpeciesDTOs(territoryDTO)){
+            return false;
+        }
+
+        return true;
     }
-    if (territoryDTO.getWidth()<=0){
-        return false;
-    }
-    return true;
+
+    private boolean validateSpeciesDTOs (TerritoryDTO territoryDTO){
+        List<SpeciesDTO> speciesDTOs = territoryDTO.getSpeciesDTOs();
+        if (speciesDTOs.isEmpty()){
+            return false;
+        }
+        if (speciesDTOs.size()>Constants.MAX_NUMBER_OF_SPECIES){
+            return false;
+        }
+        for (SpeciesDTO speciesDTO : speciesDTOs) {
+            if (CharColorFX.findColorByChar(speciesDTO.getSign())==null){
+                return false;
+            }
+        }
+        for(SpeciesDTO speciesDTO : speciesDTOs){
+            if(speciesDTO.getBehaviorDTO()==null){
+                return false;
+            }
+        }
+        for (SpeciesDTO speciesDTO : speciesDTOs) {
+            if (speciesDTO.getAdultPreferredBodyMass()<=0){
+                return false;
+            }
+        }
+        for (SpeciesDTO speciesDTO : speciesDTOs) {
+            if (speciesDTO.getMaxAge()<=0){
+                return false;
+            }
+        }
+        return true;
     }
 
     private List<Species> getHerbivoreSpecies(TerritoryDTO territoryDTO, NumberGenerator numberGenerator, Territory territory) {
