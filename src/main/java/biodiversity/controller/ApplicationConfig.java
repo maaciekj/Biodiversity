@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +33,6 @@ import java.util.stream.Collectors;
 public class ApplicationConfig {
 
     private static final Logger logger = LogManager.getLogger(ApplicationConfig.class);
-
 
     public void startDefaultSimulation() {
         try {
@@ -50,11 +50,7 @@ public class ApplicationConfig {
     }
 
     public void startSimulation(TerritoryDTO territoryDTO) {
-
-        /*if(false){
-            throw new IllegalArgumentException()
-        }*/
-
+        // TODO validate territoryDTO
         TerritoryObserver observer = new ObserverFX();
         NumberGenerator numberGenerator = new NumberGeneratorRandom();
         FieldFactory fieldFactory = new FieldFactory(numberGenerator);
@@ -80,43 +76,62 @@ public class ApplicationConfig {
     }
 
     private List<Species> getHerbivoreSpecies(TerritoryDTO territoryDTO, NumberGenerator numberGenerator, Territory territory) {
-        List<SpeciesDTO> speciesDTOsHerbivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.HERBIVORE)).collect(Collectors.toList());
+        List<SpeciesDTO> speciesDTOsHerbivores = territoryDTO.getSpeciesDTOs().stream()
+                .filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.HERBIVORE))
+                .collect(Collectors.toList());
         return createListOfSpecies(speciesDTOsHerbivores, territory, numberGenerator);
+    }
+
+    private List<Species> getCarnivoreSpecies(TerritoryDTO territoryDTO, NumberGenerator numberGenerator, Territory territory) {
+        List<SpeciesDTO> speciesDTOsCarnivores = territoryDTO.getSpeciesDTOs().stream()
+                .filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.CARNIVORE))
+                .collect(Collectors.toList());
+        return createListOfSpecies(speciesDTOsCarnivores, territory, numberGenerator);
     }
 
     private List<Species> createListOfSpecies(List<SpeciesDTO> speciesDTOs, Territory territory, NumberGenerator numberGenerator) {
         List<Species> speciesList = new ArrayList<>();
         for (SpeciesDTO speciesDTO : speciesDTOs) {
             Behavior behavior = new BehaviorBasic(territory, numberGenerator);
-            BehaviorDecorator behaviorDecorator1;
-            if (DisplayConstants.CARNIVORE.equals(speciesDTO.getBehaviorDTO().getFeedingStrategy())) {
-                behaviorDecorator1 = new Carnivore(behavior);
-            } else {
-                behaviorDecorator1 = new Herbivore(behavior);
-            }
-            BehaviorDecorator behaviorDecorator2;
-            switch (speciesDTO.getBehaviorDTO().getReplicationStrategy()) {
-                case DisplayConstants.BIG_CHILDREN:
-                    behaviorDecorator2 = new BigChildren(behaviorDecorator1);
-                    break;
-                case DisplayConstants.SMALL_CHILDREN:
-                    behaviorDecorator2 = new SmallChildren(behaviorDecorator1);
-                    break;
-                case DisplayConstants.MANY_SMALL_AT_END:
-                    behaviorDecorator2 = new ManySmallChildrenAtEndOfLife(behaviorDecorator1);
-                    break;
-                default:
-                    behaviorDecorator2 = new ReplicationStrategy(behaviorDecorator1);
-            }
-            Species species = new Species(speciesDTO.getSign(), behaviorDecorator2, speciesDTO.getAdultPreferredBodyMass(), speciesDTO.getMaxAge());
+            BehaviorDecorator behaviorDecorator1 = addBehaviorDecoratorFeeding(speciesDTO, behavior);
+            BehaviorDecorator behaviorDecorator2 = addBehaviorDecoratorReplication(speciesDTO, behaviorDecorator1);
+            Species species = new Species.Builder()
+                    .sign(speciesDTO.getSign())
+                    .behavior(behaviorDecorator2)
+                    .adultPreferredBodyMass(speciesDTO.getAdultPreferredBodyMass())
+                    .maxAge(speciesDTO.getMaxAge())
+                    .build();
             speciesList.add(species);
         }
         return speciesList;
     }
 
-    private List<Species> getCarnivoreSpecies(TerritoryDTO territoryDTO, NumberGenerator numberGenerator, Territory territory) {
-        List<SpeciesDTO> speciesDTOsCarnivores = territoryDTO.getSpeciesDTOs().stream().filter(speciesDTO -> speciesDTO.getBehaviorDTO().getFeedingStrategy().equals(DisplayConstants.CARNIVORE)).collect(Collectors.toList());
-        return createListOfSpecies(speciesDTOsCarnivores, territory, numberGenerator);
+    private BehaviorDecorator addBehaviorDecoratorFeeding(SpeciesDTO speciesDTO, Behavior behavior) {
+        BehaviorDecorator behaviorDecorator1;
+        if (DisplayConstants.CARNIVORE.equals(speciesDTO.getBehaviorDTO().getFeedingStrategy())) {
+            behaviorDecorator1 = new Carnivore(behavior);
+        } else {
+            behaviorDecorator1 = new Herbivore(behavior);
+        }
+        return behaviorDecorator1;
+    }
+
+    private BehaviorDecorator addBehaviorDecoratorReplication(SpeciesDTO speciesDTO, BehaviorDecorator behaviorDecorator1) {
+        BehaviorDecorator behaviorDecorator2;
+        switch (speciesDTO.getBehaviorDTO().getReplicationStrategy()) {
+            case DisplayConstants.BIG_CHILDREN:
+                behaviorDecorator2 = new BigChildren(behaviorDecorator1);
+                break;
+            case DisplayConstants.SMALL_CHILDREN:
+                behaviorDecorator2 = new SmallChildren(behaviorDecorator1);
+                break;
+            case DisplayConstants.MANY_SMALL_AT_END:
+                behaviorDecorator2 = new ManySmallChildrenAtEndOfLife(behaviorDecorator1);
+                break;
+            default:
+                behaviorDecorator2 = new ReplicationStrategy(behaviorDecorator1);
+        }
+        return behaviorDecorator2;
     }
 
     private List<Organism> createOrganismsFromSpeciesList(NumberGenerator numberGenerator, Territory territory, List<Species> speciesList) {
@@ -141,14 +156,13 @@ public class ApplicationConfig {
                     .build();
             do {
                 int radius = 10;
-                organism.setRow(rowCenter + numberGenerator.generateRandomInt(2*radius) - radius);
-                organism.setCol(colCenter + numberGenerator.generateRandomInt(2*radius) - radius);
+                organism.setRow(rowCenter + numberGenerator.generateRandomInt(2 * radius) - radius);
+                organism.setCol(colCenter + numberGenerator.generateRandomInt(2 * radius) - radius);
             } while (territory.placeIsOutOfTerritoryBoundaries(organism.getRow(), organism.getCol()));
             organisms.add(organism);
         }
         return organisms;
     }
-
 
 
 }

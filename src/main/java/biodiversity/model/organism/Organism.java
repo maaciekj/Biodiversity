@@ -55,7 +55,7 @@ public class Organism {
         }
     }
 
-    public Organism(Builder builder) {
+    private Organism(Builder builder) {
         this.species = builder.species;
         this.sign = species.getSign();
         this.age = 0;
@@ -194,14 +194,13 @@ public class Organism {
         this.row = row;
     }
 
-    public void setRandomCol(){
+    public void setRandomCol() {
         col = numberGenerator.generateRandomInt(territory.getWidth());
     }
 
     public void setCol(int col) {
         this.col = col;
     }
-
 
 
     @Override
