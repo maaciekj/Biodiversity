@@ -52,5 +52,4 @@ public class ObserverFX implements TerritoryObserver {
         return territory.getIteration();
     }
 
-
 }

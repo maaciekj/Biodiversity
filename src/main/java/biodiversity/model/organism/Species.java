@@ -11,7 +11,6 @@ public class Species {
     private final int maxAge;
     private final int maturityAge;
 
-
     public static class Builder {
         private char sign;
         private Behavior behavior;
@@ -43,7 +42,6 @@ public class Species {
         }
 
     }
-
 
     private Species(Builder builder) {
         this.sign = builder.sign;

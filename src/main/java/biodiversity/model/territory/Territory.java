@@ -18,7 +18,7 @@ public class Territory {
     private TerritoryObserver observer;
     private Counter counter;
     private List<Organism> carnivores = new ArrayList<>();
-    
+
     public static class Builder {
         private char emptyFieldSign;
         private Field[][] places;
@@ -74,14 +74,8 @@ public class Territory {
 
     public void doItsTurn() {
         placesDoTheirTurn();
-        List<Organism> organisms = new LinkedList<>();
-        for (int row = 0; row < inhabitants.length; row++) {
-            for (int col = 0; col < inhabitants[row].length; col++) {
-                if (inhabitants[row][col] != null) {
-                    organisms.add(inhabitants[row][col]);
-                }
-            }
-        }
+        // list is needed to iterate in random order, not e.g. top down
+        List<Organism> organisms = getOrganismList();
         Collections.shuffle(organisms);
         for (Organism organism : organisms) {
             organism.doItsTurn();
@@ -103,6 +97,18 @@ public class Territory {
         }
     }
 
+    private List<Organism> getOrganismList() {
+        List<Organism> organisms = new LinkedList<>();
+        for (int row = 0; row < inhabitants.length; row++) {
+            for (int col = 0; col < inhabitants[row].length; col++) {
+                if (inhabitants[row][col] != null) {
+                    organisms.add(inhabitants[row][col]);
+                }
+            }
+        }
+        return organisms;
+    }
+
     private void sendStatisticsToLogger() {
         if (counter.getIterationNumber() % 100 == 0) {
             logger.info("number of organisms: " + getNumberOfOrganisms());
@@ -120,19 +126,23 @@ public class Territory {
         if (carnivores.isEmpty()) {
             return;
         }
-        int rangeForSearchingPrey = 3;
-        int reasonableNumberOfPrey = 3;
         int maxNumberOfTries = 20;
         for (Organism carnivore : carnivores) {
             int actualNumberOfTries = 0;
-            while (checkOrganismsNearbyExcludingOwnSpecies(carnivore.getRow(), carnivore.getCol(), rangeForSearchingPrey, carnivore.getSign()).size()<reasonableNumberOfPrey&&actualNumberOfTries<maxNumberOfTries){
-                 carnivore.setRandomCol();
-                 carnivore.setRandomRow();
-                 actualNumberOfTries++;
+            while (!isEnoughPreyNearby(carnivore) && actualNumberOfTries < maxNumberOfTries) {
+                carnivore.setRandomCol();
+                carnivore.setRandomRow();
+                actualNumberOfTries++;
             }
             addInhabitant(carnivore);
         }
         carnivores.clear();
+    }
+
+    private boolean isEnoughPreyNearby(Organism carnivore) {
+        int rangeForSearchingPrey = 3;
+        int reasonableNumberOfPrey = 3;
+        return checkOrganismsNearbyExcludingOwnSpecies(carnivore.getRow(), carnivore.getCol(), rangeForSearchingPrey, carnivore.getSign()).size() > reasonableNumberOfPrey;
     }
 
     private int getNumberOfOrganisms() {
@@ -151,8 +161,8 @@ public class Territory {
         int numberOfOrganisms = 0;
         for (int row = 0; row < inhabitants.length; row++) {
             for (int col = 0; col < inhabitants[row].length; col++) {
-                if (inhabitants[row][col] != null){
-                    if (inhabitants[row][col].getSign()==sign){
+                if (inhabitants[row][col] != null) {
+                    if (inhabitants[row][col].getSign() == sign) {
                         numberOfOrganisms++;
                     }
                 }

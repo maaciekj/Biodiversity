@@ -39,7 +39,7 @@ public class SpeciesMenuController {
             }
             String replicationStrategy;
             try {
-                 replicationStrategy = speciesMenu.getReplication();
+                replicationStrategy = speciesMenu.getReplication();
             } catch (InvalidUsersInputException e) {
                 setNewSpeciesMenu();
                 return;

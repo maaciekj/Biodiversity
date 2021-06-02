@@ -13,9 +13,8 @@ public class OrganismTest {
     private Territory territory = Mockito.mock(Territory.class);
 
 
-
     @Test
-    public void trueShouldBeTrue(){
+    public void trueShouldBeTrue() {
         assertTrue(true);
     }
 

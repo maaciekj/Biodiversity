@@ -14,7 +14,6 @@ public class FieldFactory {
         this.numberGenerator = numberGenerator;
     }
 
-
     public Field[][] createFieldPattern(TerritoryDTO territoryDTO) {
         return createFieldPattern(territoryDTO.getHeight(), territoryDTO.getWidth(), territoryDTO.getFertility(), territoryDTO.getFertilityDiversity());
     }

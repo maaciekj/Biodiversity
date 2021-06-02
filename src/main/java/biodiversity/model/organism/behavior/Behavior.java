@@ -9,7 +9,6 @@ public abstract class Behavior {
     protected Territory territory;
     protected NumberGenerator numberGenerator;
 
-
     public Behavior() {
     }
 

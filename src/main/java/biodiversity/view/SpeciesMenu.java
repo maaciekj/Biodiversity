@@ -116,16 +116,16 @@ public class SpeciesMenu extends Stage {
         backOrProceed.getChildren().addAll(back, proceed);
     }
 
-    public void addBackButtonAction(EventHandler<ActionEvent> event){
+    public void addBackButtonAction(EventHandler<ActionEvent> event) {
         back.setOnAction(event);
     }
 
-    public void addProceedButtonAction(EventHandler<ActionEvent> event){
+    public void addProceedButtonAction(EventHandler<ActionEvent> event) {
         proceed.setOnAction(event);
     }
 
     public String getFeeding() throws InvalidUsersInputException {
-        if (toggleFeeding.getSelectedToggle()!=null){
+        if (toggleFeeding.getSelectedToggle() != null) {
             RadioButton chosen = (RadioButton) toggleFeeding.getSelectedToggle();
             return chosen.getText();
         } else {
@@ -134,7 +134,7 @@ public class SpeciesMenu extends Stage {
     }
 
     public String getReplication() throws InvalidUsersInputException {
-        if (toggleReplication.getSelectedToggle()!=null){
+        if (toggleReplication.getSelectedToggle() != null) {
             RadioButton chosen = (RadioButton) toggleReplication.getSelectedToggle();
             return chosen.getText();
         } else {
@@ -143,10 +143,10 @@ public class SpeciesMenu extends Stage {
     }
 
     public int getMass() {
-        return (int)mass.getValue();
+        return (int) mass.getValue();
     }
 
-    public int getMaxAge(){
+    public int getMaxAge() {
         return (int) maxAge.getValue();
     }
 

@@ -41,11 +41,11 @@ public class FieldFactoryTest {
     }
 
     @Test
-    public void fieldsShouldHaveNotNegativeGrowForTurn(){
+    public void fieldsShouldHaveNotNegativeGrowForTurn() {
         Field[][] fields = fieldFactory.createFieldPattern(territoryDTO);
         for (int row = 0; row < fields.length; row++) {
             for (int col = 0; col < fields[row].length; col++) {
-                Assertions.assertTrue(fields[row][col].getGrowForTurn()>=0);
+                Assertions.assertTrue(fields[row][col].getGrowForTurn() >= 0);
             }
         }
     }

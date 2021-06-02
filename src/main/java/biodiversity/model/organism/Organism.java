@@ -8,11 +8,11 @@ public class Organism {
 
     private final Species species; // here Behavior
     private final char sign; // got from species, frequently needed
-    private int row; // concrete organism
-    private int col; // concrete organism
-    private int age; // concrete organism
-    private int activeBodyMass; // concrete organism
-    private int storedEnergy; // concrete organism
+    private int row;
+    private int col;
+    private int age;
+    private int activeBodyMass;
+    private int storedEnergy;
     private int energyConsumption; //  calculated once for turn; frequently needed
     private final Territory territory;
     private final NumberGenerator numberGenerator;
@@ -98,7 +98,7 @@ public class Organism {
         if (storedEnergy < getEnergyConsumption() * Constants.STORED_ENERGY_FACTOR_TO_START_GROWING) {
             return;
         }
-        addBodyMass(1);
+        activeBodyMass += 1;
         consumeEnergy(Constants.ENERGY_NEED_FOR_BODY_MASS);
     }
 
@@ -122,10 +122,6 @@ public class Organism {
 
     public void subtractBodyMass(int howMuch) {
         activeBodyMass = activeBodyMass - howMuch;
-    }
-
-    public void addBodyMass(int howMuch) {
-        activeBodyMass = activeBodyMass + howMuch;
     }
 
     // getters from fields
@@ -200,17 +196,6 @@ public class Organism {
 
     public void setCol(int col) {
         this.col = col;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Organism{" +
-                "sign=" + sign +
-                ", age=" + age +
-                ", activeBodyMass=" + activeBodyMass +
-                ", storedEnergy=" + storedEnergy +
-                '}';
     }
 
 }

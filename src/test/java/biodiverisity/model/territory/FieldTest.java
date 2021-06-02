@@ -41,8 +41,6 @@ public class FieldTest {
         field.feed(number);
         int numberOfPlantsAfter = field.getEdiblePlants();
         assertFalse(numberOfPlantsAfter > numberOfPlantsBefore);
-
     }
-
 
 }

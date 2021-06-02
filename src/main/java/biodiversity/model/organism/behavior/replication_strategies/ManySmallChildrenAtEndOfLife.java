@@ -4,10 +4,10 @@ import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.territory.Field;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy {
 
@@ -60,7 +60,6 @@ public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy {
         return (int) Math.round(organism.getAdultPreferredBodyMass() * Constants.CHILD_TO_ADULT_MASS_RATIO_MANY_SMALL_CHILDREN);
     }
 
-
     @Override
     protected void createCreatureAndAssignToTerritory(int row, int col, Organism organism) {
         Organism creatureChild = new Organism.Builder()
@@ -87,6 +86,5 @@ public class ManySmallChildrenAtEndOfLife extends ReplicationStrategy {
     private void dieFromExhaustion(Organism organism) {
         territory.removeInhabitant(organism.getRow(), organism.getCol());
     }
-
 
 }

@@ -25,13 +25,13 @@ public class Herbivore extends FeedingStrategy {
         organism.addEnergy(territory.feedOnPlants(organism.getRow(), organism.getCol(), calculateDemand(organism)));
     }
 
-    private int calculateDemand(Organism organism){
-        return organism.getEnergyConsumption()*Constants.HERBIVORES_DEMAND_FACTOR-organism.getStoredEnergy();
+    private int calculateDemand(Organism organism) {
+        return organism.getEnergyConsumption() * Constants.HERBIVORES_DEMAND_FACTOR - organism.getStoredEnergy();
     }
 
     @Override
     protected void migrate(Organism organism) {
-        if(organism.getStoredEnergy()> Constants.HERBIVORES_DEMAND_FACTOR*organism.getEnergyConsumption()){
+        if (organism.getStoredEnergy() > Constants.HERBIVORES_DEMAND_FACTOR * organism.getEnergyConsumption()) {
             return;
         }
         List<Field> freeFields = territory.checkFreePlaces(organism.getRow(), organism.getCol(), 1);
@@ -39,8 +39,8 @@ public class Herbivore extends FeedingStrategy {
         Field fieldToGo;
         try {
             fieldToGo = freeFields.stream().
-                    max(Comparator.comparingInt(field -> field.getEdiblePlants())).orElseThrow(RuntimeException::new);
-        } catch (RuntimeException e){
+                    max(Comparator.comparingInt(Field::getEdiblePlants)).orElseThrow(MaxNumberNotFound::new);
+        } catch (MaxNumberNotFound e) {
             return;
         }
         moveTo(organism, fieldToGo.getRow(), fieldToGo.getCol());

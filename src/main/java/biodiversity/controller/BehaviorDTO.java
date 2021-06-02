@@ -10,13 +10,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
 public class BehaviorDTO {
 
     private String feedingStrategy;
     private String replicationStrategy;
     private List<String> specialFeatures;
-
-
 
 }

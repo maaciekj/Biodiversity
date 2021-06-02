@@ -22,45 +22,43 @@ public class Carnivore extends FeedingStrategy {
         migrate(organism);
     }
 
-    protected void preyOnAnimals(Organism organism){
-        if(organism.getStoredEnergy()> organism.getEnergyConsumption()*Constants.CARNIVORES_DEMAND_FACTOR){
+    protected void preyOnAnimals(Organism organism) {
+        if (organism.getStoredEnergy() > organism.getEnergyConsumption() * Constants.CARNIVORES_DEMAND_FACTOR) {
             return;
         }
         List<Organism> toPreyOn = getListOfOrganismInNearby(organism);
-        if (toPreyOn.isEmpty()){
+        if (toPreyOn.isEmpty()) {
             return;
         }
-        Collections.shuffle(toPreyOn);
         // this option predator tries to eat all available prey
-        // Streams have significant negative impact on performance due to creating huge number of new objects during simulation
         toPreyOn = toPreyOn.stream()
-                    .filter(possiblePrey -> possiblePrey.getSign()!= organism.getSign())
-                    .filter(possiblePrey -> possiblePrey.getActiveBodyMass()<organism.getActiveBodyMass())
-                    .collect(Collectors.toList());
+                .filter(possiblePrey -> possiblePrey.getSign() != organism.getSign())
+                .filter(possiblePrey -> possiblePrey.getActiveBodyMass() < organism.getActiveBodyMass())
+                .collect(Collectors.toList());
         for (Organism prey : toPreyOn) {
-            if(numberGenerator.generateDouble()<Constants.CARNIVORES_BASIC_EFFICIENCY){
-                organism.addEnergy((prey.getStoredEnergy()+prey.getActiveBodyMass())*Constants.ENERGY_EXTRACTED_FROM_BODY_MASS_BY_PREDATOR);
+            if (numberGenerator.generateDouble() < Constants.CARNIVORES_BASIC_EFFICIENCY) {
+                organism.addEnergy((prey.getStoredEnergy() + prey.getActiveBodyMass()) * Constants.ENERGY_EXTRACTED_FROM_BODY_MASS_BY_PREDATOR);
                 territory.removeInhabitant(prey.getRow(), prey.getCol());
             }
         }
     }
 
-    protected List<Organism> getListOfOrganismInNearby(Organism organism){
+    protected List<Organism> getListOfOrganismInNearby(Organism organism) {
         return territory.checkOrganismsNearbyExcludingOwnSpecies(organism.getRow(), organism.getCol(), 1, organism.getSign());
     }
 
     protected void migrate(Organism organism) {
         int rangeOfSearching = 2;
         List<Field> freeFields = territory.checkFreePlaces(organism.getRow(), organism.getCol(), rangeOfSearching);
-        if (freeFields.size()==0){
+        if (freeFields.isEmpty()) {
             return;
         }
         Collections.shuffle(freeFields);
         int numberOfPossiblePreyNeededToAttract = 3;
         List<Field> freeFieldsWithEnoughOrganismsNearby = freeFields.stream()
-                .filter(field ->  territory.checkOrganismsNearbyExcludingOwnSpecies(field.getRow(), field.getCol(), rangeOfSearching, organism.getSign()).size()>=numberOfPossiblePreyNeededToAttract)
+                .filter(field -> territory.checkOrganismsNearbyExcludingOwnSpecies(field.getRow(), field.getCol(), rangeOfSearching, organism.getSign()).size() >= numberOfPossiblePreyNeededToAttract)
                 .collect(Collectors.toList());
-        if (freeFieldsWithEnoughOrganismsNearby.isEmpty()){
+        if (freeFieldsWithEnoughOrganismsNearby.isEmpty()) {
             Field fieldToGo = freeFields.get(numberGenerator.generateRandomInt(freeFields.size()));
             moveTo(organism, fieldToGo.getRow(), fieldToGo.getCol());
             return;

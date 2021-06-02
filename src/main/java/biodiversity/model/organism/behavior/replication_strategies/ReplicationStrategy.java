@@ -5,11 +5,11 @@ import biodiversity.model.organism.Organism;
 import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.organism.behavior.BehaviorDecorator;
 import biodiversity.model.territory.Field;
+
 import java.util.Collections;
 import java.util.List;
 
 public class ReplicationStrategy extends BehaviorDecorator {
-
 
     public ReplicationStrategy(Behavior behavior) {
         super(behavior);
@@ -47,7 +47,6 @@ public class ReplicationStrategy extends BehaviorDecorator {
         }
         return numberGenerator.generateDouble() < Constants.BASIC_REPLICATION_PROBABILITY;
     }
-
 
     protected List<Field> checkForFreeFields(Organism organism) {
         return territory.checkFreePlaces(organism.getRow(), organism.getCol(), 1);
