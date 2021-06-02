@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrganismTest {
 
-    private Species species = Mockito.mock(Species.class);
+   /* private Species species = Mockito.mock(Species.class);
     private Territory territory = Mockito.mock(Territory.class);
-
+*/
 
     @Test
     public void trueShouldBeTrue() {

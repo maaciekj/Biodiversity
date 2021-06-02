@@ -35,22 +35,31 @@ public class ApplicationConfig {
     private static final Logger logger = LogManager.getLogger(ApplicationConfig.class);
 
     public void startDefaultSimulation() {
+        TerritoryDTO territoryDTO;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setPropertyNamingStrategy(new PropertyNamingStrategies.SnakeCaseStrategy());
             ApplicationConfig applicationConfig = new ApplicationConfig();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            TerritoryDTO territoryDTO = objectMapper.readValue(new File("src/main/resources/config.json"), TerritoryDTO.class);
-            startSimulation(territoryDTO);
+            territoryDTO = objectMapper.readValue(new File("src/main/resources/config.json"), TerritoryDTO.class);
         } catch (IOException e) {
             logger.warn(e.getMessage());
-            Menu menu = new Menu();
-            MenuController menuController = new MenuController(menu);
+            MenuController menuController = new MenuController(new Menu());
+            return;
         }
+        try{
+            startSimulation(territoryDTO);
+        } catch (InvalidDTOException e){
+            logger.warn(e.getMessage());
+            MenuController menuController = new MenuController(new Menu());
+        }
+
     }
 
-    public void startSimulation(TerritoryDTO territoryDTO) {
-        // TODO validate territoryDTO
+    public void startSimulation(TerritoryDTO territoryDTO) throws InvalidDTOException {
+        /*if (!validateTerritoryDTO(territoryDTO)){
+            throw new InvalidDTOException("invalid input data");
+        }*/
         TerritoryObserver observer = new ObserverFX();
         NumberGenerator numberGenerator = new NumberGeneratorRandom();
         FieldFactory fieldFactory = new FieldFactory(numberGenerator);
@@ -73,6 +82,16 @@ public class ApplicationConfig {
         }
         territory.setCarnivores(createOrganismsFromSpeciesList(numberGenerator, territory, carnivores));
         logger.info("simulation start");
+    }
+
+    private boolean validateTerritoryDTO(TerritoryDTO territoryDTO) {
+    if (territoryDTO.getHeight()<=0){
+        return false;
+    }
+    if (territoryDTO.getWidth()<=0){
+        return false;
+    }
+    return true;
     }
 
     private List<Species> getHerbivoreSpecies(TerritoryDTO territoryDTO, NumberGenerator numberGenerator, Territory territory) {
@@ -163,6 +182,5 @@ public class ApplicationConfig {
         }
         return organisms;
     }
-
 
 }

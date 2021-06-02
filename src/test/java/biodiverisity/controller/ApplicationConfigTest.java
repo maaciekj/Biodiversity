@@ -3,6 +3,7 @@ package biodiverisity.controller;
 import biodiversity.controller.ApplicationConfig;
 import biodiversity.controller.InvalidDTOException;
 import biodiversity.controller.TerritoryDTO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,6 +15,13 @@ public class ApplicationConfigTest {
     private final int height = 20;
     private final int width = 30;
 
+    @BeforeEach
+    public void beforeEach(){
+        territoryDTO.setHeight(height);
+        territoryDTO.setWidth(width);
+    }
+
+
     @Test
     public void territoryDTOWithNegativeHeightShouldNotBeAccepted() {
         territoryDTO.setHeight(-10);
@@ -24,6 +32,11 @@ public class ApplicationConfigTest {
     public void territoryDTOWithNegativeWidthShouldNotBeAccepted() {
         territoryDTO.setWidth(-5);
         assertThrows(InvalidDTOException.class, () -> applicationConfig.startSimulation(territoryDTO));
+    }
+
+    @Test
+    public void territoryDTOWithNoInfoOnSpeciesShouldNotBeAccepted(){
+
     }
 
 }

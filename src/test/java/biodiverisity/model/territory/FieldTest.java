@@ -17,7 +17,6 @@ public class FieldTest {
         field = new Field(5, 0, 0);
     }
 
-
     @Test
     public void growPlantsShouldIncreaseEdiblePlantsOfGrowForTurnFactor() {
         int beforeGrowing = field.getEdiblePlants();
