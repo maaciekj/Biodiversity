@@ -47,7 +47,7 @@ public class TerritoryMenu extends Stage {
 
     private void initializeFertilityBlock() {
         onFertility = new Text();
-        onFertility.setText("Select ground fertility. The higher fertility," +
+        onFertility.setText("select ground fertility. The higher fertility," +
                 "\n the more and the bigger creatures can survive");
         buttonsFertility = new HBox(20);
         toggleFertility = new ToggleGroup();
@@ -63,7 +63,7 @@ public class TerritoryMenu extends Stage {
     }
 
     private void initializeDiversityBlock() {
-        onDiversity = new Text("Select variation of ground fertility");
+        onDiversity = new Text("select variation of ground fertility");
         buttonsDiversity = new HBox(20);
         toggleDiversity = new ToggleGroup();
         RadioButton buttonDiversity1 = new RadioButton("none");
@@ -79,8 +79,8 @@ public class TerritoryMenu extends Stage {
 
     private void initializeBackOrProceedButtons() {
         backOrProceed = new HBox(20);
-        back = new Button("Back to main menu");
-        proceed = new Button("Proceed");
+        back = new Button("back to main menu");
+        proceed = new Button("proceed");
         backOrProceed.getChildren().addAll(back, proceed);
     }
 
@@ -101,7 +101,7 @@ public class TerritoryMenu extends Stage {
             RadioButton chosen = (RadioButton) toggleFertility.getSelectedToggle();
             return chosen.getText();
         } else {
-            throw new InvalidUsersInputException("You didn't choose fertility level");
+            throw new InvalidUsersInputException("you didn't choose fertility level");
         }
     }
 
@@ -110,7 +110,7 @@ public class TerritoryMenu extends Stage {
             RadioButton chosen = (RadioButton) toggleDiversity.getSelectedToggle();
             return chosen.getText();
         } else {
-            throw new InvalidUsersInputException("You didn't choose diversity level");
+            throw new InvalidUsersInputException("you didn't choose diversity level");
         }
     }
 

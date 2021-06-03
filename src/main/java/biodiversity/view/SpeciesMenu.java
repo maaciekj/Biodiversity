@@ -46,7 +46,7 @@ public class SpeciesMenu extends Stage {
         Scene scene = new Scene(layout);
         setScene(scene);
         initializeColorInfoBlock(territoryDTO);
-        Text general = new Text("please note: system does prevent from creating species incapable to live\n" +
+        Text general = new Text("please note: system does not prevent from creating species incapable to live\n" +
                 "or from dominate the ecosystem by one species. carnivores will appear later during simulation");
         initializeFeedingBlock();
         initializeReplicationBlock();
@@ -67,7 +67,7 @@ public class SpeciesMenu extends Stage {
     }
 
     private void initializeFeedingBlock() {
-        onFeeding = new Text("Select feeding strategy");
+        onFeeding = new Text("select feeding strategy");
         buttonsFeeding = new HBox(20);
         toggleFeeding = new ToggleGroup();
         RadioButton buttonFeeding1 = new RadioButton(DisplayConstants.HERBIVORE);
@@ -78,7 +78,7 @@ public class SpeciesMenu extends Stage {
     }
 
     private void initializeReplicationBlock() {
-        onReplication = new Text("Select replication strategy");
+        onReplication = new Text("select replication strategy");
         buttonsReplications = new HBox(20);
         toggleReplication = new ToggleGroup();
         RadioButton buttonReplication1 = new RadioButton(DisplayConstants.REPLICATION_DEFAULT);
@@ -111,8 +111,8 @@ public class SpeciesMenu extends Stage {
 
     private void createBackOrProceedButtons() {
         backOrProceed = new HBox(20);
-        back = new Button("Back to main menu");
-        proceed = new Button("Proceed");
+        back = new Button("back to main menu");
+        proceed = new Button("proceed");
         backOrProceed.getChildren().addAll(back, proceed);
     }
 
