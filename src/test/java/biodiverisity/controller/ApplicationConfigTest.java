@@ -1,8 +1,6 @@
 package biodiverisity.controller;
 
-import biodiversity.controller.ApplicationConfig;
-import biodiversity.controller.InvalidDTOException;
-import biodiversity.controller.TerritoryDTO;
+import biodiversity.controller.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +14,22 @@ public class ApplicationConfigTest {
     private final int width = 30;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         territoryDTO.setHeight(height);
         territoryDTO.setWidth(width);
+        territoryDTO.setFertility(3);
+        territoryDTO.setFertilityDiversity(5);
+        BehaviorDTO behaviorDTO1 = BehaviorDTO.builder()
+                .feedingStrategy("herbivore")
+                .replicationStrategy("default")
+                .build();
+        SpeciesDTO speciesDTO1 = SpeciesDTO.builder()
+                .sign('a')
+                .behaviorDTO(behaviorDTO1)
+                .adultPreferredBodyMass(20)
+                .maxAge(30)
+                .build();
+        territoryDTO.addSpeciesDTO(speciesDTO1);
     }
 
 
@@ -35,8 +46,25 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void territoryDTOWithNoInfoOnSpeciesShouldNotBeAccepted(){
+    public void territoryDTOWithNoInfoOnSpeciesShouldNotBeAccepted() {
+        territoryDTO.getSpeciesDTOs().clear();
+        assertThrows(InvalidDTOException.class, () -> applicationConfig.startSimulation(territoryDTO));
+    }
 
+    @Test
+    public void territoryDTOWithFailedInfoOnSpeciesShouldNotBeAccepted() {
+        BehaviorDTO behaviorDTO2 = BehaviorDTO.builder()
+                .feedingStrategy("herbivore")
+                .replicationStrategy("default")
+                .build();
+        SpeciesDTO speciesDTO2 = SpeciesDTO.builder()
+                .sign('a')
+                .behaviorDTO(behaviorDTO2)
+                .adultPreferredBodyMass(-20)
+                .maxAge(-30)
+                .build();
+        territoryDTO.addSpeciesDTO(speciesDTO2);
+        assertThrows(InvalidDTOException.class, () -> applicationConfig.startSimulation(territoryDTO));
     }
 
 }

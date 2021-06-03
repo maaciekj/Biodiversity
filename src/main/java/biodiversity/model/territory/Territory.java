@@ -87,6 +87,7 @@ public class Territory {
         counter.addIteration();
     }
 
+
     private void placesDoTheirTurn() {
         if (places != null) {
             for (int row = 0; row < places.length; row++) {
@@ -185,6 +186,10 @@ public class Territory {
         return signs;
     }
 
+    public void addInhabitantWithoutSendingToObserver(Organism inhabitant) {
+        inhabitants[inhabitant.getRow()][inhabitant.getCol()] = inhabitant;
+    }
+
     public void addInhabitant(Organism inhabitant) {
         inhabitants[inhabitant.getRow()][inhabitant.getCol()] = inhabitant;
         observer.updateDisplay(inhabitant.getRow(), inhabitant.getCol(), inhabitant.getSign());// observer.update
@@ -266,6 +271,10 @@ public class Territory {
 
     public int getIteration() {
         return counter.getIterationNumber();
+    }
+
+    public TerritoryObserver getObserver() {
+        return observer;
     }
 
     public void setCarnivores(List<Organism> carnivores) {
