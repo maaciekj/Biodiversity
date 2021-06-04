@@ -34,14 +34,14 @@ public class TerritoryMenuController {
                 territoryDTO.setNumberOfSpecies(collectAndValidateNumberOfSpecies());
             } catch (InvalidUsersInputException e) {
                 logger.warn(e.getMessage());
-                setNewTerritoryMenuAndClosePresent();
+                setNewTerritoryMenuAndClosePresent(e.getMessage());
                 return;
             }
             try {
                 territoryDTO.setFertility(collectAndValidateFertility());
             } catch (InvalidUsersInputException e) {
                 logger.warn(e.getMessage());
-                setNewTerritoryMenuAndClosePresent();
+                setNewTerritoryMenuAndClosePresent(e.getMessage());
                 return;
             }
             try {
@@ -49,7 +49,7 @@ public class TerritoryMenuController {
                 territoryDTO.setFertilityDiversity(DiversityTextInt.valueOf(diversity.toUpperCase()).getDiversityCode());
             } catch (InvalidUsersInputException e) {
                 logger.warn(e.getMessage());
-                setNewTerritoryMenuAndClosePresent();
+                setNewTerritoryMenuAndClosePresent(e.getMessage());
                 return;
             }
             goToSpeciesMenu(territoryDTO);
@@ -69,8 +69,8 @@ public class TerritoryMenuController {
         return numberOfSpecies;
     }
 
-    private void setNewTerritoryMenuAndClosePresent() {
-        new TerritoryMenuController(new TerritoryMenu());
+    private void setNewTerritoryMenuAndClosePresent(String specialInfo) {
+        new TerritoryMenuController(new TerritoryMenu(specialInfo));
         territoryMenu.close();
     }
 

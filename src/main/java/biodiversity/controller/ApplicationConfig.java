@@ -30,7 +30,7 @@ public class ApplicationConfig {
             territoryDTO = objectMapper.readValue(new File("src/main/resources/config.json"), TerritoryDTO.class);
         } catch (IOException e) {
             logger.warn(e.getMessage());
-            MenuController menuController = new MenuController(new Menu("unable to read file"));
+            MenuController menuController = new MenuController(new Menu("unable to read file. please click configure"));
             return;
         }
         try {

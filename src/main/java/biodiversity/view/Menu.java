@@ -36,6 +36,7 @@ public class Menu extends Stage {
     private void initMainElements() {
         setTitle("Biodiversity Game");
         container = new VBox();
+        container.setPadding(new Insets(10));
         scene = new Scene(container);
         chooseBox = new HBox(10);
         chooseBox.setAlignment(Pos.CENTER);

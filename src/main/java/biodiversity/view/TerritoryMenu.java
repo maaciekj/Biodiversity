@@ -19,7 +19,10 @@ import javafx.stage.Stage;
 
 public class TerritoryMenu extends Stage {
 
-    private final TextField howManySpecies;
+    private VBox layout;
+    private Scene scene;
+    private Text onSpecies;
+    private TextField howManySpecies;
     private Text onFertility;
     private HBox buttonsFertility;
     private ToggleGroup toggleFertility;
@@ -31,18 +34,29 @@ public class TerritoryMenu extends Stage {
     private Button proceed;
 
     public TerritoryMenu() {
-        VBox layout = new VBox(30);
+        initMainElements();
+        layout.getChildren().addAll(onSpecies, howManySpecies, onFertility, buttonsFertility, onDiversity, buttonsDiversity, backOrProceed);
+        show();
+    }
+
+    public TerritoryMenu(String specialInfo){
+        Text info = new Text(specialInfo);
+        initMainElements();
+        layout.getChildren().addAll(info, onSpecies, howManySpecies, onFertility, buttonsFertility, onDiversity, buttonsDiversity, backOrProceed);
+        show();
+    }
+
+    private void initMainElements() {
+        layout = new VBox(30);
         layout.setAlignment(Pos.BASELINE_LEFT);
         layout.setPadding(new Insets(40));
-        Scene scene = new Scene(layout);
+        scene = new Scene(layout);
         setScene(scene);
-        Text onSpecies = new Text("How many species you'd like to have at the beginning? (" + Constants.MIN_NUMBER_OF_SPECIES + "-" + Constants.MAX_NUMBER_OF_SPECIES + ")");
+        onSpecies = new Text("How many species you'd like to have at the beginning? (" + Constants.MIN_NUMBER_OF_SPECIES + "-" + Constants.MAX_NUMBER_OF_SPECIES + ")");
         howManySpecies = new TextField();
         initializeFertilityBlock();
         initializeDiversityBlock();
         initializeBackOrProceedButtons();
-        layout.getChildren().addAll(onSpecies, howManySpecies, onFertility, buttonsFertility, onDiversity, buttonsDiversity, backOrProceed);
-        show();
     }
 
     private void initializeFertilityBlock() {
@@ -110,7 +124,7 @@ public class TerritoryMenu extends Stage {
             RadioButton chosen = (RadioButton) toggleDiversity.getSelectedToggle();
             return chosen.getText();
         } else {
-            throw new InvalidUsersInputException("you didn't choose diversity level");
+            throw new InvalidUsersInputException("you didn't choose variation of fertility");
         }
     }
 
