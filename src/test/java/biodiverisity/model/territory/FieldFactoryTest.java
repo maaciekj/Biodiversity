@@ -29,10 +29,6 @@ public class FieldFactoryTest {
 
     @Test
     public void fieldFactoryShouldProduceFieldArrayOfDimensionsGivenByTerritoryDTO() {
-        /*Mockito.when(territoryDTO.getHeight()).thenReturn(height);
-        Mockito.when(territoryDTO.getWidth()).thenReturn(width);
-        Mockito.when(territoryDTO.getFertility()).thenReturn(4);
-        Mockito.when(territoryDTO.getFertilityDiversity()).thenReturn(0);*/
         Field[][] fields = fieldFactory.createFieldPattern(territoryDTO);
         Assertions.assertEquals(fields.length, height);
         for (int i = 0; i < fields.length; i++) {

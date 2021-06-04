@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TerritoryConfigTest {
 
-
     private TerritoryConfig territoryConfig;
     private final TerritoryDTO territoryDTO = new TerritoryDTO();
     private final ApplicationConfig applicationConfig = new ApplicationConfig();
@@ -49,6 +48,5 @@ public class TerritoryConfigTest {
         Territory territory = territoryConfig.createTerritoryWithAuxObjects(territoryDTO);
         assertTrue(territory.getNumberOfOrganismsOfSpecies(territoryDTO.getSpeciesDTOs().get(0).getSign())>=0);
     }
-
 
 }
