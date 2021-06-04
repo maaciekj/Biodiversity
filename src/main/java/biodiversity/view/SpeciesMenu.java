@@ -22,7 +22,10 @@ public class SpeciesMenu extends Stage {
 
     private final TerritoryDTO territoryDTO;
 
+    private VBox layout;
+    private Scene scene;
     private HBox onColor;
+    private Text general;
     private Text onFeeding;
     private HBox buttonsFeeding;
     private ToggleGroup toggleFeeding;
@@ -37,13 +40,37 @@ public class SpeciesMenu extends Stage {
     private Button back;
     private Button proceed;
 
+    public SpeciesMenu(TerritoryDTO territoryDTO, String specialInfo) {
+        this.territoryDTO = territoryDTO;
+        setTitle("Species Menu");
+        Text info = new Text(specialInfo);
+        layout = new VBox(30);
+        layout.setAlignment(Pos.BASELINE_LEFT);
+        layout.setPadding(new Insets(40));
+        scene = new Scene(layout);
+        setScene(scene);
+        initializeColorInfoBlock(territoryDTO);
+        general = new Text("please note: system does not prevent from creating species incapable to live\n" +
+                "or from dominate the ecosystem by one species. carnivores will appear later during simulation");
+        initializeFeedingBlock();
+        initializeReplicationBlock();
+        initializeMassBlock();
+        initializeMaxAgeBlock();
+        createBackOrProceedButtons();
+        layout.getChildren().addAll(info, onColor, general, onFeeding, buttonsFeeding, onReplication, buttonsReplications,
+                onMass, mass, onMaxAge, maxAge, backOrProceed);
+        show();
+    }
+
+
+
     public SpeciesMenu(TerritoryDTO territoryDTO) {
         this.territoryDTO = territoryDTO;
         setTitle("Species Menu");
-        VBox layout = new VBox(30);
+        layout = new VBox(30);
         layout.setAlignment(Pos.BASELINE_LEFT);
         layout.setPadding(new Insets(40));
-        Scene scene = new Scene(layout);
+        scene = new Scene(layout);
         setScene(scene);
         initializeColorInfoBlock(territoryDTO);
         Text general = new Text("please note: system does not prevent from creating species incapable to live\n" +
