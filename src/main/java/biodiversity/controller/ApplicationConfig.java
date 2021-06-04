@@ -33,18 +33,19 @@ public class ApplicationConfig {
             MenuController menuController = new MenuController(new Menu("unable to read file. please click configure"));
             return;
         }
-        try {
+        startSimulation(territoryDTO);
+        /*try {
             startSimulation(territoryDTO);
         } catch (InvalidDTOException e) {
             logger.warn(e.getMessage());
             MenuController menuController = new MenuController(new Menu(e.getMessage() + ". please click configure"));
-        }
+        }*/
     }
 
     public void startSimulation(TerritoryDTO territoryDTO) throws InvalidDTOException {
-        if (!validateTerritoryDTO(territoryDTO)) {
+        /*if (!validateTerritoryDTO(territoryDTO)) {
             throw new InvalidDTOException("invalid input data");
-        }
+        }*/
         TerritoryConfig territoryConfig = new TerritoryConfig();
         Territory territory = territoryConfig.createTerritoryWithAuxObjects(territoryDTO);
         SimulationDisplay simulationDisplay = new SimulationDisplay(territory.getObserver());
