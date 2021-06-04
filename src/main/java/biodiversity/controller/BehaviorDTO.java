@@ -2,7 +2,7 @@ package biodiversity.controller;
 
 import lombok.*;
 
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -14,6 +14,6 @@ public class BehaviorDTO {
 
     private String feedingStrategy;
     private String replicationStrategy;
-    private List<String> specialFeatures;
+
 
 }

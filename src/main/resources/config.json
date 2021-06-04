@@ -9,8 +9,7 @@
       "sign": "a",
       "behavior_dto": {
         "feeding_strategy": "herbivore",
-        "replication_strategy": "default",
-        "special_features": []
+        "replication_strategy": "default"
       },
       "adult_preferred_body_mass": 65,
       "max_age": 100
@@ -19,8 +18,7 @@
       "sign": "b",
       "behavior_dto": {
         "feeding_strategy": "carnivore",
-        "replication_strategy": "big children",
-        "special_features": []
+        "replication_strategy": "big children"
       },
       "adult_preferred_body_mass": 80,
       "max_age": 300
@@ -29,8 +27,7 @@
       "sign": "c",
       "behavior_dto": {
         "feeding_strategy": "herbivore",
-        "replication_strategy": "small children",
-        "special_features": []
+        "replication_strategy": "small children"
       },
       "adult_preferred_body_mass": 80,
       "max_age": 200
@@ -39,8 +36,7 @@
       "sign": "d",
       "behavior_dto": {
         "feeding_strategy": "herbivore",
-        "replication_strategy": "many small children at end of life",
-        "special_features": []
+        "replication_strategy": "many small children at end of life"
       },
       "adult_preferred_body_mass": 80,
       "max_age": 300
