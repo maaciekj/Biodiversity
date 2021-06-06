@@ -6,7 +6,7 @@ public interface TerritoryObserver {
 
     void addTerritory(Territory territory);
 
-    void addDisplay(SimulationDisplay simulationDisplay);
+    void setDisplay(SimulationDisplay simulationDisplay);
 
     int getWidth();
 

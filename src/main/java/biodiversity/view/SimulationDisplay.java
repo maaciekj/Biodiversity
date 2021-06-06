@@ -38,7 +38,7 @@ public class SimulationDisplay extends Stage {
         rowsCount = territoryObserver.getHeight();
         root = new Pane();
         animationPane = new Pane();
-        territoryObserver.addDisplay(this);
+        territoryObserver.setDisplay(this);
         initAnimationPane(territoryObserver.getSigns());
         initStatisticsPane();
         scene = new Scene(root);

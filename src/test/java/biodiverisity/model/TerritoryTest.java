@@ -3,6 +3,9 @@ package biodiverisity.model;
 import biodiversity.controller.*;
 import biodiversity.model.territory.Territory;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TerritoryTest {
 
@@ -32,6 +35,12 @@ public class TerritoryTest {
                 .maxAge(30)
                 .build();
         territoryDTO.addSpeciesDTO(speciesDTO1);
+        territory = territoryConfig.createTerritoryWithAuxObjects(territoryDTO);
+    }
+
+    @Test
+    public void trueShouldBeTrue(){
+        assertTrue(true);
     }
 
 

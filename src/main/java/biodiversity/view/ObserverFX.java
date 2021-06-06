@@ -13,7 +13,7 @@ public class ObserverFX implements TerritoryObserver {
     }
 
     @Override
-    public void addDisplay(SimulationDisplay simulationDisplay) {
+    public void setDisplay(SimulationDisplay simulationDisplay) {
         this.simulationDisplay = simulationDisplay;
     }
 
