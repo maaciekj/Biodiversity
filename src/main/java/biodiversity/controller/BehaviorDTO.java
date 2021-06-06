@@ -2,8 +2,6 @@ package biodiversity.controller;
 
 import lombok.*;
 
-
-
 @Getter
 @Setter
 @Builder
@@ -14,6 +12,5 @@ public class BehaviorDTO {
 
     private String feedingStrategy;
     private String replicationStrategy;
-
 
 }
