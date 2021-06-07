@@ -47,7 +47,7 @@ public class ApplicationConfig {
         }
         TerritoryConfig territoryConfig = new TerritoryConfig();
         Territory territory = territoryConfig.createTerritoryWithAuxObjects(territoryDTO);
-        SimulationDisplay simulationDisplay = new SimulationDisplay(territory.getObserver());
+        SimulationDisplay simulationDisplay = new SimulationDisplay(territory.getObserver(), territoryDTO);
         logger.info("simulation start");
     }
 

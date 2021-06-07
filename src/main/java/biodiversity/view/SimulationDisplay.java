@@ -1,6 +1,7 @@
 package biodiversity.view;
 
 import biodiversity.DisplayConstants;
+import biodiversity.controller.TerritoryDTO;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -32,7 +33,7 @@ public class SimulationDisplay extends Stage {
     private Label speciesLabelD;
     private Label speciesLabelE;
 
-    public SimulationDisplay(TerritoryObserver territoryObserverInput) {
+    public SimulationDisplay(TerritoryObserver territoryObserverInput, TerritoryDTO territoryDTO) {
         territoryObserver = territoryObserverInput;
         columnCount = territoryObserver.getWidth();
         rowsCount = territoryObserver.getHeight();
@@ -79,6 +80,8 @@ public class SimulationDisplay extends Stage {
         iterationNumberLabel = new Label("Iteration: 0 ");
         iterationNumberLabel.setStyle("-fx-text-fill: white;");
         statisticsHBox.getChildren().add(iterationNumberLabel);
+
+
         speciesLabelA = new Label(" Species B: 0 ");
         speciesLabelA.setStyle("-fx-text-fill: " + CharColorFX.A.getColorDescription() + ";");
         statisticsHBox.getChildren().add(speciesLabelA);

@@ -47,6 +47,7 @@ public class TerritoryMenu extends Stage {
     }
 
     private void initMainElements() {
+        setTitle("Territory menu");
         layout = new VBox(30);
         layout.setAlignment(Pos.BASELINE_LEFT);
         layout.setPadding(new Insets(40));

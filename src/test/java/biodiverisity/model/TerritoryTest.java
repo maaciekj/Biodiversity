@@ -2,8 +2,11 @@ package biodiverisity.model;
 
 import biodiversity.controller.*;
 import biodiversity.model.territory.Territory;
+import biodiversity.view.ObserverFX;
+import biodiversity.view.TerritoryObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,6 +39,7 @@ public class TerritoryTest {
                 .build();
         territoryDTO.addSpeciesDTO(speciesDTO1);
         territory = territoryConfig.createTerritoryWithAuxObjects(territoryDTO);
+        TerritoryObserver observer = Mockito.mock(ObserverFX.class);
     }
 
     @Test
