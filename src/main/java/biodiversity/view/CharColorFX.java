@@ -63,6 +63,20 @@ public enum CharColorFX {
         return CHARS_BY_NUMBERS.get(number);
     }
 
+
+    private static final Map<Character, String> DESCRIPTIONS_BY_SIGNS = new HashMap<>();
+
+    static {
+        for (CharColorFX e : values()) {
+            DESCRIPTIONS_BY_SIGNS.put(e.sign, e.description);
+        }
+    }
+
+    public static String findDescriptionBySign(char sign) {
+        return DESCRIPTIONS_BY_SIGNS.get(sign);
+    }
+
+
     public Color getColor() {
         return color;
     }
