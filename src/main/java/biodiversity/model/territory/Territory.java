@@ -192,7 +192,7 @@ public class Territory {
 
     public void addInhabitant(Organism inhabitant) {
         inhabitants[inhabitant.getRow()][inhabitant.getCol()] = inhabitant;
-        observer.updateDisplay(inhabitant.getRow(), inhabitant.getCol(), inhabitant.getSign());// observer.update
+        observer.updateDisplay(inhabitant.getRow(), inhabitant.getCol(), inhabitant.getSign());
     }
 
     public void updateCoordinates(Organism inhabitant) {
@@ -275,6 +275,10 @@ public class Territory {
 
     public TerritoryObserver getObserver() {
         return observer;
+    }
+
+    public void setObserver(TerritoryObserver territoryObserver){
+        observer = territoryObserver;
     }
 
     public void setCarnivores(List<Organism> carnivores) {
