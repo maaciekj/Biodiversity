@@ -9,6 +9,7 @@ module Biodiversity {
     opens biodiversity;
     opens biodiversity.view;
     opens biodiversity.model.organism;
+    opens biodiversity.model.territory;
     exports biodiversity.controller to com.fasterxml.jackson.databind;
     exports biodiversity.view to javafx.graphics;
 
