@@ -277,10 +277,6 @@ public class Territory {
         return observer;
     }
 
-    public void setObserver(TerritoryObserver territoryObserver){
-        observer = territoryObserver;
-    }
-
     public void setCarnivores(List<Organism> carnivores) {
         this.carnivores = carnivores;
     }

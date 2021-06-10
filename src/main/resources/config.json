@@ -11,7 +11,7 @@
         "feeding_strategy": "herbivore",
         "replication_strategy": "default"
       },
-      "adult_preferred_body_mass": 65,
+      "adult_preferred_body_mass": 70,
       "max_age": 100
     },
     {

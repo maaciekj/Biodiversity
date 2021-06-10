@@ -77,4 +77,7 @@ public class TerritoryTest {
         List<Organism> organismsNearby = territory.checkOrganismsNearbyExcludingOwnSpecies(organism1.getRow(), organism1.getCol(), 3, organism1.getSign());
         assertEquals(1, organismsNearby.size());
     }
+
+
+
 }
