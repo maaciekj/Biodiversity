@@ -273,6 +273,10 @@ public class Territory {
         return counter.getIterationNumber();
     }
 
+    public Field getField(int row, int col) {
+        return places[row][col];
+    }
+
     public TerritoryObserver getObserver() {
         return observer;
     }

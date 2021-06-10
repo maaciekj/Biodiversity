@@ -8,6 +8,7 @@ import biodiversity.model.territory.Field;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Herbivore extends FeedingStrategy {
 
@@ -35,12 +36,13 @@ public class Herbivore extends FeedingStrategy {
             return;
         }
         List<Field> freeFields = territory.checkFreePlaces(organism.getRow(), organism.getCol(), 1);
-        Collections.shuffle(freeFields);
-        Field fieldToGo;
-        try {
-            fieldToGo = freeFields.stream().
-                    max(Comparator.comparingInt(Field::getEdiblePlants)).orElseThrow(MaxNumberNotFound::new);
-        } catch (MaxNumberNotFound e) {
+        if (freeFields.isEmpty()) {
+            return;
+        }
+        freeFields = freeFields.stream().sorted(Comparator.comparingInt(Field::getEdiblePlants)).collect(Collectors.toList());
+        Collections.reverse(freeFields);
+        Field fieldToGo = freeFields.get(0);
+        if (fieldToGo.getEdiblePlants() < territory.getField(organism.getRow(), organism.getCol()).getEdiblePlants()) {
             return;
         }
         moveTo(organism, fieldToGo.getRow(), fieldToGo.getCol());
