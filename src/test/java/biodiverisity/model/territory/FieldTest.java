@@ -34,7 +34,7 @@ public class FieldTest {
 
     @ParameterizedTest
     @ValueSource(ints = {2, 10, 200, 0, -5})
-    public void ediblePlantsShouldIncreaseAfterFeeding(int number) {
+    public void ediblePlantsShouldDecreaseAfterFeeding(int number) {
         field.growPlants();
         int numberOfPlantsBefore = field.getEdiblePlants();
         field.feed(number);
