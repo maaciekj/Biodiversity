@@ -17,9 +17,8 @@ public class Carnivore extends FeedingStrategy {
 
     @Override
     public void doOutsourcedFunctions(Organism organism) {
-        super.doOutsourcedFunctions(organism);
         preyOnAnimals(organism);
-        migrate(organism);
+        super.doOutsourcedFunctions(organism);
     }
 
     protected void preyOnAnimals(Organism organism) {
@@ -47,6 +46,7 @@ public class Carnivore extends FeedingStrategy {
         return territory.checkOrganismsNearbyExcludingOwnSpecies(organism.getRow(), organism.getCol(), 1, organism.getSign());
     }
 
+    @Override
     protected void migrate(Organism organism) {
         int rangeOfSearching = 2;
         List<Field> freeFields = territory.checkFreePlaces(organism.getRow(), organism.getCol(), rangeOfSearching);

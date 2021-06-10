@@ -17,8 +17,8 @@ public class Herbivore extends FeedingStrategy {
 
     @Override
     public void doOutsourcedFunctions(Organism organism) {
-        super.doOutsourcedFunctions(organism);
         feedOnPlants(organism);
+        super.doOutsourcedFunctions(organism);
     }
 
     private void feedOnPlants(Organism organism) {
