@@ -31,7 +31,6 @@ public class Carnivore extends FeedingStrategy {
         }
         // this option predator tries to eat all available prey
         toPreyOn = toPreyOn.stream()
-                .filter(possiblePrey -> possiblePrey.getSign() != organism.getSign())
                 .filter(possiblePrey -> possiblePrey.getActiveBodyMass() < organism.getActiveBodyMass())
                 .collect(Collectors.toList());
         for (Organism prey : toPreyOn) {
