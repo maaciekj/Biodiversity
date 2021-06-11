@@ -24,7 +24,6 @@ public class HerbivoreTest {
 
     private Territory territory;
     private Organism organism;
-    private Species species;
     private Herbivore herbivore;
 
     @BeforeEach
@@ -33,7 +32,6 @@ public class HerbivoreTest {
         organism = mock(Organism.class);
         BehaviorBasic behaviorBasic = new BehaviorBasic(territory, new NumberGeneratorRandom());
         herbivore = new Herbivore(behaviorBasic);
-        species = mock(Species.class);
     }
 
     @Test
@@ -68,20 +66,20 @@ public class HerbivoreTest {
         when(territory.getField(anyInt(), anyInt())).thenReturn(mock(Field.class));
         doNothing().when(organism).setRow(valueCapture.capture());
         herbivore.doOutsourcedFunctions(organism);
-        System.out.println("row of selected field: " + valueCapture.getValue());
         assertEquals(field2.getRow(), valueCapture.getValue());
     }
 
     @ParameterizedTest
     @ValueSource(ints = {2, 8, 10})
-    public void invokingDoItsTurnShouldCreateDemand(int number){
-
+    public void invokingDoOutsourcedFunctionsCreateDemandInTerritory(int number){
+        int storedEnergy = 0;
+        territory.addInhabitant(organism);
+        when(organism.getEnergyConsumption()).thenReturn(number);
+        when(organism.getStoredEnergy()).thenReturn(storedEnergy);
+        ArgumentCaptor<Integer> valueCapture = ArgumentCaptor.forClass(Integer.class);
+        when(territory.feedOnPlants(anyInt(), anyInt(),valueCapture.capture())).thenReturn(0);
+        herbivore.doOutsourcedFunctions(organism);
+        assertEquals(number*Constants.HERBIVORES_DEMAND_FACTOR, valueCapture.getValue());
     }
-
-    @Test
-    public void invokingDoItsTurnShouldIncreaseStoredEnengyInOrganismWithNumberGivenByTerritory(){
-
-    }
-
 
 }
