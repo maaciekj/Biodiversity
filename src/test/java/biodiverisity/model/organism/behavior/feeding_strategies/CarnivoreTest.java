@@ -28,13 +28,12 @@ public class CarnivoreTest {
     private Organism organism;
     private Carnivore carnivore;
     private Organism prey;
-    private NumberGenerator numberGenerator;
 
     @BeforeEach
     public void beforeEach() {
         territory = mock(Territory.class);
         organism = mock(Organism.class);
-        numberGenerator = mock(NumberGeneratorRandom.class);
+        NumberGenerator numberGenerator = mock(NumberGeneratorRandom.class);
         when(numberGenerator.generateDouble()).thenReturn(Constants.CARNIVORES_BASIC_EFFICIENCY - 0.05);
         BehaviorBasic behaviorBasic = new BehaviorBasic(territory, numberGenerator);
         carnivore = new Carnivore(behaviorBasic);

@@ -2,7 +2,6 @@ package biodiverisity.model.organism.behavior.feeding_strategies;
 
 import biodiversity.Constants;
 import biodiversity.model.organism.Organism;
-import biodiversity.model.organism.Species;
 import biodiversity.model.organism.behavior.BehaviorBasic;
 import biodiversity.model.organism.behavior.feeding_strategies.Herbivore;
 import biodiversity.model.territory.Field;
@@ -27,7 +26,7 @@ public class HerbivoreTest {
     private Herbivore herbivore;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         territory = mock(Territory.class);
         organism = mock(Organism.class);
         BehaviorBasic behaviorBasic = new BehaviorBasic(territory, new NumberGeneratorRandom());
@@ -35,9 +34,9 @@ public class HerbivoreTest {
     }
 
     @Test
-    public void havingLotsOfStoredEnergyOrganismShouldNotTryToMove(){
+    public void havingLotsOfStoredEnergyOrganismShouldNotTryToMove() {
         int energyConsumption = 5;
-        int storedEnergy = energyConsumption*Constants.HERBIVORES_DEMAND_FACTOR+1;
+        int storedEnergy = energyConsumption * Constants.HERBIVORES_DEMAND_FACTOR + 1;
         when(organism.getEnergyConsumption()).thenReturn(energyConsumption);
         when(organism.getStoredEnergy()).thenReturn(storedEnergy);
         herbivore.doOutsourcedFunctions(organism);
@@ -46,9 +45,9 @@ public class HerbivoreTest {
     }
 
     @Test
-    public void fieldWithGreaterEdiblePlantsNumberShouldBeChosenToGo(){
+    public void fieldWithGreaterEdiblePlantsNumberShouldBeChosenToGo() {
         int energyConsumption = 5;
-        int storedEnergy = energyConsumption*Constants.HERBIVORES_DEMAND_FACTOR-1;
+        int storedEnergy = energyConsumption * Constants.HERBIVORES_DEMAND_FACTOR - 1;
         when(organism.getEnergyConsumption()).thenReturn(energyConsumption);
         when(organism.getStoredEnergy()).thenReturn(storedEnergy);
         int baseEdiblePlants = 5;
@@ -57,7 +56,7 @@ public class HerbivoreTest {
         when(field1.getRow()).thenReturn(1);
         when(field1.getCol()).thenReturn(1);
         Field field2 = mock(Field.class);
-        when(field2.getEdiblePlants()).thenReturn(baseEdiblePlants+1);
+        when(field2.getEdiblePlants()).thenReturn(baseEdiblePlants + 1);
         when(field2.getRow()).thenReturn(2);
         when(field2.getCol()).thenReturn(2);
         List<Field> fieldMocks = List.of(field1, field2);
@@ -71,15 +70,15 @@ public class HerbivoreTest {
 
     @ParameterizedTest
     @ValueSource(ints = {2, 8, 10})
-    public void invokingDoOutsourcedFunctionsCreateDemandInTerritory(int number){
+    public void invokingDoOutsourcedFunctionsCreateDemandInTerritory(int number) {
         int storedEnergy = 0;
         territory.addInhabitant(organism);
         when(organism.getEnergyConsumption()).thenReturn(number);
         when(organism.getStoredEnergy()).thenReturn(storedEnergy);
         ArgumentCaptor<Integer> valueCapture = ArgumentCaptor.forClass(Integer.class);
-        when(territory.feedOnPlants(anyInt(), anyInt(),valueCapture.capture())).thenReturn(0);
+        when(territory.feedOnPlants(anyInt(), anyInt(), valueCapture.capture())).thenReturn(0);
         herbivore.doOutsourcedFunctions(organism);
-        assertEquals(number*Constants.HERBIVORES_DEMAND_FACTOR, valueCapture.getValue());
+        assertEquals(number * Constants.HERBIVORES_DEMAND_FACTOR, valueCapture.getValue());
     }
 
 }
