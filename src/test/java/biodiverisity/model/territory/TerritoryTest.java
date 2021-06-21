@@ -1,4 +1,4 @@
-package biodiverisity.model;
+package biodiverisity.model.territory;
 
 import biodiversity.model.organism.Organism;
 import biodiversity.model.territory.*;

@@ -9,7 +9,7 @@ Project of approx. 2.6 k lines of code including 440 lines of tests. Outer layer
 "WARNING: Running this simulation may potentially trigger seizures for people with photosensitive epilepsy. Viewer discretion is advised."
 
 ## Simulation Display
-![Example screenshot](./img/screenshot.png)
+![Example screenshot](screenshot.png)
 <!-- If you have screenshots you'd like to share, include them here. -->
 
 
