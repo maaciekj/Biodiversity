@@ -10,8 +10,6 @@ Project of approx. 2.6 k lines of code including 440 lines of tests. Outer layer
 
 ## Simulation Display
 ![Example screenshot](screenshot.png)
-<!-- If you have screenshots you'd like to share, include them here. -->
-
 
 ## Technologies Used
 - java 11.0.10
