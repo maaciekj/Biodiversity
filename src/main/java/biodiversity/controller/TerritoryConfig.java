@@ -8,6 +8,7 @@ import biodiversity.model.organism.behavior.Behavior;
 import biodiversity.model.organism.behavior.BehaviorBasic;
 import biodiversity.model.organism.behavior.BehaviorDecorator;
 import biodiversity.model.organism.behavior.feeding_strategies.Carnivore;
+import biodiversity.model.organism.behavior.feeding_strategies.FightingForTerritory;
 import biodiversity.model.organism.behavior.feeding_strategies.Herbivore;
 import biodiversity.model.organism.behavior.replication_strategies.BigChildren;
 import biodiversity.model.organism.behavior.replication_strategies.ManySmallChildrenAtEndOfLife;
@@ -83,7 +84,7 @@ public class TerritoryConfig {
         if (DisplayConstants.CARNIVORE.equals(speciesDTO.getBehaviorDTO().getFeedingStrategy())) {
             behaviorDecorator1 = new Carnivore(behavior);
         } else {
-            behaviorDecorator1 = new Herbivore(behavior);
+            behaviorDecorator1 = new FightingForTerritory(behavior);
         }
         return behaviorDecorator1;
     }

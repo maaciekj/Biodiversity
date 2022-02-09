@@ -217,6 +217,18 @@ public class Territory {
         return freeFields;
     }
 
+    public List<Field> getNeighbouringPlaces(int row, int col, int range) {
+        List<Field> fields = new ArrayList<>();
+        for (int i = 0; i < 2 * range + 1; i++) {
+            for (int j = 0; j < 2 * range + 1; j++) {
+                if (!placeIsOutOfTerritoryBoundaries(row + i - range, col + j - range)) {
+                    fields.add(places[row + i - range][col + j - range]);
+                }
+            }
+        }
+        return fields;
+    }
+
     private boolean placeIsFree(int row, int col) {
         if (placeIsOutOfTerritoryBoundaries(row, col)) {
             return false;
@@ -271,6 +283,14 @@ public class Territory {
 
     public int getIteration() {
         return counter.getIterationNumber();
+    }
+
+    public Organism[][] getInhabitants() {
+        return inhabitants;
+    }
+
+    public Organism getInhabitant(int row, int col){
+        return inhabitants[row][col];
     }
 
     public Field getField(int row, int col) {
