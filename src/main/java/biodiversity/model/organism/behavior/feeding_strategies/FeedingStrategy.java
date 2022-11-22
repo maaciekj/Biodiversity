@@ -5,7 +5,7 @@ import biodiversity.model.organism.behavior.BehaviorDecorator;
 
 public abstract class FeedingStrategy extends BehaviorDecorator {
 
-    public FeedingStrategy(Behavior behavior) {
+    protected FeedingStrategy(Behavior behavior) {
         super(behavior);
     }
 
